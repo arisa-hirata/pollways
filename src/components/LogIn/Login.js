@@ -21,6 +21,28 @@ export default class Login extends React.Component {
     header: null
   }
 
+  state = { loggedIn: null };
+
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyAxWDd4UeYmX9X9bgCPkIgKa7T_opCv9vA",
+      authDomain: "pollways-85c25.firebaseapp.com",
+      databaseURL: "https://pollways-85c25.firebaseio.com",
+      projectId: "pollways-85c25",
+      storageBucket: "pollways-85c25.appspot.com",
+      messagingSenderId: "157764717750"
+    });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ loggedIn: true });
+      } else {
+        this.setState({ loggedIn: false });
+      }
+    });
+  }
+
+
   state = { email: '', password: '', error: '', loading: false };
 
 

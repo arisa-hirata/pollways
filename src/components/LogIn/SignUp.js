@@ -11,7 +11,6 @@ import {
   Dimensions
 } from 'react-native';
 import firebase from 'firebase';
-import { createStackNavigator } from 'react-navigation';
 import Poll from '../Poll';
 
 
