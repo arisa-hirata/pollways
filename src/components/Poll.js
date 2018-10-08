@@ -20,10 +20,6 @@ export default class Poll extends React.Component {
 
       <ScrollView style={styles.container}>
 
-        <Image
-          style={styles.header}
-          source={require('../imgs/NavBar.png')}
-        />
         <View style={styles.title_container}>
           <Text style={styles.title}>Title</Text>
         </View>
@@ -78,10 +74,6 @@ const styles = StyleSheet.create({
     // title_container: {
     //   width: 100,
     //   height: 50,
-  },
-  header: {
-    width: "100%",
-    height: 70,
   },
   title: {
     fontSize: 30,

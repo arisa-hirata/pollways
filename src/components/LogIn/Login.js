@@ -16,10 +16,10 @@ const { width, height } = Dimensions.get('screen');
 
 
 export default class Login extends React.Component {
-
   static navigationOptions = {
-    header: null
-  }
+    header: null,
+    headerBackground: null
+  };
 
   state = { loggedIn: null };
 

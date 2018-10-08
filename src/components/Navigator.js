@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, ImageBackground, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { createBottomTabNavigator, BottomTabBar } from 'react-navigation';
 import Login from './LogIn/Login';
@@ -13,62 +13,51 @@ import ProfileTab from './AppTabNavigator/ProfileTab';
 import { propTypes } from 'react-native/Libraries/Components/Button';
 // import Icon from 'react-native-vector-icons/Iconicons';
 
-const headerBackground = (props) => (<Image {...props} />);
+const TabBarComponent = props => {
+  const { navigation } = props;
+  const { routes } = navigation.state;
 
+  return (
+    <ImageBackground {...props} style={{ width: "100%", height: 50, flexDirection: "row" }} source={require("../imgs/NavBar.png")}>
+      {routes.map((route, index) => {
+        const focused = index === navigation.state.index;
+        const scene = { route, focused };
+        return (
+          <Text {...props} style={{ width: "20%" }} key={route.key} onPress={() => props.onTabPress({ route })}>
+            {route.routeName}
+          </Text>
+        );
+      })}
+    </ImageBackground>
+  );
+};
 
-const polltabs = createBottomTabNavigator({
-  HomeTab: {
-    screen: Poll,
-    navigationOptions: (props) => ({
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor }) => (
-        <Image name
-          name="ios-home"
-          color={tintColor}
-          size={24}
-        // source={require('../imgs/LogoIcon.png')}
-        />
-      )
-    })
-  },
-  SearchTab: SearchTab,
-  AddPollTab: AddPollTab,
-  NotifiTab: NotifiTab,
-  ProfileTab: ProfileTab
-},
+const polltabs = createBottomTabNavigator(
   {
-    tabBarOptions: {
-      activeTintColor: '#e91e63',
-      labelStyle: {
-        fontSize: 12,
-      },
-      style: {
-        backgroundColor: 'pink',
-      },
-      // tabBarComponent: props => {
-      //   <Image
-      //     {...props}
-      //     style={{ width: 100, height: 50 }}
-      //     source={require('../imgs/NavBar.png')}
-      //   />
-      // }
-    },
+
+    HomeTab: Poll,
+    SearchTab: SearchTab,
+    AddPollTab: AddPollTab,
+    NotifiTab: NotifiTab,
+    ProfileTab: ProfileTab,
+  },
+  {
+    tabBarComponent: props => <TabBarComponent {...props} style={{ backgroundColor: "transparent" }} />
+  }
+);
+
+export default createStackNavigator(
+  {
+    Login: Login,
+    SignUp: SignUp,
+    Poll: polltabs,
+  },
+  {
     navigationOptions: {
-      headerBackground: (
-        <Image
-          style={{ width: 100, height: 50 }}
-          source={require('../imgs/NavBar.png')}
-        />
-      ),
+      headerBackground: <Image style={{ width: "100%", height: 100 }} source={require("../imgs/NavBar.png")} />
     }
-  });
-
-export default createStackNavigator({
-  Login: Login,
-  SignUp: SignUp,
-  Poll: polltabs,
-});
-
+  }
+);
 
 const styles = StyleSheet.create({
   bottomBG: {
