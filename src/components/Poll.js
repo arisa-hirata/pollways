@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 
 import HomeTab from './AppTabNavigator/HomeTab';
 import SearchTab from './AppTabNavigator/HomeTab';
@@ -11,12 +11,19 @@ import ProfileTab from './AppTabNavigator/ProfileTab';
 
 export default class Poll extends React.Component {
 
+  static navigationOptions = {
+    header: null
+  }
 
   render() {
     return (
 
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
 
+        <Image
+          style={styles.header}
+          source={require('../imgs/NavBar.png')}
+        />
         <View style={styles.title_container}>
           <Text style={styles.title}>Title</Text>
         </View>
@@ -54,7 +61,7 @@ export default class Poll extends React.Component {
 
         </View>
 
-      </View>
+      </ScrollView>
 
 
     );
@@ -62,16 +69,20 @@ export default class Poll extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
-  // title_container: {
-  //   width: 100,
-  //   height: 50,
-  // },
+  container: {
+    //   flex: 1,
+    backgroundColor: '#fff',
+    //   alignItems: 'center',
+    //   justifyContent: 'center',
+    // },
+    // title_container: {
+    //   width: 100,
+    //   height: 50,
+  },
+  header: {
+    width: "100%",
+    height: 70,
+  },
   title: {
     fontSize: 30,
     color: "gray",

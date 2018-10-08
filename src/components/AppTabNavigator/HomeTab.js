@@ -6,8 +6,8 @@ import { Icon } from 'native-base';
 export default class HomeTab extends React.Component {
 
 
-
   render() {
+
     return (
       <View></View>
     );
