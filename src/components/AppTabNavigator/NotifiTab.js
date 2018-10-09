@@ -5,17 +5,19 @@ import { StyleSheet, Text, View } from 'react-native';
 export default class NotificationTab extends React.Component {
   render() {
     return (
-      <View><Text>Test</Text></View>
+      <View style={styles.container}>
+        <Text>Notification</Text>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
 });

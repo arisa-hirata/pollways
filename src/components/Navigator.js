@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image, ImageBackground, Text } from 'react-native';
+import { StyleSheet, Image, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { createBottomTabNavigator, BottomTabBar } from 'react-navigation';
 import Login from './LogIn/Login';
@@ -16,6 +16,7 @@ import { propTypes } from 'react-native/Libraries/Components/Button';
 const TabBarComponent = props => {
   const { navigation } = props;
   const { routes } = navigation.state;
+  const images = [require('../imgs/home.png'), require('../imgs/search.png'), require('../imgs/add.png'), require('../imgs/notifi.png'), require('../imgs/profile.png')]
 
   return (
     <ImageBackground {...props} style={{ width: "100%", height: 50, flexDirection: "row" }} source={require("../imgs/NavBar.png")}>
@@ -23,9 +24,16 @@ const TabBarComponent = props => {
         const focused = index === navigation.state.index;
         const scene = { route, focused };
         return (
-          <Text {...props} style={{ width: "20%" }} key={route.key} onPress={() => props.onTabPress({ route })}>
+          <TouchableOpacity {...props}
+            style={{ width: "20%", alignItems: "center", marginTop: 10 }}
+            key={route.key}
+            onPress={() => props.onTabPress({ route })}
+          >
+            <Image
+              style={{ width: 32, height: 32 }}
+              source={images[index]} />
             {route.routeName}
-          </Text>
+          </TouchableOpacity>
         );
       })}
     </ImageBackground>
@@ -42,7 +50,9 @@ const polltabs = createBottomTabNavigator(
     ProfileTab: ProfileTab,
   },
   {
-    tabBarComponent: props => <TabBarComponent {...props} style={{ backgroundColor: "transparent" }} />
+    tabBarComponent: props =>
+      <TabBarComponent {...props}
+        style={{ backgroundColor: "transparent" }} />
   }
 );
 
@@ -54,15 +64,10 @@ export default createStackNavigator(
   },
   {
     navigationOptions: {
-      headerBackground: <Image style={{ width: "100%", height: 100 }} source={require("../imgs/NavBar.png")} />
+      headerBackground:
+        <Image
+          style={{ width: "100%", height: 100 }}
+          source={require("../imgs/Header.png")} />
     }
   }
 );
-
-const styles = StyleSheet.create({
-  bottomBG: {
-    height: 100,
-    width: 100,
-    position: "absolute",
-  }
-});

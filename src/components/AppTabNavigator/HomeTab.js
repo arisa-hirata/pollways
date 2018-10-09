@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Icon } from 'native-base';
 
 export default class HomeTab extends React.Component {
 
@@ -9,17 +8,19 @@ export default class HomeTab extends React.Component {
   render() {
 
     return (
-      <View></View>
+      <View style={styles.container}>
+        <Text>sdkfsbdfkjadbfksd</Text>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
 });
