@@ -6,7 +6,7 @@ export default class SearchTab extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>sdkfsbdfkjadbfksd</Text>
+        <Text>SearchTab!</Text>
       </View>
     );
   }

@@ -71,7 +71,7 @@ export default class Login extends React.Component {
       loading: false,
       error: '',
     });
-    this.props.navigation.navigate('Poll');
+    this.props.navigation.navigate('HomeTab');
   }
 
   renderButton() {

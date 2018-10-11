@@ -24,7 +24,7 @@ export default class SignUp extends React.Component {
   }
 
   onButtonPress() {
-    this.props.navigation.navigate('Poll')
+    this.props.navigation.navigate('HomeTab')
     const { email, password } = this.state;
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -38,7 +38,7 @@ export default class SignUp extends React.Component {
       loading: false,
       error: '',
     });
-    { () => this.props.navigation.navigate('Poll') }
+    { () => this.props.navigation.navigate('HomeTab') }
   }
 
   state = { Age: '', Country: '' }

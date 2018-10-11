@@ -6,7 +6,7 @@ import Login from './LogIn/Login';
 import SignUp from './LogIn/SignUp';
 import Poll from './Poll';
 import HomeTab from './AppTabNavigator/HomeTab';
-import SearchTab from './AppTabNavigator/HomeTab';
+import SearchTab from './AppTabNavigator/SearchTab';
 import AddPollTab from './AppTabNavigator/AddPollTab';
 import NotifiTab from './AppTabNavigator/NotifiTab';
 import ProfileTab from './AppTabNavigator/ProfileTab';
@@ -32,7 +32,7 @@ const TabBarComponent = props => {
             <Image
               style={{ width: 32, height: 32 }}
               source={images[index]} />
-            {route.routeName}
+            {/* <Text>{route.routeName}</Text> */}
           </TouchableOpacity>
         );
       })}
@@ -40,10 +40,10 @@ const TabBarComponent = props => {
   );
 };
 
-const polltabs = createBottomTabNavigator(
+const hometabs = createBottomTabNavigator(
   {
 
-    HomeTab: Poll,
+    HomeTab: HomeTab,
     SearchTab: SearchTab,
     AddPollTab: AddPollTab,
     NotifiTab: NotifiTab,
@@ -60,7 +60,7 @@ export default createStackNavigator(
   {
     Login: Login,
     SignUp: SignUp,
-    Poll: polltabs,
+    HomeRab: hometabs,
   },
   {
     navigationOptions: {
