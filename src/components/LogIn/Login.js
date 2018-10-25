@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,75 +9,55 @@ import {
   TouchableOpacity,
   Dimensions
 } from 'react-native';
-import firebase from 'firebase';
+import { connect } from 'react-redux';
+import { emailChanged, passwordChanged, loginUser } from '../../actions';
 import Spinner from './Spinner';
 
 const { width, height } = Dimensions.get('screen');
 
-
-export default class Login extends React.Component {
+class Login extends Component {
   static navigationOptions = {
     header: null,
     headerBackground: null
   };
 
   state = { loggedIn: null };
+  email = ""
+  password = ""
 
-  componentWillMount() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyAxWDd4UeYmX9X9bgCPkIgKa7T_opCv9vA",
-      authDomain: "pollways-85c25.firebaseapp.com",
-      databaseURL: "https://pollways-85c25.firebaseio.com",
-      projectId: "pollways-85c25",
-      storageBucket: "pollways-85c25.appspot.com",
-      messagingSenderId: "157764717750"
-    });
+  static getDerivedStateFromProps(props, state) {
+    if (props.user !== null) {
+      props.navigation.navigate('HomeTab');
+    }
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ loggedIn: true });
-      } else {
-        this.setState({ loggedIn: false });
-      }
-    });
+    return {
+      ...state
+    }
   }
 
+  onEmailChange(text) {
+    // this.props.emailChanged(text);
+    this.email = text
+  }
 
-  state = { email: '', password: '', error: '', loading: false };
-
+  onPasswordChange(text) {
+    // this.props.passwordChanged(text);
+    this.password = text
+  }
 
   onButtonPress() {
-    const { email, password } = this.state;
-
-    this.setState({ error: '', loading: true });
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(this.onLoginSuccess.bind(this))
-      .catch(() => {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(this.onLoginSuccess.bind(this))
-          .catch(this.onLoginFail.bind(this));
-      });
-  }
-
-  onLoginFail() {
-    this.setState({ error: 'Cannot find your account, please check your password and email address', loading: false });
-  }
-
-  onLoginSuccess() {
-    this.setState({
-      email: '',
-      password: '',
-      loading: false,
-      error: '',
+    // const { email, password } = this.props;
+    this.props.loginUser({
+      email: this.email,
+      password: this.password
     });
-    this.props.navigation.navigate('HomeTab');
+
   }
 
   renderButton() {
-    // if (this.state.loading) {
-    //   return <Spinner />;
-    // }
+    if (this.props.loading) {
+      return <Spinner />;
+    }
     return (
       <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
         <Text style={styles.btnText}>Log In</Text>
@@ -86,14 +66,12 @@ export default class Login extends React.Component {
 
   }
 
-
-
   render() {
     return (
-
       <ImageBackground
         style={[styles.imgBackground, styles.container]}
         source={require('../../imgs/LogInBG.jpg')}>
+
 
         <View style={styles.container}>
           <Image
@@ -111,8 +89,8 @@ export default class Login extends React.Component {
             placeholderTextColor="grey"
             autoCapitalize="none"
             border='1'
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
+            value={this.props.email}
+            onChangeText={this.onEmailChange.bind(this)}
           />
 
           <TextInput
@@ -122,12 +100,12 @@ export default class Login extends React.Component {
             placeholderTextColor="grey"
             autoCapitalize="none"
             secureTextEntry={true}
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
+            value={this.props.password}
+            onChangeText={this.onPasswordChange.bind(this)}
           />
 
           <Text style={styles.errorTextStyle}>
-            {this.state.error}
+            {this.props.error}
           </Text>
 
           <View>
@@ -140,16 +118,25 @@ export default class Login extends React.Component {
           <View style={{ flexDirection: "row" }}>
             <Text style={{ color: "rgba(255, 255, 255, 0.7)" }}>
               Don't have an account?
-            </Text>
+              </Text>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('SignUp')}>
+              onPress={() => {
+                console.log(this.props);
+                this.props.navigation.navigate('SignUp')
+              }
+              }
+              title="Sign Up"
+            >
               <Text style={{ color: "#fff", fontWeight: "700" }}> Sign Up</Text>
             </TouchableOpacity>
           </View>
 
         </View>
 
-      </ImageBackground>
+
+
+      </ImageBackground >
+
     );
   }
 }
@@ -205,3 +192,13 @@ const styles = StyleSheet.create({
     color: 'red'
   }
 });
+
+const mapStateToProps = ({ auth }) => {
+  // const { email, password, error, loading, user } = auth;
+
+  return { ...auth };
+};
+
+export default connect(mapStateToProps, {
+  emailChanged, passwordChanged, loginUser
+})(Login);

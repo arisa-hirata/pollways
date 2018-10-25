@@ -17,10 +17,9 @@ export default class Spinner extends React.Component {
 
 const styles = {
   spinnerStyle: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   }
 };
 
-export { Spinner };
+// export { Spinner };
