@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image, ImageBackground, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import { createBottomTabNavigator, BottomTabBar } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 import Login from './LogIn/Login';
 import SignUp from './LogIn/SignUp';
 import Poll from './Poll';
@@ -56,11 +56,12 @@ const hometabs = createBottomTabNavigator(
   }
 );
 
+
 export default createStackNavigator(
   {
     Login: Login,
     SignUp: SignUp,
-    HomeRab: hometabs,
+    HomeTab: hometabs,
   },
   {
     navigationOptions: {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,35 +10,46 @@ import {
   Picker,
   Dimensions
 } from 'react-native';
-import firebase from 'firebase';
-import Poll from '../Poll';
+import { connect } from 'react-redux';
+import { emailChanged, passwordChanged, loginUser, signUp } from '../../actions';
 
 
 const { width, height } = Dimensions.get('screen');
 
 
-export default class SignUp extends React.Component {
+class SignUp extends Component {
 
   static navigationOptions = {
     header: null
   }
 
-  onButtonPress() {
-    this.props.navigation.navigate('HomeTab')
-    const { email, password } = this.state;
+  state = { loggedIn: null };
+  email = ""
+  password = ""
 
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(this.onLoginSuccess.bind(this))
+  static getDerivedStateFromProps(props, state) {
+    if (props.user !== null) {
+      props.navigation.navigate('HomeTab');
+    }
+
+    return {
+      ...state
+    }
   }
 
-  onLoginSuccess() {
-    this.setState({
-      email: '',
-      password: '',
-      loading: false,
-      error: '',
+  onEmailChange(text) {
+    this.email = text
+  }
+
+  onPasswordChange(text) {
+    this.password = text
+  }
+
+  onButtonPress() {
+    this.props.signUp({
+      email: this.email,
+      password: this.password
     });
-    { () => this.props.navigation.navigate('HomeTab') }
   }
 
   state = { Age: '', Country: '' }
@@ -77,7 +88,7 @@ export default class SignUp extends React.Component {
                 placeholder=" "
                 autoCapitalize="none"
                 value={this.state.email}
-                onChangeText={email => this.setState({ email })}
+                onChangeText={this.onEmailChange.bind(this)}
               />
 
               <Text style={styles.signupText}>Username</Text>
@@ -93,13 +104,16 @@ export default class SignUp extends React.Component {
                 autoCapitalize="none"
                 secureTextEntry={true}
                 value={this.state.password}
-                onChangeText={password => this.setState({ password })}
+                onChangeText={this.onPasswordChange.bind(this)}
               />
 
               <Text style={styles.signupText}>Age</Text>
               <View style={styles.pickerTextAge}>
-                <Picker style={{ height: 35 }} selectedValue={this.state.Age} onValueChange={this.updateUser}>
-                  <Picker.Item label="Select Age" value="ageSelect" />
+                <Picker
+                  style={{ height: 35 }}
+                  selectedValue={this.state.Age}
+                  onValueChange={this.updateUser}>
+
                   <Picker.Item label="17" value="17" />
                   <Picker.Item label="18" value="18" />
                   <Picker.Item label="19" value="19" />
@@ -225,3 +239,11 @@ const styles = StyleSheet.create({
     padding: 7,
   },
 });
+
+const mapStateToProps = ({ auth }) => {
+  return { ...auth };
+};
+
+export default connect(mapStateToProps, {
+  emailChanged, passwordChanged, loginUser, signUp
+})(SignUp);
