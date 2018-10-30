@@ -1,23 +1,67 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 
-import HomeTab from './AppTabNavigator/HomeTab';
-import SearchTab from './AppTabNavigator/HomeTab';
-import AddPollTab from './AppTabNavigator/AddPollTab';
-import NotifiTab from './AppTabNavigator/NotifiTab';
-import ProfileTab from './AppTabNavigator/ProfileTab';
+import { connect } from 'react-redux';
+import { vote } from '../../actions';
+import { addVote } from '../../actions/PollActions';
+
+import firebase from 'firebase';
+import 'firebase/firestore';
+
+import App from '../../../App';
 
 
 
-export default class Poll extends React.Component {
 
-  static navigationOptions = {
-    header: null
+class Poll extends React.Component {
+
+
+
+
+  state = {
+    Lpoll: 'LLLLLL',
+    Rpoll: 'RRRRRR'
+  };
+
+  // async componentDidMount() {
+  //   if (App.shared.uid) {
+  //     const res = await App.shared.getPolls();
+  //   } else {
+  //     firebase.auth().onAuthStateChanged(async polls => {
+  //       if (polls) {
+  //         const res = await App.shared.getPolls();
+  //       }
+  //     });
+  //   }
+  // }
+
+
+  voteLeft() {
+    const { Lpoll } = this.state;
+    App.shared.voteLeft({
+      Lpoll
+    });
+    this.props.navigation.navigate('Insight')
+  }
+
+  voteRight() {
+    const { Rpoll } = this.state;
+    App.shared.voteRight({
+      Rpoll
+    });
+    this.props.navigation.navigate('Insight')
+  }
+
+
+  handleVote = () => {
+    // var vote = this.props.curVote;
+    this.props.navigation.navigate('Insight')
+    // this.props.dispatch(addVote(vote))
   }
 
   render() {
-    return (
 
+    return (
       <ScrollView style={styles.container}>
 
         <View style={styles.title_container}>
@@ -25,17 +69,27 @@ export default class Poll extends React.Component {
         </View>
 
         <View style={styles.arg_container}>
-          <View style={styles.arg_img}>
+          <TouchableOpacity
+            style={styles.arg_img}
+            onPress={() => this.voteLeft()}
+          >
             <View style={styles.arg_desc}>
 
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.arg_img}>
-            <View style={styles.arg_desc}>
+          <TouchableOpacity
+            style={styles.arg_img}
+            // onPress={() => {
+            //   this.props.navigation.navigate('Insight')
+            // }}
+            onPress={() => this.voteRight()}
+          >
+
+            <View style={styles.arg_descR}>
 
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.profile_container}>
@@ -66,7 +120,6 @@ export default class Poll extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    //   flex: 1,
     backgroundColor: '#fff',
     //   alignItems: 'center',
     //   justifyContent: 'center',
@@ -97,8 +150,16 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginBottom: 'auto',
     marginLeft: 'auto',
-
-
+  },
+  arg_descR: {
+    backgroundColor: "#e68267",
+    width: "90%",
+    height: "50%",
+    borderRadius: 10,
+    marginTop: 'auto',
+    marginRight: 'auto',
+    marginBottom: 'auto',
+    marginLeft: 'auto',
   },
   button: {
     width: 100,
@@ -157,3 +218,22 @@ const styles = StyleSheet.create({
 
 
 });
+
+
+const mapStateToProps = ({ poll }) => {
+  // const { email, password, error, loading, user } = auth;
+
+  return { ...poll };
+};
+
+export default connect(mapStateToProps, { vote })(Poll);
+
+// Fire.shared = new Fire();
+
+// mapStateToProps = (state) => {
+//   return {
+//     curVote: state.Poll.curVote
+//   };
+// }
+
+// export default connect(mapStateToProps)(Poll);
