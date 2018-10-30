@@ -79,15 +79,15 @@ export default class ProfileTab extends React.Component {
           <View style={styles.currentPollItem}>
             <View style={styles.currentPollItemInner}>
               <Image 
-                style={{width: 130, height: 130}}
-                source={require('../../imgs/userImg.png')}
+                style={{width: 200, height: 200}}
+                source={require('../../imgs/donut.jpg')}
                  resizeMode = 'contain'
               />
             </View>
               <View style={styles.currentPollItemInner}>
               <Image 
-            style={{width: 130, height: 130}}
-            source={require('../../imgs/userImg.png')}
+            style={{width: 200, height: 200}}
+            source={require('../../imgs/cupcake.jpg')}
             resizeMode = 'contain'
             />
               </View>
@@ -103,9 +103,49 @@ export default class ProfileTab extends React.Component {
             </View>
           </View>
         </View>
+{/* **************************************************************************************** */}
+        <View style={styles.pollBar}>
+          <View style={styles.pollBarItem}>
+            <View style={styles.pollBarItemInner}>
+              <Text style={{}}>Group polls</Text>
+                </View>
+                  </View>
 
+          <View style={styles.pollBarItem}>
+            <View style={styles.pollBarItemInner}>
+              <Text style={{textAlign: 'right'}}>+</Text>
+                </View>
+                  </View>
+                    </View>
+{/* **************************************************************************************** */}
+         <View style={styles.groupPoll}>
+          <View style={styles.groupPollItem}>
+            <View style={styles.groupPollItemInner}>
+              <Image 
+                style={{width: 200, height: 200}}
+                source={require('../../imgs/donut.jpg')}
+                 resizeMode = 'contain'
+              />
+            </View>
+              <View style={styles.groupPollItemInner}>
+              <Image 
+            style={{width: 200, height: 200}}
+            source={require('../../imgs/cupcake.jpg')}
+            resizeMode = 'contain'
+            />
+              </View>
+              </View>
 
+          <View style={styles.groupPollItem}>
+            <View style={styles.groupPollItemInner}>
+            </View>
+          </View>
 
+           <View style={styles.groupPollItem}>
+            <View style={styles.groupPollItemInner}>
+            </View>
+          </View>
+        </View>
       </View>
     );
   }
@@ -173,15 +213,14 @@ const styles = StyleSheet.create({
     },
 // ********************************************************************
     currentPoll: {
-      height: '45%',
-      backgroundColor: '#fff',
+      height: '18%',
       flexDirection: 'row',
       flexWrap: 'wrap',
       padding: 5,
     },
     currentPollItem: {
-      width: '30%',
-      height:'40%',
+      width: '25%',
+      height:'100%',
       flexDirection: 'row',
       padding: 5,
     },
@@ -191,8 +230,27 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    // ********************************************************************
+    groupPoll: {
+      height: '18%',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      padding: 5,
+    },
+    groupPollItem: {
+      width: '25%',
+      height:'100%',
+      flexDirection: 'row',
+      padding: 5,
+    },
+    groupPollItemInner: {
+      flex: 1,
+      backgroundColor: '#292929',
+      overflow: 'hidden',
+      justifyContent: 'center',
+      alignItems: 'center',
     }
-    
 
 
 
