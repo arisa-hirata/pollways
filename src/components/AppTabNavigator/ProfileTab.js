@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, ScrollView } from 'react-native';
 
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
@@ -22,6 +22,7 @@ export default class ProfileTab extends React.Component {
     const barWidth = Dimensions.get('screen').width - 80;
  
     return (
+      <ScrollView>
       <View style={styles.container}>
        
         <View style={styles.top}>
@@ -147,6 +148,7 @@ export default class ProfileTab extends React.Component {
           </View>
         </View>
       </View>
+      </ScrollView>
     );
   }
 }
