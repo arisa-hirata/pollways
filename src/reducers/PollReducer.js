@@ -1,14 +1,15 @@
 const initialState = {
-  votes: []
+  votes: [],
+  fb: null
 };
 
 export default function Votes(state = initialState, action) {
   let obj = Object.assign({}, state);
 
   switch (action.type) {
-    case "CHANGE_GLOBAL_STATE":
+    case "CHANGE_FB":
       // same as setState
-      obj.state1 = 1;
+      obj.fb = action.fb;
       return obj;
 
     case "ADD_VOTE":

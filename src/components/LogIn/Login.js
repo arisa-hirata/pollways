@@ -121,7 +121,6 @@ class Login extends Component {
               </Text>
             <TouchableOpacity
               onPress={() => {
-                console.log(this.props);
                 this.props.navigation.navigate('SignUp')
               }
               }

@@ -16,11 +16,18 @@ import App from '../../../App';
 class Poll extends React.Component {
 
 
-
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+    this.props.navigation.addListener("willFocus", () => {
+      console.log("test");
+      this.getPolls();
+    })
+  }
 
   state = {
     Lpoll: 'LLLLLL',
-    Rpoll: 'RRRRRR'
+    title: ""
   };
 
   // async componentDidMount() {
@@ -34,7 +41,25 @@ class Poll extends React.Component {
   //     });
   //   }
   // }
+  getPolls = () => {
 
+    var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(1);
+
+    polls.get().then((snap) => {
+      snap.forEach((doc) => {
+        console.log(doc.data());
+        var obj = doc.data();
+        this.setState({
+          title: obj.title,
+          desc: obj.desc,
+          ldesc: obj.options.left.desc,
+          rdesc: obj.options.right.desc
+        });
+      })
+    })
+    return false;
+
+  }
 
   voteLeft() {
     const { Lpoll } = this.state;
@@ -65,7 +90,7 @@ class Poll extends React.Component {
       <ScrollView style={styles.container}>
 
         <View style={styles.title_container}>
-          <Text style={styles.title}>Title</Text>
+          <Text style={styles.title}>{this.state.title}</Text>
         </View>
 
         <View style={styles.arg_container}>
@@ -74,7 +99,7 @@ class Poll extends React.Component {
             onPress={() => this.voteLeft()}
           >
             <View style={styles.arg_desc}>
-
+              <Text>{this.state.ldesc}</Text>
             </View>
           </TouchableOpacity>
 
@@ -87,7 +112,7 @@ class Poll extends React.Component {
           >
 
             <View style={styles.arg_descR}>
-
+              <Text>{this.state.rdesc}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -100,8 +125,8 @@ class Poll extends React.Component {
         </View>
 
         <Text style={styles.poll_Desc}>
-          asdfkhagdlsgblfavkgbvlbvalkjrbvlkjbvlbv
-          </Text>
+          {this.state.desc}
+        </Text>
 
         <View style={styles.comment_container}>
           <View style={styles.profile_img}></View>
