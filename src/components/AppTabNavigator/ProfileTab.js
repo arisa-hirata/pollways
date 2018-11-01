@@ -19,28 +19,39 @@ export default class ProfileTab extends React.Component {
 
 
   render() {
+
     const barWidth = Dimensions.get('screen').width - 80;
  
     return (
       <ScrollView>
       <View style={styles.container}>
        
-        <View style={styles.top}>
         <View style={styles.topBar}>
+          <View style={styles.topBarItem}>
+            <View style={styles.topBarItemInner}>
+              <View style={{paddingLeft: 25, marginTop: 20}}>
+                <TouchableOpacity>
+                <Image
+                style={{width: 20, height: 20}}
+                source={require('../../imgs/archive.png')}
+                resizeMode="contain"
+                />
+                </TouchableOpacity>
+                  </View>
+                    </View>
+                      </View>
 
           <View style={styles.topBarItem}>
             <View style={styles.topBarItemInner}>
-              <Text style={{paddingLeft: 25}}>Archive</Text>
-            </View>
-          </View>
-
-            <View style={styles.topBarItem}>
-              <View style={styles.topBarItemInner}>
-                <Text style={{textAlign: 'right', paddingRight: 25}}>Edit</Text>
-              </View>
-            </View>
-          </View>
-{/* **************************************************************************************** */}
+                <TouchableOpacity onpress={this.changePage}>
+                  <Text style={{textAlign: 'right', 
+                  paddingRight: 25,marginTop: 20}}>Edit</Text>
+                </TouchableOpacity>
+                  </View>
+                    </View>
+                      </View>
+{/* Profile Image**************************************************************************************** */}
+        <View style={styles.topProfileImg}>
           <View style={styles.ProfileImage}>
             <Image 
             style={{width: 230, height: 230}}
@@ -49,29 +60,47 @@ export default class ProfileTab extends React.Component {
             />
           </View>
         </View>
-{/* **************************************************************************************** */}
+{/* username Input**************************************************************************************** */}
         <View style={styles.nameInput}>
             <Text style={{fontSize: 25}}>{this.state.userId}</Text>
         </View>
-
+{/* location Input**************************************************************************************** */}
         <View style={styles.locationInput}>
             <Text style={{fontSize: 16}}>{this.state.userLocation}</Text>
         </View>
-
+{/* user friend number**************************************************************************************** */}
         <View style={styles.userFriend}>
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>{this.state.userFriend}</Text>
         </View>
+
+        <View style={styles.userFriend}>
+            <Text style={{fontSize: 15}}>Poll Mates</Text>
+        </View>
+
+{/* **************************************************************************************** */}
+
+<View style={{width:'100%', height:'10%', backgroundColor:'#E2FFE8', justifyContent: 'center'}}>
+<Text>Winning Bar </Text>
+</View>
+
 {/* **************************************************************************************** */}
          <View style={styles.pollBar}>
           <View style={styles.pollBarItem}>
             <View style={styles.pollBarItemInner}>
-              <Text style={{}}>Polls</Text>
+              <Text style={{}}>My Polls</Text>
                 </View>
                   </View>
 
           <View style={styles.pollBarItem}>
-            <View style={styles.pollBarItemInner}>
-              <Text style={{textAlign: 'right'}}>+</Text>
+            <View style={[styles.pollBarItemInner, {alignItems:'flex-end'}]}>
+              <View style={{width:20, height:20,justifyContent: 'center', alignItems:'center'}}>
+                <TouchableOpacity>
+                <Image
+                style={{width: 10, height: 10}}
+                source={require('../../imgs/add1.png')}
+                />
+                </TouchableOpacity>
+              </View>
                 </View>
                   </View>
                     </View>
@@ -113,8 +142,15 @@ export default class ProfileTab extends React.Component {
                   </View>
 
           <View style={styles.pollBarItem}>
-            <View style={styles.pollBarItemInner}>
-              <Text style={{textAlign: 'right'}}>+</Text>
+            <View style={[styles.pollBarItemInner, {alignItems:'flex-end'}]}>
+              <View style={{width:20, height:20,justifyContent: 'center', alignItems:'center'}}>
+                <TouchableOpacity>
+                <Image
+                style={{width: 10, height: 10}}
+                source={require('../../imgs/add1.png')}
+                />
+                </TouchableOpacity>
+              </View>
                 </View>
                   </View>
                     </View>
@@ -159,9 +195,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFFF'
   },
-
-  top: {
-    height: '40%',
+// ARCHIVE AND EDIT SECTION********************************************************************
+topBar:{
+  height: '5%',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+},
+topBarItem: {
+  width: '50%',
+},
+topBarItemInner: {
+  flex: 1,
+},
+// ********************************************************************
+  topProfileImg: {
+    height: '25%',
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -174,57 +223,52 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nameInput: {
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     },
   locationInput: {
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     },
   userFriend: {
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     },
 
 // ********************************************************************
-    topBar:{
-      height: '10%',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-    },
-    topBarItem: {
-      width: '50%',
-      padding: 5,
-    },
-    topBarItemInner: {
-      flex: 1,
-    },
-// ********************************************************************
     pollBar:{
-      height: '5%',
-      width: '75%',
+      width: '80%',
       flexDirection: 'row',
-      borderBottomWidth: 1
+      borderBottomWidth: 1,
+      marginBottom: 10,
     },
     pollBarItem: {
       width: '50%',
-      padding: 5,
     },
     pollBarItemInner: {
       flex: 1,
     },
 // ********************************************************************
     currentPoll: {
-      height: '18%',
+      height: '15%',
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
       flexDirection: 'row',
       flexWrap: 'wrap',
       padding: 5,
+      marginBottom: 10,
+      overflow: 'hidden',
     },
     currentPollItem: {
-      width: '25%',
+      width: '30%',
       height:'100%',
       flexDirection: 'row',
       padding: 5,
+      overflow: 'hidden',
     },
     currentPollItemInner: {
       flex: 1,
@@ -232,16 +276,21 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
       justifyContent: 'center',
       alignItems: 'center',
+      overflow: 'hidden',
     },
     // ********************************************************************
     groupPoll: {
-      height: '18%',
+      height: '15%',
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
       flexDirection: 'row',
       flexWrap: 'wrap',
       padding: 5,
+      backgroundColor: '#FDF2E9'
     },
     groupPollItem: {
-      width: '25%',
+      width: '30%',
       height:'100%',
       flexDirection: 'row',
       padding: 5,
