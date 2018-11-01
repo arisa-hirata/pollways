@@ -12,6 +12,7 @@ import NotifiTab from './AppTabNavigator/NotifiTab';
 import ProfileTab from './AppTabNavigator/ProfileTab';
 
 import Insight from './Insight/Insight';
+import EditProfile from './EditProfile';
 
 import { propTypes } from 'react-native/Libraries/Components/Button';
 // import Icon from 'react-native-vector-icons/Iconicons';
@@ -65,7 +66,8 @@ export default createStackNavigator(
     Login: Login,
     SignUp: SignUp,
     Poll: hometabs,
-    Insight: Insight
+    Insight: Insight,
+    EditProfile: EditProfile
   },
   {
     navigationOptions: {
