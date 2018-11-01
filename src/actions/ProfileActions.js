@@ -1,10 +1,6 @@
-import {
-  PROFILE_UPDATE
-} from './types';
-
-export const profileUpdate = ({ prop, value }) => {
+export function EditProfile(edit) {
   return {
-    type: PROFILE_UPDATE,
-    payload: { prop, value }
-  };
-};
+    type: 'CHANGE_PROFILE',
+    edit: edit
+  }
+}

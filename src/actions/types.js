@@ -6,3 +6,5 @@ export const LOGIN_USER = 'login_user';
 export const SIGN_UP = 'signUp';
 
 export const PROFILE_UPDATE = 'profileUpdate';
+
+export const VOTE = 'vote';

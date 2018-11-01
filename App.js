@@ -4,6 +4,7 @@ import Navigator from './src/components/Navigator';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import firebase from 'firebase';
+import "firebase/firestore";
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
 // import Router from './Router';
@@ -34,7 +35,46 @@ class App extends React.Component {
       messagingSenderId: "157764717750"
     });
 
+    firebase.firestore().settings({ timestampsInSnapshots: true });
+
+    firebase.auth().onAuthStateChanged(async user => {
+      if (!user) {
+        await firebase.auth().signInAnonymously();
+      }
+    });
+
   }
+
+  voteLeft = ({ Lpoll }) => {
+    const createdAt = Date.now();
+    this.LpollCollection.add({
+      Lpoll, createdAt
+    });
+  };
+
+  voteRight = ({ Rpoll }) => {
+    const createdAt = Date.now();
+    this.RpollCollection.add({
+      Rpoll, createdAt
+    });
+  };
+
+  get pollsCollection() {
+    return firebase.firestore().collection("polls");
+  }
+
+  get LpollCollection() {
+    return this.pollsCollection.doc(this.uid).collection("Lpoll");
+  }
+
+  get RpollCollection() {
+    return this.pollsCollection.doc(this.uid).collection("Rpoll");
+  }
+
+  get uid() {
+    return (firebase.auth().currentUser || {}).uid;
+  }
+
 
 
   render() {
@@ -48,4 +88,5 @@ class App extends React.Component {
 
 }
 
+App.shared = new App();
 export default App;
