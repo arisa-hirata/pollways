@@ -14,6 +14,7 @@ class AddPollTab extends React.Component {
   title = "";
   desc = '';
 
+
   AddImg = () => {
     CameraRoll.getPhotos({
       first: 20,
@@ -32,6 +33,7 @@ class AddPollTab extends React.Component {
     this.props.navigation.navigate('Poll');
 
     var col = firebase.firestore().collection("polls").add({
+      // uerid:"user",
       title: this.title,
       desc: this.desc,
       img: null,

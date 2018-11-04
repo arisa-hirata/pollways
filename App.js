@@ -40,6 +40,7 @@ class App extends React.Component {
     firebase.auth().onAuthStateChanged(async user => {
       if (!user) {
         await firebase.auth().signInAnonymously();
+        //add to users collection
       }
     });
 
