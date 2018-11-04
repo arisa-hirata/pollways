@@ -1,0 +1,3 @@
+rootProject.name = 'pollways2'
+
+include ':app'

@@ -1,32 +1,23 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity } from 'react-native';
-
-import ProgressBarAnimated from 'react-native-progress-bar-animated';
+import React from "react";
+import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity } from "react-native";
 
 export default class ProfileTab extends React.Component {
-
   state = {
     userId: "Katie Munro",
-    userLocation: 'Vancouver, British Columbia',
+    userLocation: "Vancouver, British Columbia",
     userFriend: 164,
     totalVote: 100,
     totalWin: 60,
-    progress: 20,
-  }
-
-  // take total of votes divided by the total win or lost to get the result
-  //npm install --save react-native-progress-bar-animated
-
+    progress: 20
+  };
 
   render() {
-    const barWidth = Dimensions.get('screen').width - 80;
+    const barWidth = Dimensions.get("screen").width - 80;
 
     return (
       <View style={styles.container}>
-
         <View style={styles.top}>
           <View style={styles.topBar}>
-
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
                 <Text style={{ paddingLeft: 25 }}>Archive</Text>
@@ -36,19 +27,17 @@ export default class ProfileTab extends React.Component {
             <View style={styles.topBarItem}>
               <TouchableOpacity
                 style={styles.topBarItemInner}
-                onPress={() => { this.props.navigation.navigate('EditProfile') }}
+                onPress={() => {
+                  this.props.navigation.navigate("EditProfile");
+                }}
               >
-                <Text style={{ textAlign: 'right', paddingRight: 25 }}>Edit</Text>
+                <Text style={{ textAlign: "right", paddingRight: 25 }}>Edit</Text>
               </TouchableOpacity>
             </View>
           </View>
           {/* **************************************************************************************** */}
           <View style={styles.ProfileImage}>
-            <Image
-              style={{ width: 230, height: 230 }}
-              source={require('../../imgs/userImg.png')}
-              resizeMode='contain'
-            />
+            <Image style={{ width: 230, height: 230 }} source={require("../../imgs/userImg.png")} resizeMode="contain" />
           </View>
         </View>
         {/* **************************************************************************************** */}
@@ -61,7 +50,7 @@ export default class ProfileTab extends React.Component {
         </View>
 
         <View style={styles.userFriend}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{this.state.userFriend}</Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>{this.state.userFriend}</Text>
         </View>
         {/* **************************************************************************************** */}
         <View style={styles.pollBar}>
@@ -73,7 +62,7 @@ export default class ProfileTab extends React.Component {
 
           <View style={styles.pollBarItem}>
             <View style={styles.pollBarItemInner}>
-              <Text style={{ textAlign: 'right' }}>+</Text>
+              <Text style={{ textAlign: "right" }}>+</Text>
             </View>
           </View>
         </View>
@@ -81,29 +70,19 @@ export default class ProfileTab extends React.Component {
         <View style={styles.currentPoll}>
           <View style={styles.currentPollItem}>
             <View style={styles.currentPollItemInner}>
-              <Image
-                style={{ width: 200, height: 200 }}
-                source={require('../../imgs/donut.jpg')}
-                resizeMode='contain'
-              />
+              <Image style={{ width: 200, height: 200 }} source={require("../../imgs/donut.jpg")} resizeMode="contain" />
             </View>
             <View style={styles.currentPollItemInner}>
-              <Image
-                style={{ width: 200, height: 200 }}
-                source={require('../../imgs/cupcake.jpg')}
-                resizeMode='contain'
-              />
+              <Image style={{ width: 200, height: 200 }} source={require("../../imgs/cupcake.jpg")} resizeMode="contain" />
             </View>
           </View>
 
           <View style={styles.currentPollItem}>
-            <View style={styles.currentPollItemInner}>
-            </View>
+            <View style={styles.currentPollItemInner} />
           </View>
 
           <View style={styles.currentPollItem}>
-            <View style={styles.currentPollItemInner}>
-            </View>
+            <View style={styles.currentPollItemInner} />
           </View>
         </View>
         {/* **************************************************************************************** */}
@@ -116,7 +95,7 @@ export default class ProfileTab extends React.Component {
 
           <View style={styles.pollBarItem}>
             <View style={styles.pollBarItemInner}>
-              <Text style={{ textAlign: 'right' }}>+</Text>
+              <Text style={{ textAlign: "right" }}>+</Text>
             </View>
           </View>
         </View>
@@ -124,29 +103,19 @@ export default class ProfileTab extends React.Component {
         <View style={styles.groupPoll}>
           <View style={styles.groupPollItem}>
             <View style={styles.groupPollItemInner}>
-              <Image
-                style={{ width: 200, height: 200 }}
-                source={require('../../imgs/donut.jpg')}
-                resizeMode='contain'
-              />
+              <Image style={{ width: 200, height: 200 }} source={require("../../imgs/donut.jpg")} resizeMode="contain" />
             </View>
             <View style={styles.groupPollItemInner}>
-              <Image
-                style={{ width: 200, height: 200 }}
-                source={require('../../imgs/cupcake.jpg')}
-                resizeMode='contain'
-              />
+              <Image style={{ width: 200, height: 200 }} source={require("../../imgs/cupcake.jpg")} resizeMode="contain" />
             </View>
           </View>
 
           <View style={styles.groupPollItem}>
-            <View style={styles.groupPollItemInner}>
-            </View>
+            <View style={styles.groupPollItemInner} />
           </View>
 
           <View style={styles.groupPollItem}>
-            <View style={styles.groupPollItemInner}>
-            </View>
+            <View style={styles.groupPollItemInner} />
           </View>
         </View>
       </View>
@@ -157,105 +126,101 @@ export default class ProfileTab extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#FFFF'
+    alignItems: "center",
+    backgroundColor: "#FFFF"
   },
 
   top: {
-    height: '40%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "40%",
+    alignItems: "center",
+    justifyContent: "center"
   },
   ProfileImage: {
     width: 200,
     height: 200,
     borderRadius: 100,
-    overflow: 'hidden',
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center"
   },
   nameInput: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
   locationInput: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
   userFriend: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   // ********************************************************************
   topBar: {
-    height: '10%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    height: "10%",
+    flexDirection: "row",
+    flexWrap: "wrap"
   },
   topBarItem: {
-    width: '50%',
-    padding: 5,
+    width: "50%",
+    padding: 5
   },
   topBarItemInner: {
-    flex: 1,
+    flex: 1
   },
   // ********************************************************************
   pollBar: {
-    height: '5%',
-    width: '75%',
-    flexDirection: 'row',
+    height: "5%",
+    width: "75%",
+    flexDirection: "row",
     borderBottomWidth: 1
   },
   pollBarItem: {
-    width: '50%',
-    padding: 5,
+    width: "50%",
+    padding: 5
   },
   pollBarItemInner: {
-    flex: 1,
+    flex: 1
   },
   // ********************************************************************
   currentPoll: {
-    height: '18%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    padding: 5,
+    height: "18%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 5
   },
   currentPollItem: {
-    width: '25%',
-    height: '100%',
-    flexDirection: 'row',
-    padding: 5,
+    width: "25%",
+    height: "100%",
+    flexDirection: "row",
+    padding: 5
   },
   currentPollItemInner: {
     flex: 1,
-    backgroundColor: '#292929',
-    overflow: 'hidden',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#292929",
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center"
   },
   // ********************************************************************
   groupPoll: {
-    height: '18%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    padding: 5,
+    height: "18%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 5
   },
   groupPollItem: {
-    width: '25%',
-    height: '100%',
-    flexDirection: 'row',
-    padding: 5,
+    width: "25%",
+    height: "100%",
+    flexDirection: "row",
+    padding: 5
   },
   groupPollItemInner: {
     flex: 1,
-    backgroundColor: '#292929',
-    overflow: 'hidden',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#292929",
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center"
   }
-
-
-
-
 });
