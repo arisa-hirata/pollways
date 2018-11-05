@@ -89,7 +89,6 @@ class Login extends Component {
             placeholderTextColor="grey"
             autoCapitalize="none"
             border='1'
-            value={this.props.email}
             onChangeText={this.onEmailChange.bind(this)}
           />
 
@@ -100,7 +99,6 @@ class Login extends Component {
             placeholderTextColor="grey"
             autoCapitalize="none"
             secureTextEntry={true}
-            value={this.props.password}
             onChangeText={this.onPasswordChange.bind(this)}
           />
 

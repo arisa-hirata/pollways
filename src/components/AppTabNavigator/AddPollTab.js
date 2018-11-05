@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, CameraRoll, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, CameraRoll, ScrollView, ImageBackground } from 'react-native';
 
 import firebase from 'firebase';
 import "firebase/firestore";
 
 import { connect } from 'react-redux';
 import { ChangeFb } from '../../actions';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import Poll from './Poll';
 
@@ -14,18 +15,21 @@ class AddPollTab extends React.Component {
   title = "";
   desc = '';
 
+  state = {
+    img: {}
+  }
 
   AddImg = () => {
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'Photos',
-    })
-      .then(r => {
-        this.setState({ photos: r.edges });
+    ImagePicker.openPicker({
+      width: 180,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      console.log(image);
+      this.setState({
+        img: image
       })
-      .catch((err) => {
-        //Error Loading Images
-      });
+    });
   };
 
   handlePoll = () => {
@@ -69,7 +73,10 @@ class AddPollTab extends React.Component {
 
         <View style={styles.arg_container}>
 
-          <View style={styles.arg_img}>
+          <ImageBackground
+            style={styles.arg_img}
+            source={{ uri: this.state.img.path }}
+          >
             <TouchableOpacity
               onPress={this.AddImg}
             >
@@ -82,7 +89,7 @@ class AddPollTab extends React.Component {
             />
 
 
-          </View>
+          </ImageBackground>
 
           <View style={styles.arg_img}>
 
@@ -97,21 +104,6 @@ class AddPollTab extends React.Component {
               placeholder="Give your argment..."
               onChangeText={(text) => { this.rdesc = text }}
             />
-
-            {/* <ScrollView>
-              {this.state.photos.map((p, i) => {
-                return (
-                  <Image
-                    key={i}
-                    style={{
-                      width: 300,
-                      height: 100,
-                    }}
-                    source={{ uri: p.node.image.uri }}
-                  />
-                );
-              })}
-            </ScrollView> */}
 
 
           </View>
@@ -150,7 +142,7 @@ const styles = StyleSheet.create({
   },
   arg_img: {
     backgroundColor: "lightgray",
-    width: "45%",
+    width: 180,
     height: 350,
     margin: "2%",
   },
