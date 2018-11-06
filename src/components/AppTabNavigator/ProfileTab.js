@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, ImageBackground } from "react-native";
 
 export default class ProfileTab extends React.Component {
   state = {
@@ -16,6 +16,13 @@ export default class ProfileTab extends React.Component {
 
     return (
       <View style={styles.container}>
+
+        <ImageBackground
+          style={{ width: "100%", height: 70 }}
+          source={require('../../imgs/Header.png')}
+        />
+
+
         <View style={styles.top}>
           <View style={styles.topBar}>
             <View style={styles.topBarItem}>

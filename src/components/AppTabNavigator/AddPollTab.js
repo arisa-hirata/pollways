@@ -16,10 +16,11 @@ class AddPollTab extends React.Component {
   desc = '';
 
   state = {
-    img: {}
+    imgL: {},
+    imgR: {}
   }
 
-  AddImg = () => {
+  AddImgL = () => {
     ImagePicker.openPicker({
       width: 180,
       height: 400,
@@ -27,7 +28,20 @@ class AddPollTab extends React.Component {
     }).then(image => {
       console.log(image);
       this.setState({
-        img: image
+        imgL: image
+      })
+    });
+  };
+
+  AddImgR = () => {
+    ImagePicker.openPicker({
+      width: 180,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      console.log(image);
+      this.setState({
+        imgR: image
       })
     });
   };
@@ -65,6 +79,19 @@ class AddPollTab extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
+        <ImageBackground
+          style={{
+            width: "100%",
+            height: 70,
+            position: "absolute",
+            top: 0,
+          }}
+          source={require('../../imgs/Header.png')}
+        />
+
+
+
         <Text style={{ marginTop: 50 }}>Create</Text>
         <TextInput
           placeholder="Type Title here..."
@@ -75,10 +102,10 @@ class AddPollTab extends React.Component {
 
           <ImageBackground
             style={styles.arg_img}
-            source={{ uri: this.state.img.path }}
+            source={{ uri: this.state.imgL.path }}
           >
             <TouchableOpacity
-              onPress={this.AddImg}
+              onPress={this.AddImgL}
             >
               <Text style={styles.plus}>+</Text>
             </TouchableOpacity>
@@ -91,10 +118,13 @@ class AddPollTab extends React.Component {
 
           </ImageBackground>
 
-          <View style={styles.arg_img}>
+          <ImageBackground
+            style={styles.arg_img}
+            source={{ uri: this.state.imgR.path }}
+          >
 
             <TouchableOpacity
-              onPress={this.AddImg}
+              onPress={this.AddImgR}
             >
               <Text style={styles.plus}>+</Text>
             </TouchableOpacity>
@@ -106,7 +136,7 @@ class AddPollTab extends React.Component {
             />
 
 
-          </View>
+          </ImageBackground>
         </View>
 
         <TextInput

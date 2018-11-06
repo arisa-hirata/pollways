@@ -71,10 +71,12 @@ export default createStackNavigator(
   },
   {
     navigationOptions: {
-      headerBackground:
-        <Image
-          style={{ width: "100%", height: 100 }}
-          source={require("../imgs/Header.png")} />
+      // headerBackground:
+      //   <Image
+      //     style={{ width: "100%", height: 100 }}
+      //     source={require("../imgs/Header.png")} />
+
+      header: null
     }
   }
 );

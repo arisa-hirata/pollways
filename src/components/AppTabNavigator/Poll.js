@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 
 import { connect } from 'react-redux';
 import { vote } from '../../actions';
@@ -87,7 +87,15 @@ class Poll extends React.Component {
   render() {
 
     return (
+
+
       <ScrollView style={styles.container}>
+
+        <ImageBackground
+          style={{ width: "100%", height: 70 }}
+          source={require('../../imgs/Header.png')}
+        />
+
 
         <View style={styles.title_container}>
           <Text style={styles.title}>{this.state.title}</Text>
