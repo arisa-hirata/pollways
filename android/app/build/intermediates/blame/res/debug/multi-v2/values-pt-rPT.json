@@ -1,0 +1,60 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Angus\\Documents\\GitHub\\pollways\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pt-rPT\\values-pt-rPT.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Angus\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7dcfec07e52076f3c0d016410aae07b3\\res\\values-pt-rPT\\values-pt-rPT.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,225,331,438,527,628,752,836,917,1004,1111,1223,1325,1433,1540,1647,1818,1917",
+                        "endColumns": "119,105,106,88,100,123,83,80,86,106,111,101,107,106,106,170,98,84",
+                        "endOffsets": "220,326,433,522,623,747,831,912,999,1106,1218,1320,1428,1535,1642,1813,1912,1997"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,27",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,225,331,438,527,628,752,836,917,1004,1111,1223,1325,1433,1540,1647,1818,2441",
+                        "endColumns": "119,105,106,88,100,123,83,80,86,106,111,101,107,106,106,170,98,84",
+                        "endOffsets": "220,326,433,522,623,747,831,912,999,1106,1218,1320,1428,1535,1642,1813,1912,2521"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Angus\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.20.1.aar\\4f56343416b6103c58855417440b5576\\res\\values-pt-rPT\\values-pt-rPT.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,109,179,258,329,390,446,505",
+                        "endColumns": "53,69,78,70,60,55,58,73",
+                        "endOffsets": "104,174,253,324,385,441,500,574"
+                    },
+                    "to": {
+                        "startLines": "19,20,21,22,23,24,25,26",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "1917,1971,2041,2120,2191,2252,2308,2367",
+                        "endColumns": "53,69,78,70,60,55,58,73",
+                        "endOffsets": "1966,2036,2115,2186,2247,2303,2362,2436"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Angus\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\558c9ee41118375c50de28765c5261b0\\res\\values-pt-rPT\\values-pt-rPT.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "28",
+                        "startColumns": "4",
+                        "startOffsets": "2526",
+                        "endColumns": "100",
+                        "endOffsets": "2622"
+                    }
+                }
+            ]
+        }
+    ]
+}

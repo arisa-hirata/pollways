@@ -1,0 +1,153 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+MERGED from [com.facebook.react:react-native:0.20.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\react-native-0.20.1.aar\4f56343416b6103c58855417440b5576\AndroidManifest.xml:2:1-15:12
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\7dcfec07e52076f3c0d016410aae07b3\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:23.0.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-23.0.1.aar\a62fe3f70d33c251ac3c8167bc7fd7b9\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\8b0baafacbb8d8f07529817013ad8fac\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\a1b663c38d383779c888c98ef699bda7\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\72f66a2e9e11b5fce3f9a7139d304660\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\e5e848adb982f5c4b11e9e4d7d66f6b3\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\1b9c69edf90d01269de8099f5bc97d42\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\558c9ee41118375c50de28765c5261b0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.fresco:fresco:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\fresco-0.8.1.aar\66259418ea27bb7077fc3c1ab1d6e575\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp-0.8.1.aar\986a58be23968b8fece2ab077fb68ce8\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\imagepipeline-0.8.1.aar\7c80a68a51832bb7195dca7ea6e9f291\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:drawee:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\drawee-0.8.1.aar\9c4ed0a3766d8b577932719da7570355\AndroidManifest.xml:2:1-9:12
+MERGED from [com.android.support:support-v4:23.0.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-v4-23.0.1.aar\403ae1a323a2d93a623d7bcd64b22b32\AndroidManifest.xml:17:1-24:12
+MERGED from [org.webkit:android-jsc:r174650] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\932419c78d1d28bcbcb1655cdcaf2f40\AndroidManifest.xml:1:1-3:12
+MERGED from [com.facebook.fresco:fbcore:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\fbcore-0.8.1.aar\201b275bb84ce394213130a850ec7fec\AndroidManifest.xml:2:1-9:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\ed38f54079bbc66f43f01bd77e52e686\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\057669d4dcfaff9d714dc3e8df0cf977\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\abe182516ac9a0a9008a7b2f7f6333b8\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\c6aaf24631067be177c40c938b86acc0\AndroidManifest.xml:17:1-22:12
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+	package
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:2:5-28
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:4:5-67
+	android:name
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:4:22-64
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:5:5-77
+MERGED from [com.facebook.react:react-native:0.20.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\react-native-0.20.1.aar\4f56343416b6103c58855417440b5576\AndroidManifest.xml:11:5-78
+MERGED from [com.facebook.react:react-native:0.20.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\react-native-0.20.1.aar\4f56343416b6103c58855417440b5576\AndroidManifest.xml:11:5-78
+	android:name
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:5:22-75
+application
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:7:5-24:19
+MERGED from [com.facebook.react:react-native:0.20.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\react-native-0.20.1.aar\4f56343416b6103c58855417440b5576\AndroidManifest.xml:13:5-20
+MERGED from [com.facebook.react:react-native:0.20.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\react-native-0.20.1.aar\4f56343416b6103c58855417440b5576\AndroidManifest.xml:13:5-20
+MERGED from [com.android.support:support-v4:23.0.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-v4-23.0.1.aar\403ae1a323a2d93a623d7bcd64b22b32\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.0.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-v4-23.0.1.aar\403ae1a323a2d93a623d7bcd64b22b32\AndroidManifest.xml:22:5-20
+MERGED from [org.webkit:android-jsc:r174650] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\932419c78d1d28bcbcb1655cdcaf2f40\AndroidManifest.xml:2:3-17
+MERGED from [org.webkit:android-jsc:r174650] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\932419c78d1d28bcbcb1655cdcaf2f40\AndroidManifest.xml:2:3-17
+	android:label
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:9:7-39
+	android:icon
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:10:7-41
+	android:allowBackup
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:11:7-34
+	android:theme
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:12:7-38
+	android:name
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:8:7-38
+activity#com.pollways2.MainActivity
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:13:7-22:18
+	android:label
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:15:9-41
+	android:windowSoftInputMode
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:17:9-51
+	android:configChanges
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:16:9-79
+	android:name
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:14:9-37
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:18:9-21:25
+action#android.intent.action.MAIN
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:19:13-65
+	android:name
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:19:21-62
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:20:13-73
+	android:name
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:20:23-70
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:23:7-84
+	android:name
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:23:17-81
+uses-sdk
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+MERGED from [com.facebook.react:react-native:0.20.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\react-native-0.20.1.aar\4f56343416b6103c58855417440b5576\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.20.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\react-native-0.20.1.aar\4f56343416b6103c58855417440b5576\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\7dcfec07e52076f3c0d016410aae07b3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\7dcfec07e52076f3c0d016410aae07b3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:23.0.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-23.0.1.aar\a62fe3f70d33c251ac3c8167bc7fd7b9\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.0.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-23.0.1.aar\a62fe3f70d33c251ac3c8167bc7fd7b9\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\8b0baafacbb8d8f07529817013ad8fac\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\8b0baafacbb8d8f07529817013ad8fac\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\a1b663c38d383779c888c98ef699bda7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\a1b663c38d383779c888c98ef699bda7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\72f66a2e9e11b5fce3f9a7139d304660\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\72f66a2e9e11b5fce3f9a7139d304660\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\e5e848adb982f5c4b11e9e4d7d66f6b3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\e5e848adb982f5c4b11e9e4d7d66f6b3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\1b9c69edf90d01269de8099f5bc97d42\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\1b9c69edf90d01269de8099f5bc97d42\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\558c9ee41118375c50de28765c5261b0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\558c9ee41118375c50de28765c5261b0\AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.fresco:fresco:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\fresco-0.8.1.aar\66259418ea27bb7077fc3c1ab1d6e575\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\fresco-0.8.1.aar\66259418ea27bb7077fc3c1ab1d6e575\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp-0.8.1.aar\986a58be23968b8fece2ab077fb68ce8\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp-0.8.1.aar\986a58be23968b8fece2ab077fb68ce8\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\imagepipeline-0.8.1.aar\7c80a68a51832bb7195dca7ea6e9f291\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\imagepipeline-0.8.1.aar\7c80a68a51832bb7195dca7ea6e9f291\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\drawee-0.8.1.aar\9c4ed0a3766d8b577932719da7570355\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\drawee-0.8.1.aar\9c4ed0a3766d8b577932719da7570355\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-v4:23.0.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-v4-23.0.1.aar\403ae1a323a2d93a623d7bcd64b22b32\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.0.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\support-v4-23.0.1.aar\403ae1a323a2d93a623d7bcd64b22b32\AndroidManifest.xml:20:5-43
+MERGED from [com.facebook.fresco:fbcore:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\fbcore-0.8.1.aar\201b275bb84ce394213130a850ec7fec\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:0.8.1] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\fbcore-0.8.1.aar\201b275bb84ce394213130a850ec7fec\AndroidManifest.xml:5:5-7:41
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\ed38f54079bbc66f43f01bd77e52e686\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\ed38f54079bbc66f43f01bd77e52e686\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\057669d4dcfaff9d714dc3e8df0cf977\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\057669d4dcfaff9d714dc3e8df0cf977\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\abe182516ac9a0a9008a7b2f7f6333b8\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\abe182516ac9a0a9008a7b2f7f6333b8\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\c6aaf24631067be177c40c938b86acc0\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Angus\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\c6aaf24631067be177c40c938b86acc0\AndroidManifest.xml:20:5-44
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+IMPLIED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12 reason: org.webkit.android_jsc has a targetSdkVersion < 4
+uses-permission#android.permission.READ_PHONE_STATE
+IMPLIED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12 reason: org.webkit.android_jsc has a targetSdkVersion < 4
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from C:\Users\Angus\Documents\GitHub\pollways\android\app\src\main\AndroidManifest.xml:1:1-26:12 reason: org.webkit.android_jsc requested WRITE_EXTERNAL_STORAGE

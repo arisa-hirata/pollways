@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { ChangeFb } from '../../actions';
 import ImagePicker from 'react-native-image-crop-picker';
 
-
+//accessing from FireBase
 var storage = getApp().storage();
 var firebase = getFB();
 class AddPollTab extends React.Component {
