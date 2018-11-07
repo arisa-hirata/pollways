@@ -317,6 +317,48 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		B1929C63219253810062666D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1929C5A219253810062666D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 024D0CDEC0977DEA2AF3B8CAB1EDD631;
+			remoteInfo = "Pods-pollways2";
+		};
+		B1929C65219253810062666D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1929C5A219253810062666D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8578D6C7D0FCC4035D1BE1436A2EA27B;
+			remoteInfo = QBImagePickerController;
+		};
+		B1929C67219253810062666D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1929C5A219253810062666D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE05A75CA11ADBD01300B3BE68DAAE36;
+			remoteInfo = "QBImagePickerController-QBImagePicker";
+		};
+		B1929C69219253810062666D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1929C5A219253810062666D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 57C3547A7D8F696ED78D43A287FC5D38;
+			remoteInfo = RNImageCropPicker;
+		};
+		B1929C6B219253810062666D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1929C5A219253810062666D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3B61A171F05EDE1D227672C888FAB016;
+			remoteInfo = RSKImageCropper;
+		};
+		B1929C6D219253810062666D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1929C5A219253810062666D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9716F5BCF6539A94E2E14F705A1A4631;
+			remoteInfo = yoga;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -347,6 +389,7 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B1929C5A219253810062666D /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		B1C7EC01218FC733008E7360 /* LogInBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = LogInBG.jpg; path = ../src/imgs/LogInBG.jpg; sourceTree = "<group>"; };
 		B1C7EC02218FC733008E7360 /* LogoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoIcon.png; path = ../src/imgs/LogoIcon.png; sourceTree = "<group>"; };
 		DBA751AEFBE75E8C9E13CAC4 /* libPods-pollways2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pollways2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -583,6 +626,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B1929C5A219253810062666D /* Pods.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* pollways2 */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* pollways2Tests */,
@@ -611,6 +655,19 @@
 			children = (
 				ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */,
 				2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B1929C5B219253810062666D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B1929C64219253810062666D /* libPods-pollways2.a */,
+				B1929C66219253810062666D /* libQBImagePickerController.a */,
+				B1929C68219253810062666D /* QBImagePicker.bundle */,
+				B1929C6A219253810062666D /* libRNImageCropPicker.a */,
+				B1929C6C219253810062666D /* libRSKImageCropper.a */,
+				B1929C6E219253810062666D /* libyoga.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -746,6 +803,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = B1929C5B219253810062666D /* Products */;
+					ProjectRef = B1929C5A219253810062666D /* Pods.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1063,6 +1124,48 @@
 			fileType = archive.ar;
 			path = libRCTBlob.a;
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B1929C64219253810062666D /* libPods-pollways2.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-pollways2.a";
+			remoteRef = B1929C63219253810062666D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B1929C66219253810062666D /* libQBImagePickerController.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libQBImagePickerController.a;
+			remoteRef = B1929C65219253810062666D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B1929C68219253810062666D /* QBImagePicker.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = QBImagePicker.bundle;
+			remoteRef = B1929C67219253810062666D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B1929C6A219253810062666D /* libRNImageCropPicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImageCropPicker.a;
+			remoteRef = B1929C69219253810062666D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B1929C6C219253810062666D /* libRSKImageCropper.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRSKImageCropper.a;
+			remoteRef = B1929C6B219253810062666D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B1929C6E219253810062666D /* libyoga.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libyoga.a;
+			remoteRef = B1929C6D219253810062666D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

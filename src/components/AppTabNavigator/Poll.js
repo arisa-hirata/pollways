@@ -61,6 +61,13 @@ class Poll extends React.Component {
 
   }
 
+
+  // ref = firebase.storage().ref().child('img/sample.jpg');
+  // ref.getDownloadURL().then((url) => {
+  //   document.getElementById('image').src = url;
+  // });
+
+
   voteLeft() {
     const { Lpoll } = this.state;
     App.shared.voteLeft({
@@ -89,58 +96,70 @@ class Poll extends React.Component {
     return (
 
 
-      <ScrollView style={styles.container}>
+      <ScrollView style={{ backgroundColor: "#fff" }}>
 
         <ImageBackground
           style={{ width: "100%", height: 70 }}
           source={require('../../imgs/Header.png')}
         />
 
+        <View style={styles.container}>
 
-        <View style={styles.title_container}>
-          <Text style={styles.title}>{this.state.title}</Text>
-        </View>
+          <View style={styles.title_container}>
+            <Text style={styles.title}>{this.state.title}</Text>
+          </View>
 
-        <View style={styles.arg_container}>
-          <TouchableOpacity
-            style={styles.arg_img}
-            onPress={() => this.voteLeft()}
-          >
-            <View style={styles.arg_desc}>
-              <Text>{this.state.ldesc}</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.arg_container}>
 
-          <TouchableOpacity
-            style={styles.arg_img}
-            // onPress={() => {
-            //   this.props.navigation.navigate('Insight')
-            // }}
-            onPress={() => this.voteRight()}
-          >
+            <TouchableOpacity
+              style={styles.arg_btn}
+              onPress={() => this.voteLeft()}
+            >
+              <ImageBackground
+                style={styles.arg_img}
 
-            <View style={styles.arg_descR}>
-              <Text>{this.state.rdesc}</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+              >
+                <View style={styles.arg_desc}>
+                  <Text>{this.state.ldesc}</Text>
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
 
-        <View style={styles.profile_container}>
-          <View style={styles.profile_img}></View>
-          <Text style={styles.profile_name}>Profile Name</Text>
-          <View style={styles.favorite_Btn}></View>
-          <View style={styles.insight_Btn}></View>
-        </View>
+            <TouchableOpacity
+              style={styles.arg_btn}
+              // onPress={() => {
+              //   this.props.navigation.navigate('Insight')
+              // }}
+              onPress={() => this.voteRight()}
+            >
+              <ImageBackground
+                style={styles.arg_img}
 
-        <Text style={styles.poll_Desc}>
-          {this.state.desc}
-        </Text>
+              >
+                <View style={styles.arg_descR}>
+                  <Text>{this.state.rdesc}</Text>
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.comment_container}>
-          <View style={styles.profile_img}></View>
+          <View style={styles.profile_container}>
+            <View style={styles.profile_img}></View>
+            <Text style={styles.profile_name}>Profile Name</Text>
+
+          </View>
+
           <Text style={styles.poll_Desc}>
-            asdfkhagdlsgblfavkgbvlbvalkjrbvlkjbvlbv
+            {this.state.desc}
           </Text>
+
+          <View style={styles.comment_container}>
+            <View style={styles.profile_img}></View>
+            <Text style={styles.poll_Desc}>
+              asdfkhagdlsgblfavkgbvlbvalkjrbvlkjbvlbv
+          </Text>
+
+          </View>
 
         </View>
 
@@ -154,12 +173,12 @@ class Poll extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    //   alignItems: 'center',
-    //   justifyContent: 'center',
-    // },
-    // title_container: {
-    //   width: 100,
-    //   height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title_container: {
+    width: 100,
+    height: 50,
   },
   title: {
     fontSize: 30,
@@ -168,11 +187,16 @@ const styles = StyleSheet.create({
   arg_container: {
     flexDirection: "row",
   },
-  arg_img: {
-    backgroundColor: "lightgray",
-    width: "45%",
+  arg_btn: {
+    width: 175,
     height: 350,
     margin: "2%",
+  },
+  arg_img: {
+    backgroundColor: "lightgray",
+    width: 175,
+    height: 350,
+
   },
   arg_desc: {
     backgroundColor: "#76BFB8",
@@ -223,22 +247,6 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     marginLeft: 10,
-  },
-  favorite_Btn: {
-    backgroundColor: "lightgray",
-    height: 30,
-    width: 30,
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    margin: 10,
-    marginLeft: 100,
-  },
-  insight_Btn: {
-    backgroundColor: "lightgray",
-    height: 30,
-    width: 30,
-    marginTop: 'auto',
-    marginBottom: 'auto',
   },
   poll_Desc: {
     width: "70%",

@@ -1,19 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, CameraRoll, ScrollView, ImageBackground } from 'react-native';
 
-import firebase from 'firebase';
-import "firebase/firestore";
+import { getApp, getFB } from "../firebase";
 
 import { connect } from 'react-redux';
 import { ChangeFb } from '../../actions';
 import ImagePicker from 'react-native-image-crop-picker';
 
-import Poll from './Poll';
 
+var storage = getApp().storage();
+var firebase = getFB();
 class AddPollTab extends React.Component {
 
   title = "";
   desc = '';
+  img = null
 
   state = {
     imgL: {},
@@ -37,14 +38,49 @@ class AddPollTab extends React.Component {
     ImagePicker.openPicker({
       width: 180,
       height: 400,
-      cropping: true
+      cropping: true,
+      includeBase64: true
     }).then(image => {
       console.log(image);
+
+      var blob = this.b64toBlob(image.data, image.mime);
+      storage.ref().child("images/image.jpg").putString(image.data, 'base64').then(function (snapshot) {
+        console.log('Uploaded a blob or file!');
+      });
+
+      console.log(blob);
       this.setState({
         imgR: image
       })
+
+
     });
   };
+
+  b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  }
+
 
   handlePoll = () => {
     //this.handleGet(); return;
@@ -72,6 +108,11 @@ class AddPollTab extends React.Component {
       //navigate to home page
     });
     console.log(col);
+
+    // uploadImage(response.uri)
+    //   .then(url => this.setState({ img: url }))
+    // .catch(error => console.log(error))
+
   }
 
 
