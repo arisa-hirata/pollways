@@ -41,13 +41,13 @@ class Poll extends React.Component {
   //     });
   //   }
   // }
-  getPolls = () => {
+  getPolls = async () => {
 
     var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(1);
 
     polls.get().then((snap) => {
       snap.forEach((doc) => {
-        console.log(doc.data());
+        //console.log(doc.data());
         var obj = doc.data();
         this.setState({
           title: obj.title,
