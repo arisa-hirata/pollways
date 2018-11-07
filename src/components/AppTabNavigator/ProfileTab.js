@@ -52,14 +52,10 @@ export default class ProfileTab extends React.Component {
     
   }
 
-
   render() {
+    const barWidth = Dimensions.get("screen").width - 80;
 
-
-    const barWidth = Dimensions.get('screen').width - 80;
- 
     return (
-      <ScrollView>
       <View style={styles.container}>
        
         <View style={styles.topBar}>
@@ -89,11 +85,7 @@ export default class ProfileTab extends React.Component {
 {/* Profile Image**************************************************************************************** */}
         <View style={styles.topProfileImg}>
           <View style={styles.ProfileImage}>
-            <Image 
-            style={{width: 230, height: 230}}
-            source={require('../../imgs/userImg.png')}
-            resizeMode = 'contain'
-            />
+            <Image style={{ width: 230, height: 230 }} source={require("../../imgs/userImg.png")} resizeMode="contain" />
           </View>
         </View>
 {/* username Input**************************************************************************************** */}
@@ -128,9 +120,9 @@ export default class ProfileTab extends React.Component {
          <View style={styles.pollBar}>
           <View style={styles.pollBarItem}>
             <View style={styles.pollBarItemInner}>
-              <Text style={{}}>My Polls</Text>
-                </View>
-                  </View>
+              <Text style={{}}>Polls</Text>
+            </View>
+          </View>
 
           <View style={styles.pollBarItem}>
             <View style={[styles.pollBarItemInner, {alignItems:'flex-end'}]}>
@@ -149,29 +141,19 @@ export default class ProfileTab extends React.Component {
         <View style={styles.currentPoll}>
           <View style={styles.currentPollItem}>
             <View style={styles.currentPollItemInner}>
-              <Image 
-                style={{width: 200, height: 200}}
-                source={require('../../imgs/donut.jpg')}
-                 resizeMode = 'contain'
-              />
+              <Image style={{ width: 200, height: 200 }} source={require("../../imgs/donut.jpg")} resizeMode="contain" />
             </View>
-              <View style={styles.currentPollItemInner}>
-              <Image 
-            style={{width: 200, height: 200}}
-            source={require('../../imgs/cupcake.jpg')}
-            resizeMode = 'contain'
-            />
-              </View>
-              </View>
-
-          <View style={styles.currentPollItem}>
             <View style={styles.currentPollItemInner}>
+              <Image style={{ width: 200, height: 200 }} source={require("../../imgs/cupcake.jpg")} resizeMode="contain" />
             </View>
           </View>
 
-           <View style={styles.currentPollItem}>
-            <View style={styles.currentPollItemInner}>
-            </View>
+          <View style={styles.currentPollItem}>
+            <View style={styles.currentPollItemInner} />
+          </View>
+
+          <View style={styles.currentPollItem}>
+            <View style={styles.currentPollItemInner} />
           </View>
         </View>
 {/* **************************************************************************************** */}
@@ -179,8 +161,8 @@ export default class ProfileTab extends React.Component {
           <View style={styles.pollBarItem}>
             <View style={styles.pollBarItemInner}>
               <Text style={{}}>Group polls</Text>
-                </View>
-                  </View>
+            </View>
+          </View>
 
           <View style={styles.pollBarItem}>
             <View style={[styles.pollBarItemInner, {alignItems:'flex-end'}]}>
@@ -199,33 +181,22 @@ export default class ProfileTab extends React.Component {
          <View style={styles.groupPoll}>
           <View style={styles.groupPollItem}>
             <View style={styles.groupPollItemInner}>
-              <Image 
-                style={{width: 200, height: 200}}
-                source={require('../../imgs/donut.jpg')}
-                 resizeMode = 'contain'
-              />
+              <Image style={{ width: 200, height: 200 }} source={require("../../imgs/donut.jpg")} resizeMode="contain" />
             </View>
-              <View style={styles.groupPollItemInner}>
-              <Image 
-            style={{width: 200, height: 200}}
-            source={require('../../imgs/cupcake.jpg')}
-            resizeMode = 'contain'
-            />
-              </View>
-              </View>
-
-          <View style={styles.groupPollItem}>
             <View style={styles.groupPollItemInner}>
+              <Image style={{ width: 200, height: 200 }} source={require("../../imgs/cupcake.jpg")} resizeMode="contain" />
             </View>
           </View>
 
-           <View style={styles.groupPollItem}>
-            <View style={styles.groupPollItemInner}>
-            </View>
+          <View style={styles.groupPollItem}>
+            <View style={styles.groupPollItemInner} />
+          </View>
+
+          <View style={styles.groupPollItem}>
+            <View style={styles.groupPollItemInner} />
           </View>
         </View>
       </View>
-      </ScrollView>
     );
   }
 }
@@ -233,46 +204,31 @@ export default class ProfileTab extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#FFFF'
+    alignItems: "center",
+    backgroundColor: "#FFFF"
   },
-// ARCHIVE AND EDIT SECTION********************************************************************
-topBar:{
-  height: '5%',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-},
-topBarItem: {
-  width: '50%',
-},
-topBarItemInner: {
-  flex: 1,
-},
-// ********************************************************************
-  topProfileImg: {
-    height: '25%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+
+  top: {
+    height: "40%",
+    alignItems: "center",
+    justifyContent: "center"
   },
   ProfileImage: {
     width: 200,
     height: 200,
     borderRadius: 100,
-    overflow: 'hidden',
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center"
   },
   nameInput: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    },
+    alignItems: "center",
+    justifyContent: "center"
+  },
   locationInput: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    },
+    alignItems: "center",
+    justifyContent: "center"
+  },
   userFriend: {
     width: '100%',
     alignItems: 'center',
@@ -344,4 +300,3 @@ topBarItemInner: {
       alignItems: 'center',
     }
 });
-

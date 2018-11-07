@@ -1,37 +1,93 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, CameraRoll, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, CameraRoll, ScrollView, ImageBackground } from 'react-native';
 
-import firebase from 'firebase';
-import "firebase/firestore";
+import { getApp, getFB } from "../firebase";
 
 import { connect } from 'react-redux';
 import { ChangeFb } from '../../actions';
+import ImagePicker from 'react-native-image-crop-picker';
 
-import Poll from './Poll';
 
+var storage = getApp().storage();
+var firebase = getFB();
 class AddPollTab extends React.Component {
 
   title = "";
   desc = '';
+  img = null
 
-  AddImg = () => {
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'Photos',
-    })
-      .then(r => {
-        this.setState({ photos: r.edges });
+  state = {
+    imgL: {},
+    imgR: {}
+  }
+
+  AddImgL = () => {
+    ImagePicker.openPicker({
+      width: 180,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      console.log(image);
+      this.setState({
+        imgL: image
       })
-      .catch((err) => {
-        //Error Loading Images
-      });
+    });
   };
+
+  AddImgR = () => {
+    ImagePicker.openPicker({
+      width: 180,
+      height: 400,
+      cropping: true,
+      includeBase64: true
+    }).then(image => {
+      console.log(image);
+
+      var blob = this.b64toBlob(image.data, image.mime);
+      storage.ref().child("images/image.jpg").putString(image.data, 'base64').then(function (snapshot) {
+        console.log('Uploaded a blob or file!');
+      });
+
+      console.log(blob);
+      this.setState({
+        imgR: image
+      })
+
+
+    });
+  };
+
+  b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  }
+
 
   handlePoll = () => {
     //this.handleGet(); return;
     this.props.navigation.navigate('Poll');
 
     var col = firebase.firestore().collection("polls").add({
+      // uerid:"user",
       title: this.title,
       desc: this.desc,
       img: null,
@@ -52,6 +108,11 @@ class AddPollTab extends React.Component {
       //navigate to home page
     });
     console.log(col);
+
+    // uploadImage(response.uri)
+    //   .then(url => this.setState({ img: url }))
+    // .catch(error => console.log(error))
+
   }
 
 
@@ -59,6 +120,19 @@ class AddPollTab extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
+        <ImageBackground
+          style={{
+            width: "100%",
+            height: 70,
+            position: "absolute",
+            top: 0,
+          }}
+          source={require('../../imgs/Header.png')}
+        />
+
+
+
         <Text style={{ marginTop: 50 }}>Create</Text>
         <TextInput
           placeholder="Type Title here..."
@@ -67,9 +141,12 @@ class AddPollTab extends React.Component {
 
         <View style={styles.arg_container}>
 
-          <View style={styles.arg_img}>
+          <ImageBackground
+            style={styles.arg_img}
+            source={{ uri: this.state.imgL.path }}
+          >
             <TouchableOpacity
-              onPress={this.AddImg}
+              onPress={this.AddImgL}
             >
               <Text style={styles.plus}>+</Text>
             </TouchableOpacity>
@@ -80,12 +157,15 @@ class AddPollTab extends React.Component {
             />
 
 
-          </View>
+          </ImageBackground>
 
-          <View style={styles.arg_img}>
+          <ImageBackground
+            style={styles.arg_img}
+            source={{ uri: this.state.imgR.path }}
+          >
 
             <TouchableOpacity
-              onPress={this.AddImg}
+              onPress={this.AddImgR}
             >
               <Text style={styles.plus}>+</Text>
             </TouchableOpacity>
@@ -96,23 +176,8 @@ class AddPollTab extends React.Component {
               onChangeText={(text) => { this.rdesc = text }}
             />
 
-            {/* <ScrollView>
-              {this.state.photos.map((p, i) => {
-                return (
-                  <Image
-                    key={i}
-                    style={{
-                      width: 300,
-                      height: 100,
-                    }}
-                    source={{ uri: p.node.image.uri }}
-                  />
-                );
-              })}
-            </ScrollView> */}
 
-
-          </View>
+          </ImageBackground>
         </View>
 
         <TextInput
@@ -148,7 +213,7 @@ const styles = StyleSheet.create({
   },
   arg_img: {
     backgroundColor: "lightgray",
-    width: "45%",
+    width: 180,
     height: 350,
     margin: "2%",
   },

@@ -1,14 +1,13 @@
 {
   "name": "empty-project-template",
-  "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "eject": "expo eject"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios"
   },
   "dependencies": {
+<<<<<<< HEAD
     "expo": "^30.0.1",
     "firebase": "5.3.0",
     "native-base": "^2.8.1",
@@ -20,10 +19,20 @@
     "react-native-progress": "^3.5.0",
     "react-native-progress-bar-animated": "^1.0.6",
     "react-native-vector-icons": "^6.0.1",
+=======
+    "firebase": "^5.3.0",
+    "react": "16.6.0-alpha.8af6728",
+    "react-native": "0.57.4",
+    "react-native-image-crop-picker": "^0.21.3",
+    "react-native-pie-chart": "^1.0.13",
+>>>>>>> f070aed20e002a0786ad4176be14f8cbd1e201d5
     "react-navigation": "^2.16.0",
     "react-navigation-redux-helpers": "^2.0.6",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "schedule": "^0.4.0"
   }
 }
