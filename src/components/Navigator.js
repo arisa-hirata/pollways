@@ -65,18 +65,24 @@ export default createStackNavigator(
   {
     Login: Login,
     SignUp: SignUp,
-    Poll: hometabs,
+    Poll: {
+      screen: hometabs,
+      navigationOptions: {
+        header: null
+      }
+    },
     Insight: Insight,
-    EditProfile: EditProfile
+    EditProfile: EditProfile,
+    ProfileTab: ProfileTab
   },
   {
     navigationOptions: {
-      // headerBackground:
-      //   <Image
-      //     style={{ width: "100%", height: 100 }}
-      //     source={require("../imgs/Header.png")} />
+      headerBackground:
+        <Image
+          style={{ width: "100%", height: 90 }}
+          source={require("../imgs/Header.png")} />
 
-      header: null
+
     }
   }
 );

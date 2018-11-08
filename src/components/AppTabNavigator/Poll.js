@@ -1,20 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, Image } from 'react-native';
 
 import { connect } from 'react-redux';
 import { vote } from '../../actions';
 import { addVote } from '../../actions/PollActions';
 
-import firebase from 'firebase';
-import 'firebase/firestore';
+import { getUser, getFB } from "../firebase";
+
 
 import App from '../../../App';
 
-
+var user = getUser();
+var firebase = getFB();
 
 
 class Poll extends React.Component {
 
+  cdoc = null;
 
   constructor(props) {
     super(props);
@@ -26,34 +28,26 @@ class Poll extends React.Component {
   }
 
   state = {
-    Lpoll: 'LLLLLL',
-    title: ""
+    luser_id: [],
+    ruser_id: []
   };
 
-  // async componentDidMount() {
-  //   if (App.shared.uid) {
-  //     const res = await App.shared.getPolls();
-  //   } else {
-  //     firebase.auth().onAuthStateChanged(async polls => {
-  //       if (polls) {
-  //         const res = await App.shared.getPolls();
-  //       }
-  //     });
-  //   }
-  // }
   getPolls = () => {
 
     var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(1);
 
     polls.get().then((snap) => {
       snap.forEach((doc) => {
-        console.log(doc.data());
+        this.cdoc = doc;
+        //console.log(doc.data());
         var obj = doc.data();
         this.setState({
           title: obj.title,
           desc: obj.desc,
           ldesc: obj.options.left.desc,
-          rdesc: obj.options.right.desc
+          rdesc: obj.options.right.desc,
+          rimg: obj.options.right.img,
+          limg: obj.options.left.img,
         });
       })
     })
@@ -61,26 +55,33 @@ class Poll extends React.Component {
 
   }
 
-
-  // ref = firebase.storage().ref().child('img/sample.jpg');
-  // ref.getDownloadURL().then((url) => {
-  //   document.getElementById('image').src = url;
-  // });
-
-
-  voteLeft() {
-    const { Lpoll } = this.state;
-    App.shared.voteLeft({
-      Lpoll
-    });
+  voteLeft = () => {
+    // const { Lpoll } = this.state;
+    // App.shared.voteLeft({
+    //   Lpoll
+    // });
+    console.log(this.cdoc.ref);
+    var obj = this.cdoc.data();
+    var arr = obj.votesL;
+    console.log(this.props.user);
+    arr.push(this.props.user.id);
+    console.log(obj.votesL);
+    this.cdoc.ref.update({
+      votesL: arr
+    })
     this.props.navigation.navigate('Insight')
   }
 
   voteRight() {
-    const { Rpoll } = this.state;
-    App.shared.voteRight({
-      Rpoll
-    });
+    // const { Rpoll } = this.state;
+    // App.shared.voteRight({
+    //   Rpoll
+    // });
+    var col = firebase.firestore().collection("votes").add({
+      // uerid:"user",
+      poll_id: '',
+      right: []
+    })
     this.props.navigation.navigate('Insight')
   }
 
@@ -99,7 +100,7 @@ class Poll extends React.Component {
       <ScrollView style={{ backgroundColor: "#fff" }}>
 
         <ImageBackground
-          style={{ width: "100%", height: 70 }}
+          style={{ width: "100%", height: 85 }}
           source={require('../../imgs/Header.png')}
         />
 
@@ -117,10 +118,10 @@ class Poll extends React.Component {
             >
               <ImageBackground
                 style={styles.arg_img}
-
+                source={{ uri: (this.state.limg) ? this.state.limg : "" }}
               >
                 <View style={styles.arg_desc}>
-                  <Text>{this.state.ldesc}</Text>
+                  <Text style={{ color: "#fff" }}>{this.state.ldesc}</Text>
                 </View>
               </ImageBackground>
             </TouchableOpacity>
@@ -134,17 +135,22 @@ class Poll extends React.Component {
             >
               <ImageBackground
                 style={styles.arg_img}
-
+                source={{ uri: (this.state.rimg) ? this.state.rimg : "" }}
               >
                 <View style={styles.arg_descR}>
-                  <Text>{this.state.rdesc}</Text>
+                  <Text style={{ color: "#fff" }}>{this.state.rdesc}</Text>
                 </View>
               </ImageBackground>
             </TouchableOpacity>
           </View>
 
           <View style={styles.profile_container}>
-            <View style={styles.profile_img}></View>
+
+            <Image
+              style={{ width: 45, height: 45, marginLeft: 50 }}
+              source={require('../../imgs/ProfileDefault.png')}
+            />
+
             <Text style={styles.profile_name}>Profile Name</Text>
 
           </View>
@@ -153,8 +159,24 @@ class Poll extends React.Component {
             {this.state.desc}
           </Text>
 
+          <Text
+            style={{
+              color: "gray",
+              fontWeight: "700",
+              fontSize: 17,
+              marginBottom: -10,
+              marginTop: 10
+            }}>
+            Live Debates
+          </Text>
+
           <View style={styles.comment_container}>
-            <View style={styles.profile_img}></View>
+
+
+            <Image
+              style={{ width: 20, height: 20, marginLeft: 20, marginTop: 20, marginRight: 10 }}
+              source={require('../../imgs/ProfileDefault.png')}
+            />
             <Text style={styles.poll_Desc}>
               asdfkhagdlsgblfavkgbvlbvalkjrbvlkjbvlbv
           </Text>
@@ -200,23 +222,25 @@ const styles = StyleSheet.create({
   },
   arg_desc: {
     backgroundColor: "#76BFB8",
-    width: "90%",
+    width: "80%",
     height: "50%",
     borderRadius: 10,
     marginTop: 'auto',
     marginRight: 'auto',
     marginBottom: 'auto',
     marginLeft: 'auto',
+    padding: 30
   },
   arg_descR: {
     backgroundColor: "#e68267",
-    width: "90%",
+    width: "80%",
     height: "50%",
     borderRadius: 10,
     marginTop: 'auto',
     marginRight: 'auto',
     marginBottom: 'auto',
     marginLeft: 'auto',
+    padding: 30
   },
   button: {
     width: 100,
@@ -236,10 +260,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   profile_img: {
-    backgroundColor: "lightgray",
+
     height: 50,
     width: 50,
-    borderRadius: 50,
     marginLeft: 30,
 
   },

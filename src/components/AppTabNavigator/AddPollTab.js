@@ -3,18 +3,21 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, CameraRoll, Scroll
 
 import { getApp, getFB } from "../firebase";
 
+
 import { connect } from 'react-redux';
 import { ChangeFb } from '../../actions';
 import ImagePicker from 'react-native-image-crop-picker';
 
 
-var storage = getApp().storage();
+var storage = getFB().storage();
 var firebase = getFB();
 class AddPollTab extends React.Component {
 
   title = "";
   desc = '';
-  img = null
+  img = null;
+  limg = null;
+  rimg = null;
 
   state = {
     imgL: {},
@@ -25,9 +28,11 @@ class AddPollTab extends React.Component {
     ImagePicker.openPicker({
       width: 180,
       height: 400,
-      cropping: true
+      cropping: true,
+      includeBase64: true
     }).then(image => {
       console.log(image);
+      this.limg = image;
       this.setState({
         imgL: image
       })
@@ -43,12 +48,7 @@ class AddPollTab extends React.Component {
     }).then(image => {
       console.log(image);
 
-      var blob = this.b64toBlob(image.data, image.mime);
-      storage.ref().child("images/image.jpg").putString(image.data, 'base64').then(function (snapshot) {
-        console.log('Uploaded a blob or file!');
-      });
-
-      console.log(blob);
+      this.rimg = image;
       this.setState({
         imgR: image
       })
@@ -82,9 +82,19 @@ class AddPollTab extends React.Component {
   }
 
 
-  handlePoll = () => {
-    //this.handleGet(); return;
+  handlePoll = async () => {
+    // this.handleGet(); return;
     this.props.navigation.navigate('Poll');
+
+
+    // var blob = this.b64toBlob(this.limg.data, this.image.mime);
+
+    // var uploadTask = storage.ref().child("images/"+ref.id+"L.jpg").putString(this.image.data, 'base64')
+    // var that = this;
+
+    // uploadTask.then(function (snapshot) {
+    //   uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+    //     console.log('File available at', downloadURL);
 
     var col = firebase.firestore().collection("polls").add({
       // uerid:"user",
@@ -96,18 +106,75 @@ class AddPollTab extends React.Component {
         left: {
           title: "sushi",
           desc: this.ldesc,
-          img: null
+          img: null,
+          votes: []
         },
         right: {
           title: "pie",
           desc: this.rdesc,
-          img: null
+          img: null,
+          votes: []
         }
       }
-    }).then(() => {
+
+    }).then((ref) => {
+      console.log(ref.id, this.rimg);
+
+      // this.handleGet(); return;
+      // this.props.navigation.navigate('Poll');
+
+      //var blob = this.b64toBlob(this.limg.data, this.image.mime);
+
+      var uploadTask = storage.ref().child("images/" + ref.id + "R.jpg").putString(this.rimg.data, 'base64')
+      var that = this;
+
+      uploadTask.then((snapshot) => {
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+
+          console.log('File available at', downloadURL);
+          var uploadTask = storage.ref().child("images/" + ref.id + "L.jpg").putString(this.limg.data, 'base64')
+
+          uploadTask.then((snapshot) => {
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL2) => {
+
+              console.log('File available at', downloadURL2);
+              ref.update({
+                votesL: [],
+                votesR: [],
+                title: that.title,
+                desc: that.desc,
+                img: null,
+                time: new Date(),
+                options: {
+                  left: {
+                    title: "sushi",
+                    desc: that.ldesc,
+                    img: downloadURL2
+                  },
+                  right: {
+                    title: "pie",
+                    desc: that.rdesc,
+                    img: downloadURL
+                  }
+                }
+              });
+            })
+          })
+
+        })
+      })
+
+
       //navigate to home page
     });
-    console.log(col);
+    //     console.log(col);
+    //   });
+    //   // console.log('Uploaded a blob or file!');
+    //   console.log(snapshot);
+    // });
+
+
+    // console.log(blob);
 
     // uploadImage(response.uri)
     //   .then(url => this.setState({ img: url }))
@@ -124,7 +191,7 @@ class AddPollTab extends React.Component {
         <ImageBackground
           style={{
             width: "100%",
-            height: 70,
+            height: 85,
             position: "absolute",
             top: 0,
           }}

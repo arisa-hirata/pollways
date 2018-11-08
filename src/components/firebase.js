@@ -10,13 +10,22 @@ var app = firebase.initializeApp({
   messagingSenderId: "157764717750"
 });
 
+var muser = null
+
 firebase.firestore().settings({ timestampsInSnapshots: true });
 
 firebase.auth().onAuthStateChanged(async user => {
   if (!user) {
     await firebase.auth().signInAnonymously();
     //add to users collection
+    console.log(user);
+    muser = user;
+  } else {
+    console.log(user);
+    muser = user;
   }
+
+
 });
 
 export function getApp() {
@@ -25,4 +34,7 @@ export function getApp() {
 
 export function getFB() {
   return firebase;
+}
+export function getUser() {
+  return muser;
 }

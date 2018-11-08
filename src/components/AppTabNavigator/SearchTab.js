@@ -9,7 +9,7 @@ export default class SearchTab extends React.Component {
         <ImageBackground
           style={{
             width: "100%",
-            height: 70,
+            height: 85,
             position: "absolute",
             top: 0,
           }}

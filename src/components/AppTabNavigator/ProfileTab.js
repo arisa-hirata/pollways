@@ -1,7 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, ImageBackground } from "react-native";
 
-export default class ProfileTab extends React.Component {
+import { connect } from 'react-redux';
+
+class ProfileTab extends React.Component {
   state = {
     userId: "Katie Munro",
     userLocation: "Vancouver, British Columbia",
@@ -18,7 +20,7 @@ export default class ProfileTab extends React.Component {
       <View style={styles.container}>
 
         <ImageBackground
-          style={{ width: "100%", height: 70 }}
+          style={{ width: "100%", height: 85 }}
           source={require('../../imgs/Header.png')}
         />
 
@@ -231,3 +233,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    // SaveProfile:state.Profile.SaveProfile
+    // EditProfile: state.ChangeProfile.EditProfile
+  }
+}
+export default connect(mapStateToProps)(ProfileTab);

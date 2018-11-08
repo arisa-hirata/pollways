@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image } from 'react-native';
 
 import { connect } from 'react-redux';
 

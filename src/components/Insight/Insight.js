@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar, ImageBackground, Image } from 'react-native';
 import PieChart from 'react-native-pie-chart';
 
 import { connect } from 'react-redux';
@@ -35,7 +35,7 @@ class Insight extends React.Component {
         <Text>????????</Text>
 
         <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>Launch Poll</Text>
+          <Text style={styles.btnText}>Dedails</Text>
         </TouchableOpacity>
       </View>
     );

@@ -25,31 +25,31 @@ class App extends React.Component {
     headerBackground: null
   };
 
-  voteLeft = ({ Lpoll }) => {
-    const createdAt = Date.now();
-    this.LpollCollection.add({
-      Lpoll, createdAt
-    });
-  };
+  // voteLeft = ({ Lpoll }) => {
+  //   const createdAt = Date.now();
+  //   this.LpollCollection.add({
+  //     Lpoll, createdAt
+  //   });
+  // };
 
-  voteRight = ({ Rpoll }) => {
-    const createdAt = Date.now();
-    this.RpollCollection.add({
-      Rpoll, createdAt
-    });
-  };
+  // voteRight = ({ Rpoll }) => {
+  //   const createdAt = Date.now();
+  //   this.RpollCollection.add({
+  //     Rpoll, createdAt
+  //   });
+  // };
 
   get pollsCollection() {
     return firebase.firestore().collection("polls");
   }
 
-  get LpollCollection() {
-    return this.pollsCollection.doc(this.uid).collection("Lpoll");
-  }
+  // get LpollCollection() {
+  //   return this.pollsCollection.doc(this.uid).collection("Lpoll");
+  // }
 
-  get RpollCollection() {
-    return this.pollsCollection.doc(this.uid).collection("Rpoll");
-  }
+  // get RpollCollection() {
+  //   return this.pollsCollection.doc(this.uid).collection("Rpoll");
+  // }
 
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
