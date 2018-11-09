@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image } from 'react-native';
 
 import { getApp, getFB } from "../firebase";
 
@@ -167,8 +167,11 @@ class AddPollTab extends React.Component {
           source={require('../../imgs/Header.png')}
         />
         <Text style={{
+          zIndex: 99,
           position: "absolute",
-          top: 0,
+          top: 25,
+          fontSize: 45,
+          color: "#fff"
         }}>Create</Text>
 
 
@@ -193,6 +196,8 @@ class AddPollTab extends React.Component {
               <Text style={styles.plus}>+</Text>
             </TouchableOpacity>
             <TextInput
+              multiline={true}
+              numberOfLines={4}
               style={styles.arg_desc}
               placeholder="Give your argment..."
               onChangeText={(text) => { this.ldesc = text }}
@@ -213,6 +218,8 @@ class AddPollTab extends React.Component {
             </TouchableOpacity>
 
             <TextInput
+              multiline={true}
+              numberOfLines={4}
               style={styles.arg_desc}
               placeholder="Give your argment..."
               onChangeText={(text) => { this.rdesc = text }}
@@ -222,7 +229,22 @@ class AddPollTab extends React.Component {
           </ImageBackground>
         </View>
 
+
+        <View style={styles.profile_container}>
+
+          <Image
+            style={{ width: 45, height: 45, marginLeft: 50 }}
+            source={require('../../imgs/ProfileDefault.png')}
+          />
+
+          <Text style={styles.profile_name}>Profile Name</Text>
+
+        </View>
+
+
         <TextInput
+          multiline={true}
+          numberOfLines={4}
           style={styles.poll_desc}
           placeholder="Give your poll a description..."
           onChangeText={(text) => { this.desc = text }}
@@ -268,7 +290,7 @@ const styles = StyleSheet.create({
   },
   arg_desc: {
     backgroundColor: "#fff",
-    width: "70%",
+    width: "75%",
     height: 80,
     borderRadius: 7,
     marginRight: 'auto',
@@ -277,24 +299,40 @@ const styles = StyleSheet.create({
   },
   poll_desc: {
     height: 80,
-    width: 150,
+    width: 200,
     borderColor: "lightgray",
     borderWidth: 1,
     borderRadius: 7,
+    marginBottom: 10
   },
   btn: {
     backgroundColor: "#F9E7A2",
-    width: 160,
-    height: 55,
-
+    width: 130,
+    height: 40,
+    borderRadius: 8,
   },
   btnText: {
     color: "#fff",
     fontSize: 18,
     textAlign: "center",
-    padding: 7,
-    marginTop: 5,
-  }
+    marginTop: 7,
+    margin: 10
+  },
+  profile_container: {
+    flexDirection: "row",
+    width: "100%",
+    marginTop: 20,
+  },
+  profile_img: {
+    height: 50,
+    width: 50,
+    marginLeft: 30,
+  },
+  profile_name: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginLeft: 10,
+  },
 
 });
 

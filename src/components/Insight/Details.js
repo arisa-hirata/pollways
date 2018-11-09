@@ -1,26 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar, ImageBackground, Image } from 'react-native';
-import PieChart from 'react-native-pie-chart';
 
 import { connect } from 'react-redux';
 import { vote } from '../../actions';
 
-import { getUser, getFB } from "../firebase";
-
-var user = getUser();
-var firebase = getFB();
 
 class Insight extends React.Component {
 
 
-
-
-
   render() {
-
-    const chart_wh = 250
-    const series = [123, 321]
-    const sliceColor = ['#e6826', '#76BFB8']
 
     return (
       <View style={styles.container}>

@@ -106,10 +106,10 @@ class Poll extends React.Component {
 
       <ScrollView style={{ backgroundColor: "#fff" }}>
 
-        {/* <ImageBackground
+        <ImageBackground
           style={{ width: "100%", height: 85 }}
           source={require('../../imgs/Header2.png')}
-        /> */}
+        />
 
         <View style={styles.container}>
 
@@ -193,8 +193,6 @@ class Poll extends React.Component {
         </View>
 
       </ScrollView>
-
-
     );
   }
 }
@@ -300,13 +298,3 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps)(Poll);
-
-// Fire.shared = new Fire();
-
-// mapStateToProps = (state) => {
-//   return {
-//     curVote: state.Poll.curVote
-//   };
-// }
-
-// export default connect(mapStateToProps)(Poll);
