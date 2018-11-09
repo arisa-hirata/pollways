@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, CameraRoll, ScrollView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 
 import { getApp, getFB } from "../firebase";
 
@@ -86,16 +86,6 @@ class AddPollTab extends React.Component {
     // this.handleGet(); return;
     this.props.navigation.navigate('Poll');
 
-
-    // var blob = this.b64toBlob(this.limg.data, this.image.mime);
-
-    // var uploadTask = storage.ref().child("images/"+ref.id+"L.jpg").putString(this.image.data, 'base64')
-    // var that = this;
-
-    // uploadTask.then(function (snapshot) {
-    //   uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-    //     console.log('File available at', downloadURL);
-
     var col = firebase.firestore().collection("polls").add({
       // uerid:"user",
       title: this.title,
@@ -119,11 +109,6 @@ class AddPollTab extends React.Component {
 
     }).then((ref) => {
       console.log(ref.id, this.rimg);
-
-      // this.handleGet(); return;
-      // this.props.navigation.navigate('Poll');
-
-      //var blob = this.b64toBlob(this.limg.data, this.image.mime);
 
       var uploadTask = storage.ref().child("images/" + ref.id + "R.jpg").putString(this.rimg.data, 'base64')
       var that = this;
@@ -164,24 +149,8 @@ class AddPollTab extends React.Component {
         })
       })
 
-
-      //navigate to home page
     });
-    //     console.log(col);
-    //   });
-    //   // console.log('Uploaded a blob or file!');
-    //   console.log(snapshot);
-    // });
-
-
-    // console.log(blob);
-
-    // uploadImage(response.uri)
-    //   .then(url => this.setState({ img: url }))
-    // .catch(error => console.log(error))
-
   }
-
 
 
   render() {
@@ -197,12 +166,18 @@ class AddPollTab extends React.Component {
           }}
           source={require('../../imgs/Header.png')}
         />
+        <Text style={{
+          position: "absolute",
+          top: 0,
+        }}>Create</Text>
 
 
-
-        <Text style={{ marginTop: 50 }}>Create</Text>
         <TextInput
-          placeholder="Type Title here..."
+          style={{
+            fontSize: 30,
+            marginBottom: 30
+          }}
+          placeholder="Type Title Here..."
           onChangeText={(text) => { this.title = text }}
         />
 
@@ -307,23 +282,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 7,
   },
-  button: {
-    width: 100,
-    height: 50,
-    backgroundColor: "#F9E7A2",
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 10,
-  },
   btn: {
     backgroundColor: "#F9E7A2",
     width: 160,
     height: 55,
-    borderRadius: 15,
+
   },
   btnText: {
     color: "#fff",
-    fontSize: 23,
+    fontSize: 18,
     textAlign: "center",
     padding: 7,
     marginTop: 5,

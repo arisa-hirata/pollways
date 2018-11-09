@@ -79,7 +79,7 @@ export default createStackNavigator(
     navigationOptions: {
       headerBackground:
         <Image
-          style={{ width: "100%", height: 90 }}
+          style={{ width: "100%", height: 85 }}
           source={require("../imgs/Header.png")} />
 
 

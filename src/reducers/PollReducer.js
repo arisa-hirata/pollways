@@ -1,6 +1,7 @@
 const initialState = {
   votes: [],
-  fb: null
+  fb: null,
+  pollid: null
 };
 
 export default function Votes(state = initialState, action) {
@@ -16,6 +17,12 @@ export default function Votes(state = initialState, action) {
       obj.tasks.push(action.taskName);
       obj.votes = obj.tasks.map((obj) => { return obj });
       return obj;
+
+    case "CHANGE_POLLID":
+      obj.pollid = action.pollid;
+      return obj;
+
+
 
     default:
       return state;

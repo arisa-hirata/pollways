@@ -60,15 +60,17 @@ class Poll extends React.Component {
     // App.shared.voteLeft({
     //   Lpoll
     // });
-    console.log(this.cdoc.ref);
+    //console.log(this.cdoc.ref);
     var obj = this.cdoc.data();
     var arr = obj.votesL;
-    console.log(this.props.user);
-    arr.push(this.props.user.id);
-    console.log(obj.votesL);
+
+    console.log(this.props.user.user.uid);
+    arr.push(this.props.user.user.uid);
+    console.log(arr);
     this.cdoc.ref.update({
       votesL: arr
     })
+    //change pollid reducer
     this.props.navigation.navigate('Insight')
   }
 
@@ -77,11 +79,16 @@ class Poll extends React.Component {
     // App.shared.voteRight({
     //   Rpoll
     // });
-    var col = firebase.firestore().collection("votes").add({
-      // uerid:"user",
-      poll_id: '',
-      right: []
+    var obj = this.cdoc.data();
+    var arr = obj.votesR;
+
+    console.log(this.props.user.user.uid);
+    arr.push(this.props.user.user.uid);
+    console.log(arr);
+    this.cdoc.ref.update({
+      votesR: arr
     })
+
     this.props.navigation.navigate('Insight')
   }
 
@@ -99,10 +106,10 @@ class Poll extends React.Component {
 
       <ScrollView style={{ backgroundColor: "#fff" }}>
 
-        <ImageBackground
+        {/* <ImageBackground
           style={{ width: "100%", height: 85 }}
-          source={require('../../imgs/Header.png')}
-        />
+          source={require('../../imgs/Header2.png')}
+        /> */}
 
         <View style={styles.container}>
 
@@ -199,8 +206,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title_container: {
-    width: 100,
-    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: "100%",
+    height: 80,
   },
   title: {
     fontSize: 30,
@@ -284,13 +293,13 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ poll }) => {
-  // const { email, password, error, loading, user } = auth;
+const mapStateToProps = ({ auth }) => {
+  const { email, password, error, loading, user } = auth;
 
-  return { ...poll };
+  return { ...auth };
 };
 
-export default connect(mapStateToProps, { vote })(Poll);
+export default connect(mapStateToProps)(Poll);
 
 // Fire.shared = new Fire();
 

@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = ({ poll }) => {
-  return { ...poll };
+const mapStateToProps = ({ vote }) => {
+  return { ...vote };
 };
 
 export default connect(mapStateToProps, { vote })(Insight);
