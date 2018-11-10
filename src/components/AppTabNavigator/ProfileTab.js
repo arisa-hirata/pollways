@@ -74,6 +74,14 @@ class ProfileTab extends React.Component {
             source={require('../../imgs/Header.png')}
           />
 
+          <Text style={{
+            zIndex: 99,
+            position: "absolute",
+            top: 25,
+            fontSize: 45,
+            color: "#fff"
+          }}>Profile</Text>
+
           <View style={styles.topBar}>
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
