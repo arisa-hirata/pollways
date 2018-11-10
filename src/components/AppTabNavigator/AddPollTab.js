@@ -9,7 +9,10 @@ import { ChangeFb } from '../../actions';
 import ImagePicker from 'react-native-image-crop-picker';
 
 
-var storage = getFB().storage();
+
+
+//accessing from FireBase
+var storage = getApp().storage();
 var firebase = getFB();
 class AddPollTab extends React.Component {
 

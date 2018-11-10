@@ -32,13 +32,27 @@ class Poll extends React.Component {
     ruser_id: []
   };
 
-  getPolls = () => {
+
+
+  // async componentDidMount() {
+  //   if (App.shared.uid) {
+  //     const res = await App.shared.getPolls();
+  //   } else {
+  //     firebase.auth().onAuthStateChanged(async polls => {
+  //       if (polls) {
+  //         const res = await App.shared.getPolls();
+  //       }
+  //     });
+  //   }
+  // }
+  getPolls = async () => {
 
     var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(1);
 
     polls.get().then((snap) => {
       snap.forEach((doc) => {
         this.cdoc = doc;
+
         //console.log(doc.data());
         var obj = doc.data();
         this.setState({
