@@ -21,12 +21,6 @@ target 'pollways2' do
 
   pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
 
-  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
-
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
-
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
 end
 
 # very important to have, unless you removed React dependencies for Libraries 

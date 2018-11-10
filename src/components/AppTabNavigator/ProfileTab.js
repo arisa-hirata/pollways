@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 //AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk
 //$ npm install react-native-progress --save
@@ -81,7 +81,7 @@ class ProfileTab extends React.Component {
                   <TouchableOpacity>
                     <Image
                       style={{ width: 20, height: 20 }}
-                      source={require('../../imgs/archive.png')}
+                      source={require('../../imgs/Archive.png')}
                       resizeMode="contain"
                     />
                   </TouchableOpacity>
