@@ -10,12 +10,18 @@ import {
   Picker,
   Dimensions
 } from 'react-native';
+
+import { getApp, getFB } from "../firebase";
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser, signUp } from '../../actions';
 
 
 const { width, height } = Dimensions.get('screen');
 
+
+//accessing from FireBase
+var storage = getApp().storage();
+var firebase = getFB();
 
 class SignUp extends Component {
 
@@ -26,6 +32,9 @@ class SignUp extends Component {
   state = { loggedIn: null };
   email = ""
   password = ""
+  username = '';
+  gender = '';
+  age = '';
 
   static getDerivedStateFromProps(props, state) {
     if (props.user !== null) {
@@ -50,6 +59,18 @@ class SignUp extends Component {
       email: this.email,
       password: this.password
     });
+
+    var col = firebase.firestore().collection("profile").add({
+      // uerid:"user",
+      userID: '',
+      userName: this.userName,
+      gender: '',
+      age: '',
+      time: new Date()
+    })
+
+
+
   }
 
   state = { Age: '', Country: '' }
@@ -94,7 +115,9 @@ class SignUp extends Component {
               <Text style={styles.signupText}>Username</Text>
               <TextInput
                 style={styles.inputs}
-                placeholder=" ">
+                placeholder=" "
+                onChangeText={(text) => { this.userName = text }}
+              >
               </TextInput>
 
               <Text style={styles.signupText}>Password</Text>

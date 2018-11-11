@@ -31,7 +31,7 @@ class Insight extends React.Component {
           top: 25,
           fontSize: 45,
           color: "gray"
-        }}>Insight</Text>
+        }}>Insights</Text>
 
         <StatusBar
           hidden={true}
@@ -68,7 +68,10 @@ class Insight extends React.Component {
           }}>Votes: 1000</Text>
 
         <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>View Dedails</Text>
+          <Text
+            style={styles.btnText}
+            onPress={() => { this.props.navigation.navigate('Details') }}
+          >View Dedails</Text>
         </TouchableOpacity>
       </View>
     );

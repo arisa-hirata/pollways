@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar, ImageBackground, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, Image } from 'react-native';
 
 import { connect } from 'react-redux';
-import { vote } from '../../actions';
 
 
-class Insight extends React.Component {
+
+class Details extends React.Component {
 
 
   render() {
@@ -19,46 +19,26 @@ class Insight extends React.Component {
           top: 25,
           fontSize: 45,
           color: "gray"
-        }}>Insight</Text>
+        }}>Insights</Text>
 
-        <StatusBar
-          hidden={true}
-        />
+        <Text style={styles.headertxt}>Voters Demographic</Text>
 
-        <Text style={styles.title}>{this.props.votes}</Text>
-        <PieChart
-          style={{ position: 'absolute', top: 150 }}
-          chart_wh={chart_wh}
-          series={series}
-          sliceColor={sliceColor}
-          doughnut={true}
-          coverRadius={0.75}
-          coverFill={'#FFF'}
-        />
+        <View style={styles.border} />
 
-        {/* <Text>{this.props.vote.num}</Text> */}
-        <Text
-          style={{
-            fontSize: 60,
-            margin: 10,
-            color: '#E68267',
-            position: 'absolute',
-            top: 230
-          }}>68%</Text>
+        <Text style={styles.headertxt}>Gender</Text>
+        <Text style={styles.contentTxt}>Female</Text>
+        <Text style={styles.contentTxt}>Male</Text>
 
-        <Text
-          style={{
-            fontSize: 30,
-            margin: 10,
-            marginTop: 200,
-            fontWeight: "700",
-            color: 'gray'
-          }}>Votes: 1000</Text>
+        <Text style={styles.headertxt}>Top Locations</Text>
+        <Text style={styles.contentTxt}>Vancouver</Text>
+        <Text style={styles.contentTxt}>Richmond</Text>
+        <Text style={styles.contentTxt}>Burnaby</Text>
+        <Text style={styles.contentTxt}>Surrey</Text>
 
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>View Dedails</Text>
-        </TouchableOpacity>
+        <Text style={styles.headertxt}>Age Range</Text>
+
       </View>
+
     );
   }
 }
@@ -70,25 +50,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  btn: {
-    backgroundColor: "#F9E7A2",
-    width: 160,
-    height: 55,
-    borderRadius: 15,
-    marginTop: 45
+  border: {
+    borderBottomColor: '#9A9A9A',
+    borderBottomWidth: 1,
+    width: "80%",
+    margin: 20,
   },
-  btnText: {
-    color: "#fff",
-    fontSize: 23,
-    textAlign: "center",
-    padding: 7,
-    marginTop: 5,
+  headertxt: {
+    color: "#9A9A9A",
+    fontSize: 18,
+    justifyContent: 'flex-start',
+    width: "80%"
+  },
+  contentTxt: {
+    color: "#9A9A9A",
+    fontSize: 14,
+    margin: 10
   }
 
 });
 
-const mapStateToProps = ({ vote }) => {
-  return { ...vote };
-};
+function mapStateToProps(state) {
+  return {
 
-export default connect(mapStateToProps, { vote })(Insight);
+  }
+}
+export default connect(mapStateToProps)(Details);

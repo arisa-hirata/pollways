@@ -12,6 +12,7 @@ import NotifiTab from './AppTabNavigator/NotifiTab';
 import ProfileTab from './AppTabNavigator/ProfileTab';
 
 import Insight from './Insight/Insight';
+import Details from './Insight/Details';
 import ProfileEdit from '../components/AppTabNavigator/ProfileEdit';
 
 import { propTypes } from 'react-native/Libraries/Components/Button';
@@ -74,6 +75,7 @@ export default createStackNavigator(
     Insight: Insight,
     ProfileTab: ProfileTab,
     ProfileEdit: ProfileEdit,
+    Details: Details
   },
   {
     navigationOptions: {
