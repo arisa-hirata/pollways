@@ -55,8 +55,6 @@ class AddPollTab extends React.Component {
       this.setState({
         imgR: image
       })
-
-
     });
   };
 
