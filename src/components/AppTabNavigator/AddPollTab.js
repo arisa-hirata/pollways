@@ -1,95 +1,42 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image } from 'react-native';
-
 import { getApp, getFB } from "../firebase";
-
-
 import { connect } from 'react-redux';
-import { ChangeFb } from '../../actions';
 import ImagePicker from 'react-native-image-crop-picker';
 
-
-
-
-//accessing from FireBase
-var storage = getApp().storage();
-var firebase = getFB();
 class AddPollTab extends React.Component {
 
-  title = "";
-  desc = '';
-  img = null;
-  limg = null;
-  rimg = null;
-
-  state = {
-    imgL: {},
-    imgR: {}
-  }
-
-  AddImgL = () => {
-    ImagePicker.openPicker({
-      width: 180,
-      height: 400,
-      cropping: true,
-      includeBase64: true
-    }).then(image => {
-      console.log(image);
-      this.limg = image;
-      this.setState({
-        imgL: image
-      })
-    });
-  };
-
-  AddImgR = () => {
-    ImagePicker.openPicker({
-      width: 180,
-      height: 400,
-      cropping: true,
-      includeBase64: true
-    }).then(image => {
-      console.log(image);
-
-      this.rimg = image;
-      this.setState({
-        imgR: image
-      })
-
-
-    });
-  };
-
-  b64toBlob(b64Data, contentType, sliceSize) {
-    contentType = contentType || '';
-    sliceSize = sliceSize || 512;
-
-    var byteCharacters = atob(b64Data);
-    var byteArrays = [];
-
-    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-      var byteNumbers = new Array(slice.length);
-      for (var i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-
-      var byteArray = new Uint8Array(byteNumbers);
-
-      byteArrays.push(byteArray);
+  constructor(props) {
+    super(props)
+    this.title = "";
+    this.desc = '';
+    this.img = null;
+    this.storage = getApp().storage();
+    this.firebase = getFB();
+    this.state = {
+      imgL: {},
+      imgR: {}
     }
-
-    var blob = new Blob(byteArrays, { type: contentType });
-    return blob;
   }
 
+  AddImg = (stateName) => {
+    ImagePicker.openPicker({
+      width: 180,
+      height: 400,
+      cropping: true,
+      includeBase64: true
+    }).then(image => {
+      this.setState({
+        [stateName]: image
+      })
+    });
+  };
 
   handlePoll = async () => {
     // this.handleGet(); return;
     this.props.navigation.navigate('Poll');
 
-    var col = firebase.firestore().collection("polls").add({
+    this.firebase.firestore().collection("polls").add({
       // uerid:"user",
       title: this.title,
       desc: this.desc,
@@ -111,16 +58,14 @@ class AddPollTab extends React.Component {
       }
 
     }).then((ref) => {
-      console.log(ref.id, this.rimg);
-
-      var uploadTask = storage.ref().child("images/" + ref.id + "R.jpg").putString(this.rimg.data, 'base64')
+      var uploadTask = this.storage.ref().child("images/" + ref.id + "R.jpg").putString(this.state.imgR.data, 'base64')
       var that = this;
 
       uploadTask.then((snapshot) => {
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
 
           console.log('File available at', downloadURL);
-          var uploadTask = storage.ref().child("images/" + ref.id + "L.jpg").putString(this.limg.data, 'base64')
+          var uploadTask = this.storage.ref().child("images/" + ref.id + "L.jpg").putString(this.state.imgL.data, 'base64')
 
           uploadTask.then((snapshot) => {
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL2) => {
@@ -148,10 +93,8 @@ class AddPollTab extends React.Component {
               });
             })
           })
-
         })
       })
-
     });
   }
 
@@ -159,7 +102,6 @@ class AddPollTab extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
         <ImageBackground
           style={{
             width: "100%",
@@ -194,7 +136,7 @@ class AddPollTab extends React.Component {
             source={{ uri: this.state.imgL.path }}
           >
             <TouchableOpacity
-              onPress={this.AddImgL}
+              onPress={() => this.AddImg("imgL")}
             >
               <Text style={styles.plus}>+</Text>
             </TouchableOpacity>
@@ -215,7 +157,7 @@ class AddPollTab extends React.Component {
           >
 
             <TouchableOpacity
-              onPress={this.AddImgR}
+              onPress={() => this.AddImg("imgR")}
             >
               <Text style={styles.plus}>+</Text>
             </TouchableOpacity>
@@ -339,10 +281,5 @@ const styles = StyleSheet.create({
 
 });
 
-function mapStateToProps(state) {
-  return {
-    //SaveProfile:state.Profile.SaveProfile
-  }
-}
 
-export default connect(mapStateToProps)(AddPollTab);
+export default AddPollTab;
