@@ -1,5 +1,8 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
 // import { Actions } from 'react-native-router-flux';
+
+import { getFB } from "../components/firebase";
+
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
@@ -28,7 +31,7 @@ export const loginUser = ({ email, password }) => {
     //loginUserSuccess(dispatch, {}); return;
     dispatch({ type: LOGIN_USER });
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    getFB().auth().signInWithEmailAndPassword(email, password)
       .then(user => loginUserSuccess(dispatch, user))
       .catch((error) => {
         // console.warn("loginUser failed");
@@ -59,7 +62,7 @@ export const signUp = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: SIGN_UP });
 
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    getFB().auth().createUserWithEmailAndPassword(email, password)
       .then(user => loginUserSuccess(dispatch, user))
       .catch(() => loginUserFail(dispatch));
   }

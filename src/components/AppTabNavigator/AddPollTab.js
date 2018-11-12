@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image } from 'react-native';
-import { getApp, getFB } from "../firebase";
-import { connect } from 'react-redux';
+import { getFB } from "../firebase";
 import ImagePicker from 'react-native-image-crop-picker';
 
 class AddPollTab extends React.Component {
@@ -10,92 +9,76 @@ class AddPollTab extends React.Component {
     super(props)
     this.title = "";
     this.desc = '';
+    this.rDesc = ""
+    this.lDesc = ""
     this.img = null;
-    this.storage = getApp().storage();
-    this.firebase = getFB();
+    this.pollsRef = getFB().firestore().collection("polls");
     this.state = {
       imgL: {},
       imgR: {}
     }
   }
 
-  AddImg = (stateName) => {
-    ImagePicker.openPicker({
-      width: 180,
-      height: 400,
+  AddImg = async (stateName) => {
+    // console.log(stateName)
+    const image = await ImagePicker.openPicker({
+      width: 30,
+      height: 30,
       cropping: true,
+      mediaType: "photo",
       includeBase64: true
-    }).then(image => {
-      this.setState({
-        [stateName]: image
-      })
-    });
+    })
+
+    this.setState({
+      [stateName]: image
+    })
   };
 
-  handlePoll = async () => {
-    // this.handleGet(); return;
-    this.props.navigation.navigate('Poll');
-
-    this.firebase.firestore().collection("polls").add({
+  createPoll = async () => {
+    const response = await this.pollsRef.add({
       // uerid:"user",
       title: this.title,
       desc: this.desc,
-      img: null,
       time: new Date(),
       options: {
         left: {
-          title: "sushi",
-          desc: this.ldesc,
-          img: null,
-          votes: []
+          desc: this.lDesc,
         },
         right: {
-          title: "pie",
-          desc: this.rdesc,
-          img: null,
-          votes: []
+          desc: this.rDesc,
         }
       }
+    })
+    return response.id
+  }
 
-    }).then((ref) => {
-      var uploadTask = this.storage.ref().child("images/" + ref.id + "R.jpg").putString(this.state.imgR.data, 'base64')
-      var that = this;
+  uploadImage = async (refId, direction) => {
+    if (!this.state[`img${direction}`] === {}) return undefined
+    const ref = getFB().storage().ref("images/" + refId + `_${direction}.jpg`)
+    // const uploadTask = await ref.putFile(this.state[`img${direction}`].data, 'base64')
+    await ref.putFile(this.state[`img${direction}`].path)
+    const url = await ref.getDownloadURL();
+    return url
+  }
 
-      uploadTask.then((snapshot) => {
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-
-          console.log('File available at', downloadURL);
-          var uploadTask = this.storage.ref().child("images/" + ref.id + "L.jpg").putString(this.state.imgL.data, 'base64')
-
-          uploadTask.then((snapshot) => {
-            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL2) => {
-
-              console.log('File available at', downloadURL2);
-              ref.update({
-                votesL: [],
-                votesR: [],
-                title: that.title,
-                desc: that.desc,
-                img: null,
-                time: new Date(),
-                options: {
-                  left: {
-                    title: "sushi",
-                    desc: that.ldesc,
-                    img: downloadURL2
-                  },
-                  right: {
-                    title: "pie",
-                    desc: that.rdesc,
-                    img: downloadURL
-                  }
-                }
-              });
-            })
-          })
-        })
-      })
+  updatePoll = async (urlLeft, urlRight) => {
+    await this.pollsRef.update({
+      options: {
+        left: {
+          img: urlLeft
+        },
+        right: {
+          img: urlRight
+        }
+      }
     });
+  }
+
+  handlePoll = async () => {
+    const refId = await this.createPoll()
+    const urlLeft = await this.uploadImage(refId, "L")
+    const urlRight = await this.uploadImage(refId, "R")
+    await this.updatePoll(urlLeft, urlRight);
   }
 
 
@@ -145,7 +128,7 @@ class AddPollTab extends React.Component {
               numberOfLines={4}
               style={styles.arg_desc}
               placeholder="Give your argment..."
-              onChangeText={(text) => { this.ldesc = text }}
+              onChangeText={(text) => { this.lDesc = text }}
             />
 
 
@@ -167,7 +150,7 @@ class AddPollTab extends React.Component {
               numberOfLines={4}
               style={styles.arg_desc}
               placeholder="Give your argment..."
-              onChangeText={(text) => { this.rdesc = text }}
+              onChangeText={(text) => { this.rDesc = text }}
             />
 
 
@@ -201,9 +184,6 @@ class AddPollTab extends React.Component {
         >
           <Text style={styles.btnText}>Launch Poll</Text>
         </TouchableOpacity>
-
-
-
 
       </View>
     );

@@ -5,16 +5,8 @@ import PieChart from 'react-native-pie-chart';
 import { connect } from 'react-redux';
 import { vote } from '../../actions';
 
-import { getUser, getFB } from "../firebase";
-
-var user = getUser();
-var firebase = getFB();
 
 class Insight extends React.Component {
-
-
-
-
 
   render() {
 

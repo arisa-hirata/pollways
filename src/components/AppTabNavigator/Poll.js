@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import { vote } from '../../actions';
 import { addVote } from '../../actions/PollActions';
 
-import { getUser, getFB } from "../firebase";
+import { getFB } from "../firebase";
 
 
 import App from '../../../App';
 
-var user = getUser();
+// var user = getUser();
 var firebase = getFB();
 
 

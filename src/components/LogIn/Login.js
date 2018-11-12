@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
-import fb from "../firebase";
+import { getFB } from "../firebase";
 import Spinner from './Spinner';
 
 const { width, height } = Dimensions.get('screen');
@@ -21,6 +21,15 @@ class Login extends Component {
     header: null,
     headerBackground: null
   };
+
+  constructor(props) {
+    super(props)
+    getFB().auth().onAuthStateChanged((user) => {
+      if (user !== null) {
+        props.navigation.navigate('Poll');
+      }
+    });
+  }
 
   state = { loggedIn: null };
   email = ""
@@ -47,7 +56,6 @@ class Login extends Component {
   }
 
   onButtonPress() {
-    // const { email, password } = this.props;
     this.props.loginUser({
       email: this.email,
       password: this.password

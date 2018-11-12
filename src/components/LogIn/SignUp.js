@@ -11,7 +11,7 @@ import {
   Dimensions
 } from 'react-native';
 
-import { getApp, getFB } from "../firebase";
+import { getFB } from "../firebase";
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser, signUp } from '../../actions';
 
@@ -20,7 +20,7 @@ const { width, height } = Dimensions.get('screen');
 
 
 //accessing from FireBase
-var storage = getApp().storage();
+// var storage = getApp().storage();
 var firebase = getFB();
 
 class SignUp extends Component {

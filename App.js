@@ -3,11 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import Navigator from './src/components/Navigator';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import firebase from 'firebase';
-import "firebase/firestore";
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
-// import Router from './Router';
 
 
 const store = createStore(
@@ -39,9 +36,9 @@ class App extends React.Component {
   //   });
   // };
 
-  get pollsCollection() {
-    return firebase.firestore().collection("polls");
-  }
+  // get pollsCollection() {
+  //   return getFB().firestore().collection("polls");
+  // }
 
   // get LpollCollection() {
   //   return this.pollsCollection.doc(this.uid).collection("Lpoll");
@@ -51,9 +48,9 @@ class App extends React.Component {
   //   return this.pollsCollection.doc(this.uid).collection("Rpoll");
   // }
 
-  get uid() {
-    return (firebase.auth().currentUser || {}).uid;
-  }
+  // get uid() {
+  //   return (getFB().auth().currentUser || {}).uid;
+  // }
 
 
 

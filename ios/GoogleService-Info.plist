@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>157764717750-a1tmv67u7dj3cik80qmsr7e7uit74ofn.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.157764717750-a1tmv67u7dj3cik80qmsr7e7uit74ofn</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCec2C8HTOdPzqyse4p07rXC9fQjYWa2M4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>157764717750</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.pollways</string>
+	<key>PROJECT_ID</key>
+	<string>pollways-85c25</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pollways-85c25.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:157764717750:ios:25253c862e8d7332</string>
+	<key>DATABASE_URL</key>
+	<string>https://pollways-85c25.firebaseio.com</string>
+</dict>
+</plist>
