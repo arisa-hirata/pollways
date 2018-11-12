@@ -12,7 +12,7 @@ class AddPollTab extends React.Component {
     this.rDesc = ""
     this.lDesc = ""
     this.img = null;
-    this.pollsRef = getFB().firestore().collection("polls");
+    this.pollsRef = getFB().firestore().collection("polls")
     this.state = {
       imgL: {},
       imgR: {}
@@ -55,30 +55,30 @@ class AddPollTab extends React.Component {
   uploadImage = async (refId, direction) => {
     if (!this.state[`img${direction}`] === {}) return undefined
     const ref = getFB().storage().ref("images/" + refId + `_${direction}.jpg`)
-    // const uploadTask = await ref.putFile(this.state[`img${direction}`].data, 'base64')
     await ref.putFile(this.state[`img${direction}`].path)
     const url = await ref.getDownloadURL();
     return url
   }
 
-  updatePoll = async (urlLeft, urlRight) => {
-    await this.pollsRef.update({
-      options: {
-        left: {
-          img: urlLeft
-        },
-        right: {
-          img: urlRight
-        }
+  updatePoll = async (refId, urlLeft, urlRight) => {
+    await this.pollsRef.doc(refId).update("options", {
+      left: {
+        desc: this.lDesc,
+        img: urlLeft
+      },
+      right: {
+        desc: this.rDesc,
+        img: urlRight
       }
     });
   }
 
   handlePoll = async () => {
+    this.props.navigation.navigate('Poll');
     const refId = await this.createPoll()
     const urlLeft = await this.uploadImage(refId, "L")
     const urlRight = await this.uploadImage(refId, "R")
-    await this.updatePoll(urlLeft, urlRight);
+    await this.updatePoll(refId, urlLeft, urlRight);
   }
 
 
