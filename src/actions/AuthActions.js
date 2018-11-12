@@ -32,7 +32,7 @@ export const loginUser = ({ email, password }) => {
     dispatch({ type: LOGIN_USER });
 
     getFB().auth().signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
+      .then(user => loginUserSuccess(user)(dispatch))
       .catch((error) => {
         // console.warn("loginUser failed");
         // console.warn(error);
@@ -48,13 +48,16 @@ const loginUserFail = (dispatch) => {
   dispatch({ type: LOGIN_USER_FAIL });
 };
 
-const loginUserSuccess = (dispatch, user) => {
+
+export const loginUserSuccess = (user) => {
   // console.warn("success")
   // console.warn(user)
-  dispatch({
-    type: LOGIN_USER_SUCCESS,
-    payload: user,
-  });
+  return (dispatch) => {
+    dispatch({
+      type: LOGIN_USER_SUCCESS,
+      payload: user,
+    });
+  }
 };
 
 
@@ -63,7 +66,7 @@ export const signUp = ({ email, password }) => {
     dispatch({ type: SIGN_UP });
 
     getFB().auth().createUserWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
+      .then(user => loginUserSuccess(user)(dispatch))
       .catch(() => loginUserFail(dispatch));
   }
 }

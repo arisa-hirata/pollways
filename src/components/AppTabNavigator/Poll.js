@@ -74,13 +74,14 @@ class Poll extends React.Component {
     // App.shared.voteLeft({
     //   Lpoll
     // });
-    //console.log(this.cdoc.ref);
+    console.log("--------------------");
+    // console.log(this.cdoc);
     var obj = this.cdoc.data();
-    var arr = obj.votesL;
+    var arr = obj.votesL || [];
 
-    console.log(this.props.user.user.uid);
+    // console.log(this.props);
     arr.push(this.props.user.user.uid);
-    console.log(arr);
+    // console.log(obj);
     this.cdoc.ref.update({
       votesL: arr
     })
@@ -94,7 +95,7 @@ class Poll extends React.Component {
     //   Rpoll
     // });
     var obj = this.cdoc.data();
-    var arr = obj.votesR;
+    var arr = obj.votesR || [];
 
     console.log(this.props.user.user.uid);
     arr.push(this.props.user.user.uid);

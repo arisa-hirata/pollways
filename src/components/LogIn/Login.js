@@ -10,7 +10,7 @@ import {
   Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../../actions';
+import { emailChanged, passwordChanged, loginUser, loginUserSuccess } from '../../actions';
 import { getFB } from "../firebase";
 import Spinner from './Spinner';
 
@@ -26,6 +26,7 @@ class Login extends Component {
     super(props)
     getFB().auth().onAuthStateChanged((user) => {
       if (user !== null) {
+        props.loginUserSuccess({ user });
         props.navigation.navigate('Poll');
       }
     });
@@ -60,7 +61,6 @@ class Login extends Component {
       email: this.email,
       password: this.password
     });
-
   }
 
   renderButton() {
@@ -206,5 +206,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, {
-  emailChanged, passwordChanged, loginUser
+  emailChanged, passwordChanged, loginUser, loginUserSuccess
 })(Login);
