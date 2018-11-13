@@ -2,17 +2,37 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar, ImageBackground, Image } from 'react-native';
 import PieChart from 'react-native-pie-chart';
 
+import { getFB } from "../firebase";
+
 import { connect } from 'react-redux';
 import { vote } from '../../actions';
-
+import { LVoteTotal } from '../../actions';
 
 class Insight extends React.Component {
 
-  render() {
 
+  // cdoc = null;
+
+  // constructor(props) {
+  //   super(props)
+  //   this.pollsRef = getFB().firestore().collection("polls")
+  // }
+
+  // state = {
+  //   luser_id: [],
+  //   ruser_id: []
+  // };
+
+
+
+
+  render() {
+    // console.log(this.props.user.user.uid);
     const chart_wh = 250
-    const series = [123, 321]
+    const series = [900, 321]
     const sliceColor = ['#e6826', '#76BFB8']
+
+    LVoteTotal();
 
     return (
       <View style={styles.container}>

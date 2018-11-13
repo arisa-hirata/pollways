@@ -1,7 +1,9 @@
 const initialState = {
   votes: [],
   fb: null,
-  pollid: null
+  pollid: null,
+  ltotal: ''
+
 };
 
 export default function Votes(state = initialState, action) {
@@ -20,6 +22,10 @@ export default function Votes(state = initialState, action) {
 
     case "CHANGE_POLLID":
       obj.pollid = action.pollid;
+      return obj;
+
+    case "LVOTE_TOTAL":
+      obj.ltotal = action.ltotal;
       return obj;
 
 

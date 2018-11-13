@@ -1,14 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, Image } from 'react-native';
-
 import { connect } from 'react-redux';
-import { vote } from '../../actions';
-import { addVote } from '../../actions/PollActions';
-
 import { getFB } from "../firebase";
 
-
-import App from '../../../App';
 
 // var user = getUser();
 var firebase = getFB();
@@ -46,6 +40,7 @@ class Poll extends React.Component {
   //   }
   // }
   getPolls = async () => {
+
 
     var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(1);
 
