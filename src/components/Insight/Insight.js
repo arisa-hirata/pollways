@@ -6,34 +6,53 @@ import { getFB } from "../firebase";
 
 import { connect } from 'react-redux';
 import { vote } from '../../actions';
-import { LVoteTotal } from '../../actions';
+//import { LVoteTotal } from '../../actions';
 
 class Insight extends React.Component {
 
-
   // cdoc = null;
 
-  // constructor(props) {
-  //   super(props)
-  //   this.pollsRef = getFB().firestore().collection("polls")
-  // }
+  constructor(props) {
+    super(props)
+    this.pollsRef = getFB().firestore().collection("polls")
+  }
 
-  // state = {
-  //   luser_id: [],
-  //   ruser_id: []
-  // };
+  state = {
+    luser_id: [],
+    ruser_id: [],
+    votesL: 0,
+    votesR: 100,
+  };
 
+  componentWillMount() {
+    var docRef = getFB().firestore().collection('polls').doc(this.props.pollid);
+    docRef.get().then((doc) => {
+      console.log(doc);
+      // console.log(doc.data());
+
+      let data = doc.data();
+      console.log(data.votesL.length);
+      // console.log(data.votesL);
+      // console.log(data.votesR);
+
+      this.setState({
+        votesL: data.votesL.length
+      });
+
+
+    })
+  }
 
 
 
   render() {
     // console.log(this.props.user.user.uid);
     const chart_wh = 250
-    const series = [900, 321]
-    const sliceColor = ['#e6826', '#76BFB8']
-
-    LVoteTotal();
-
+    const series = [this.state.votesR, this.state.votesL]
+    const sliceColor = ['#e68266', '#76BFB8']
+    //console.log(this.props);
+    //LVoteTotal(this.props.pollid);
+    var perc = this.state.votesL / this.state.votesR * 100
     return (
       <View style={styles.container}>
 
@@ -68,7 +87,7 @@ class Insight extends React.Component {
             color: '#E68267',
             position: 'absolute',
             top: 230
-          }}>68%</Text>
+          }}>{perc}%</Text>
 
         <Text
           style={{

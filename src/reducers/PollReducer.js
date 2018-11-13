@@ -2,8 +2,8 @@ const initialState = {
   votes: [],
   fb: null,
   pollid: null,
-  ltotal: ''
-
+  ltotal: '',
+  topicId: ''
 };
 
 export default function Votes(state = initialState, action) {
@@ -25,9 +25,12 @@ export default function Votes(state = initialState, action) {
       return obj;
 
     case "LVOTE_TOTAL":
-      obj.ltotal = action.ltotal;
+      obj.topicId = action.topicId;
       return obj;
 
+    case "RVOTE_TOTAL":
+      obj.topicId = action.topicId;
+      return obj;
 
 
     default:

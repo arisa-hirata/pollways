@@ -22,15 +22,15 @@ class Login extends Component {
     headerBackground: null
   };
 
-  constructor(props) {
-    super(props)
-    getFB().auth().onAuthStateChanged((user) => {
-      if (user !== null) {
-        props.loginUserSuccess({ user });
-        props.navigation.navigate('Poll');
-      }
-    });
-  }
+  // constructor(props) {
+  //   super(props)
+  //   getFB().auth().onAuthStateChanged((user) => {
+  //     if (user !== null) {
+  //       props.loginUserSuccess({ user });
+  //       props.navigation.navigate('Poll');
+  //     }
+  //   });
+  // }
 
   state = { loggedIn: null };
   email = ""

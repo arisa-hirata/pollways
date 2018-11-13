@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { getFB } from "../firebase";
+import { ChangePollID } from '../../actions/PollActions';
 
 
 // var user = getUser();
@@ -50,6 +51,8 @@ class Poll extends React.Component {
 
         //console.log(doc.data());
         var obj = doc.data();
+        console.log(doc);
+        this.props.dispatch(ChangePollID(doc.id));//dispatch action to change pollid
         this.setState({
           title: obj.title,
           desc: obj.desc,

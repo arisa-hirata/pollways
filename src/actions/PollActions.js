@@ -1,6 +1,8 @@
 import { getFB } from "../components/firebase";
 
 
+
+
 export function addVote(vote) {
   return {
     type: 'ADD_VOTE',
@@ -15,15 +17,18 @@ export function ChangeFb(fb) {
   }
 }
 
-export const LVoteTotal = (topicId) => {
 
-  var docRef = getFB().firestore().collection('polls').doc(topicId);
-  docRef.get().then(function (doc) {
-    console.log(doc.data());
-    let data = doc.data();
-    // console.log(data.votesL);
-    // console.log(data.votesR);
-  })
+export function ChangePollID(pollid) {
+  return {
+    type: 'CHANGE_POLLID',
+    pollid: pollid
+  }
+}
+
+export function LVoteTotal(topicId) {
+
+  console.log(topicId);
+
   // .then(querySnapshot => {
   //   console.log(querySnapshot);
   //   // Access all the documents in the collection
@@ -39,12 +44,10 @@ export const LVoteTotal = (topicId) => {
     topicId: topicId,
   }
 
-
   //     }
   //   }
 
 };
-
 
 
 //   getTotals = async () => {
