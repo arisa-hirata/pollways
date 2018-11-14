@@ -49,7 +49,13 @@ const hometabs = createBottomTabNavigator(
   {
 
     Poll: Poll,
-    SearchTab: SearchTab,
+    // SearchTab: SearchTab,
+    SearchTab: {
+      screen: SearchTab,
+      navigationOptions: {
+        title: "Search"
+      }
+    },
     AddPollTab: AddPollTab,
     NotifiTab: NotifiTab,
     ProfileTab: ProfileTab,
@@ -66,10 +72,15 @@ export default createStackNavigator(
   {
     Login: Login,
     SignUp: SignUp,
+    // Poll: hometabs,
     Poll: {
       screen: hometabs,
       navigationOptions: {
-        header: null
+        headerBackground:
+          <Image
+            style={{ width: "100%", height: "100%" }}
+            source={require("../imgs/Header2.png")} />,
+        headerLeft: null
       }
     },
     Insight: Insight,
@@ -81,8 +92,9 @@ export default createStackNavigator(
     navigationOptions: {
       headerBackground:
         <Image
-          style={{ width: "100%", height: 88 }}
-          source={require("../imgs/Header2.png")} />
+          style={{ width: "100%", height: "100%" }}
+          source={require("../imgs/Header2.png")} />,
+
 
 
     }

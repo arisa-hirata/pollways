@@ -6,7 +6,7 @@ export default class SearchTab extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ImageBackground
+        {/* <ImageBackground
           style={{
             width: "100%",
             height: 85,
@@ -14,7 +14,7 @@ export default class SearchTab extends React.Component {
             top: 0,
           }}
           source={require('../../imgs/Header.png')}
-        />
+        /> */}
         <Text>SearchTab!</Text>
       </View>
     );

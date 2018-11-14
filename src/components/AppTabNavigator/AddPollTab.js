@@ -85,7 +85,7 @@ class AddPollTab extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ImageBackground
+        {/* <ImageBackground
           style={{
             width: "100%",
             height: 85,
@@ -100,13 +100,14 @@ class AddPollTab extends React.Component {
           top: 25,
           fontSize: 45,
           color: "#fff"
-        }}>Create</Text>
+        }}>Create</Text> */}
 
 
         <TextInput
           style={{
             fontSize: 30,
-            marginBottom: 30
+            marginTop: "10%"
+            // marginBottom: 30
           }}
           placeholder="Type Title Here..."
           onChangeText={(text) => { this.title = text }}
@@ -165,7 +166,7 @@ class AddPollTab extends React.Component {
             source={require('../../imgs/ProfileDefault.png')}
           />
 
-          <Text style={styles.profile_name}>Profile Name</Text>
+          <Text style={styles.profile_name}>User Name</Text>
 
         </View>
 
@@ -202,8 +203,8 @@ const styles = StyleSheet.create({
   },
   arg_img: {
     backgroundColor: "lightgray",
-    width: 180,
-    height: 350,
+    width: 170,
+    height: "100%",
     margin: "2%",
   },
   plus: {
@@ -220,7 +221,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: '30%'
+    marginTop: '15%'
   },
   poll_desc: {
     height: 80,
@@ -246,11 +247,11 @@ const styles = StyleSheet.create({
   profile_container: {
     flexDirection: "row",
     width: "100%",
-    marginTop: 20,
+    marginTop: "5%",
   },
   profile_img: {
-    height: 50,
-    width: 50,
+    height: "10%",
+    width: "10%",
     marginLeft: 30,
   },
   profile_name: {

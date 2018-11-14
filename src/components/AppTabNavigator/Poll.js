@@ -119,10 +119,10 @@ class Poll extends React.Component {
 
       <ScrollView style={{ backgroundColor: "#fff" }}>
 
-        <ImageBackground
-          style={{ width: "100%", height: 85 }}
+        {/* <ImageBackground
+          style={{ width: "100%", height: "33%" }}
           source={require('../../imgs/Header2.png')}
-        />
+        /> */}
 
         <View style={styles.container}>
 
@@ -214,11 +214,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   title_container: {
     alignItems: 'center',
-    justifyContent: 'center',
     width: "100%",
     height: 80,
   },
@@ -237,7 +235,7 @@ const styles = StyleSheet.create({
   arg_img: {
     backgroundColor: "lightgray",
     width: 175,
-    height: 350,
+    height: "100%",
 
   },
   arg_desc: {
@@ -280,9 +278,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   profile_img: {
-
-    height: 50,
-    width: 50,
+    height: "10%",
+    width: "10%",
     marginLeft: 30,
 
   },

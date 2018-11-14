@@ -69,18 +69,7 @@ class ProfileTab extends React.Component {
       <ScrollView>
         <View style={styles.container}>
 
-          <ImageBackground
-            style={{ width: "100%", height: 85 }}
-            source={require('../../imgs/Header.png')}
-          />
 
-          <Text style={{
-            zIndex: 99,
-            position: "absolute",
-            top: 25,
-            fontSize: 45,
-            color: "#fff"
-          }}>Profile</Text>
 
           <View style={styles.topBar}>
             <View style={styles.topBarItem}>
