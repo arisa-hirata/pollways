@@ -61,12 +61,20 @@ export const loginUserSuccess = (user) => {
 };
 
 
-export const signUp = ({ email, password }) => {
+export const signUp = ({ email, password, username }) => {
   return (dispatch) => {
     dispatch({ type: SIGN_UP });
 
     getFB().auth().createUserWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(user)(dispatch))
+      .then(user => {
+        var ref = getFB().firestore().collection("profile").doc(user.uid)
+        if (!ref.id) {
+          ref.set({
+            username: username
+          })
+        }
+        loginUserSuccess(user)(dispatch);
+      })
       .catch(() => loginUserFail(dispatch));
   }
 }

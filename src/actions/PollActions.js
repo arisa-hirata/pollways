@@ -49,12 +49,9 @@ export function LVoteTotal(topicId) {
 
 };
 
-
-//   getTotals = async () => {
-//     var Ltotal = getFB().firestore().collection("polls").votesL;
-
-//     Ltotal.get().then((snap) => {
-//       snap.forEach((doc) => {
-//         this.cdoc = doc;
-//       })
-//     })
+export function RVoteTotal(topiId) {
+  return {
+    type: 'RVOTE_TOTAL',
+    topicId: topicId,
+  }
+}

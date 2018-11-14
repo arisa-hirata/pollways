@@ -21,7 +21,7 @@ class Insight extends React.Component {
     luser_id: [],
     ruser_id: [],
     votesL: 0,
-    votesR: 100,
+    votesR: 0,
   };
 
   componentWillMount() {
@@ -31,13 +31,15 @@ class Insight extends React.Component {
       // console.log(doc.data());
 
       let data = doc.data();
-      console.log(data.votesL.length);
+      console.log("data", data);
       // console.log(data.votesL);
       // console.log(data.votesR);
 
       this.setState({
-        votesL: data.votesL.length
+        votesL: data.votesL.length,
+        votesR: data.votesR.length
       });
+
 
 
     })
@@ -49,10 +51,26 @@ class Insight extends React.Component {
     // console.log(this.props.user.user.uid);
     const chart_wh = 250
     const series = [this.state.votesR, this.state.votesL]
+    console.log(series);
     const sliceColor = ['#e68266', '#76BFB8']
     //console.log(this.props);
     //LVoteTotal(this.props.pollid);
-    var perc = this.state.votesL / this.state.votesR * 100
+    var total = this.state.votesR + this.state.votesL
+    var perc = 0;
+    var pc = null;
+    if (total > 0) {
+      perc = parseInt(this.state.votesL / total * 100);
+      pc = <PieChart
+        style={{ position: 'absolute', top: 150 }}
+        chart_wh={chart_wh}
+        series={series}
+        sliceColor={sliceColor}
+        doughnut={true}
+        coverRadius={0.75}
+        coverFill={'#FFF'}
+      />
+    }
+
     return (
       <View style={styles.container}>
 
@@ -69,15 +87,7 @@ class Insight extends React.Component {
         />
 
         <Text style={styles.title}>{this.props.votes}</Text>
-        <PieChart
-          style={{ position: 'absolute', top: 150 }}
-          chart_wh={chart_wh}
-          series={series}
-          sliceColor={sliceColor}
-          doughnut={true}
-          coverRadius={0.75}
-          coverFill={'#FFF'}
-        />
+        {pc}
 
         {/* <Text>{this.props.vote.num}</Text> */}
         <Text
@@ -96,7 +106,7 @@ class Insight extends React.Component {
             marginTop: 200,
             fontWeight: "700",
             color: 'gray'
-          }}>Votes: 1000</Text>
+          }}>Votes: {total}</Text>
 
         <TouchableOpacity style={styles.btn}>
           <Text
