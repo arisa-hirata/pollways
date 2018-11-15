@@ -23,8 +23,7 @@ class AddPollTab extends React.Component {
     // console.log(stateName)
     const image = await ImagePicker.openPicker({
       width: 30,
-      height: 60,
-      compressImageMaxWidth: 100,
+      height: 30,
       cropping: true,
       mediaType: "photo",
       includeBase64: true

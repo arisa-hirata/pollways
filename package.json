@@ -11,6 +11,7 @@
     "react-native": "0.57.4",
     "react-native-firebase": "^5.1.0",
     "react-native-image-crop-picker": "^0.21.3",
+    "react-native-picker-select": "^5.1.0",
     "react-native-pie-chart": "^1.0.13",
     "react-native-progress": "^3.5.0",
     "react-navigation": "^2.16.0",

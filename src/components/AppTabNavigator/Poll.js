@@ -216,7 +216,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title_container: {
-    justifyContent: 'center',
     alignItems: 'center',
     width: "100%",
     height: 80,

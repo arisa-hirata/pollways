@@ -14,7 +14,7 @@ import {
 import { getFB } from "../firebase";
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser, signUp } from '../../actions';
-
+import RNPickerSelect from 'react-native-picker-select';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -24,7 +24,58 @@ const { width, height } = Dimensions.get('screen');
 var firebase = getFB();
 
 class SignUp extends Component {
+  constructor(props) {
+    super(props);
 
+    this.inputRefs = {};
+
+    this.state = {
+        age: undefined,
+        items: [
+            {
+                label: '17',
+                value: '17',
+            },
+            {
+                label: '18',
+                value: '18',
+            },
+            {
+                label: '19',
+                value: '19',
+            },
+              {
+                label: '20',
+                value: '20',
+            },
+            {
+                label: '21',
+                value: '21',
+            },
+              {
+                label: '22',
+                value: '22',
+            },
+              {
+                label: '23',
+                value: '23',
+            },
+        ],
+        gender: undefined,
+        items2: [
+            {
+                label: 'Male',
+                value: 'Male',
+            },
+            {
+                label: 'Female',
+                value: 'Female',
+            }
+           
+        ],
+        
+    };
+}
   static navigationOptions = {
     header: null
   }
@@ -89,8 +140,10 @@ class SignUp extends Component {
 
 
   render() {
+    
     return (
       <View>
+        
         <ImageBackground style={styles.imgBackground}
           resizeMode='cover'
           source={require('../../imgs/LogInBG.jpg')}>
@@ -122,6 +175,9 @@ class SignUp extends Component {
 
               <Text style={styles.signupText}>Password</Text>
               <TextInput
+                  ref={(el) => {
+                    this.inputRefs.pw = el;
+                }}
                 style={styles.inputs}
                 placeholder=" "
                 autoCapitalize="none"
@@ -131,8 +187,31 @@ class SignUp extends Component {
               />
 
               <Text style={styles.signupText}>Age</Text>
-              <View style={styles.pickerTextAge}>
-                <Picker
+              <View style={styles.pickerCountry}>
+              <RNPickerSelect
+                    placeholder={{
+                        label: 'Your Age',
+                        value: null,
+                    }}
+                    items={this.state.items}
+                    onValueChange={(value) => {
+                        this.setState({
+                            age: value,
+                        });
+                    }}
+                    onUpArrow={() => {
+                        this.inputRefs.pw.focus();
+                    }}
+                    onDownArrow={() => {
+                        this.inputRefs.picker2.togglePicker();
+                    }}
+                    style={{ ...pickerSelectStyles }}
+                    value={this.state.age}
+                    ref={(el) => {
+                        this.inputRefs.picker = el;
+                    }}
+                />
+                {/* <Picker
                   style={{ height: 35 }}
                   selectedValue={this.state.Age}
                   onValueChange={this.updateUser}>
@@ -152,8 +231,34 @@ class SignUp extends Component {
                   <Picker.Item label="29" value="29" />
                   <Picker.Item label="30" value="30" />
                   <Picker.Item label="31" value="31" />
-                </Picker></View>
-
+                </Picker> */}
+                </View>
+                <Text style={styles.signupText}>Gender</Text>
+              <View style={styles.pickerCountry}>
+              <RNPickerSelect
+                    placeholder={{
+                        label: 'Your Gender',
+                        value: null,
+                    }}
+                    items={this.state.items2}
+                    onValueChange={(value) => {
+                        this.setState({
+                            gender: value,
+                        });
+                    }}
+                    onUpArrow={() => {
+                        this.inputRefs.picker.togglePicker();
+                    }}
+                    onDownArrow={() => {
+                        this.inputRefs.country.focus();
+                    }}
+                    style={{ ...pickerSelectStyles }}
+                    value={this.state.gender}
+                    ref={(el) => {
+                        this.inputRefs.picker2 = el;
+                    }}
+                />
+                </View>
               <Text style={styles.signupText}>Country</Text>
               <View style={styles.pickerCountry}>
                 <Picker style={{ height: 35 }} selectedValue={this.state.Country} onValueChange={this.updateUserCountry}>
@@ -170,7 +275,7 @@ class SignUp extends Component {
 
 
               <Text style={styles.signupText}>City</Text>
-              <View style={styles.pickerCountry}>
+              <View style={styles.pickerTextAge}>
                 <Picker style={{ height: 35 }} selectedValue={this.state.City} onValueChange={this.updateUserCity}>
                   <Picker.Item label="Select City" value="ageSelect" />
                   <Picker.Item label="17" value="17" />
@@ -213,7 +318,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#fff',
     borderBottomWidth: 1,
     width: 300,
-    margin: 20,
+    margin: 10,
   },
   inputs: {
     width: 300,
@@ -227,7 +332,7 @@ const styles = StyleSheet.create({
   },
   signupText: {
     paddingLeft: 5,
-    paddingTop: 3,
+    paddingTop: 0,
     margin: 1,
   },
   pickerTextAge: {
@@ -240,7 +345,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   pickerCountry: {
-    width: 200,
+    width: 150,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'white',
@@ -258,11 +363,23 @@ const styles = StyleSheet.create({
     height: 45,
     textAlign: "center",
     backgroundColor: "transparent",
-    marginTop: 30,
+    marginTop: 15,
     padding: 7,
   },
 });
 
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+      fontSize: 16,
+      paddingTop: 13,
+      paddingHorizontal: 10,
+      paddingBottom: 12,
+      borderRadius: 4,
+      backgroundColor: 'white',
+      color:'black'
+      
+  },
+});
 const mapStateToProps = ({ auth }) => {
   return { ...auth };
 };
