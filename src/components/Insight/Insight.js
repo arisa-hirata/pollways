@@ -61,7 +61,7 @@ class Insight extends React.Component {
     if (total > 0) {
       perc = parseInt(this.state.votesL / total * 100);
       pc = <PieChart
-        style={{ position: 'absolute', top: 150 }}
+
         chart_wh={chart_wh}
         series={series}
         sliceColor={sliceColor}
@@ -75,9 +75,8 @@ class Insight extends React.Component {
       <View style={styles.container}>
 
         <Text style={{
-          zIndex: 99,
-          position: "absolute",
-          top: 25,
+
+
           fontSize: 45,
           color: "gray"
         }}>Insights</Text>
@@ -93,17 +92,15 @@ class Insight extends React.Component {
         <Text
           style={{
             fontSize: 60,
-            margin: 10,
+
             color: '#E68267',
-            position: 'absolute',
-            top: 230
+
           }}>{perc}%</Text>
 
         <Text
           style={{
             fontSize: 30,
             margin: 10,
-            marginTop: 200,
             fontWeight: "700",
             color: 'gray'
           }}>Votes: {total}</Text>
@@ -112,7 +109,7 @@ class Insight extends React.Component {
           <Text
             style={styles.btnText}
             onPress={() => { this.props.navigation.navigate('Details') }}
-          >View Dedails</Text>
+          >View Details</Text>
         </TouchableOpacity>
       </View>
     );

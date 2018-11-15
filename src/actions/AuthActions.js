@@ -61,7 +61,7 @@ export const loginUserSuccess = (user) => {
 };
 
 
-export const signUp = ({ email, password, username }) => {
+export const signUp = ({ email, password, username, gender, age, city }) => {
   return (dispatch) => {
     dispatch({ type: SIGN_UP });
 
@@ -70,7 +70,10 @@ export const signUp = ({ email, password, username }) => {
         var ref = getFB().firestore().collection("profile").doc(user.uid)
         if (!ref.id) {
           ref.set({
-            username: username
+            username: username,
+            gender: gender,
+            age: age,
+            city: city
           })
         }
         loginUserSuccess(user)(dispatch);
