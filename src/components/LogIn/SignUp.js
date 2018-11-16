@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Button,
   Picker,
-  Dimensions
+  Dimensions,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import { getFB } from "../firebase";
@@ -18,64 +19,61 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const { width, height } = Dimensions.get('screen');
 
-
-//accessing from FireBase
-// var storage = getApp().storage();
 var firebase = getFB();
-
+//Hello
 class SignUp extends Component {
   constructor(props) {
     super(props);
-
+    //Password
     this.inputRefs = {};
 
     this.state = {
-      age: undefined,
-      items: [
-        {
-          label: '17',
-          value: '17',
-        },
-        {
-          label: '18',
-          value: '18',
-        },
-        {
-          label: '19',
-          value: '19',
-        },
-        {
-          label: '20',
-          value: '20',
-        },
-        {
-          label: '21',
-          value: '21',
-        },
-        {
-          label: '22',
-          value: '22',
-        },
-        {
-          label: '23',
-          value: '23',
-        },
-      ],
-      gender: undefined,
-      items2: [
-        {
-          label: 'Male',
-          value: 'Male',
-        },
-        {
-          label: 'Female',
-          value: 'Female',
-        }
+        age: "",
+        items: [
+            {
+                label: 'Under 20',
+                value: 'Under 20',
+            },
+            {
+                label: '20s',
+                value: '20s',
+            },
+            {
+                label: '30s',
+                value: '30s',
+            },
+              {
+                label: '40s',
+                value: '40s',
+            },
+            {
+                label: '50s',
+                value: '50s',
+            },
+              {
+                label: 'Over 60s',
+                value: 'Over 60s',
+            },
+        ],
 
-      ],
-
+        
+        gender: "",
+        items2: [
+            {
+                label: 'Male',
+                value: 'Male',
+            },
+            {
+                label: 'Female',
+                value: 'Female',
+            }
+           
+        ],
+        
     };
-  }
+}
+
+// users must fill in or it will return error ************************************
   static navigationOptions = {
     header: null
   }
@@ -96,62 +94,32 @@ class SignUp extends Component {
       ...state
     }
   }
-
-  onEmailChange(text) {
+// **********************************************************************************
+  onEmailChange=(text)=> {
     this.email = text
   }
-
-  onPasswordChange(text) {
+// **********************************************************************************
+  onPasswordChange=(text)=>{
     this.password = text
   }
-
-  onButtonPress() {
+// **********************************************************************************
+  onButtonPress=()=>{
     this.props.signUp({
       email: this.email,
       password: this.password,
-      username: this.username,
-      gender: this.gender,
-      age: this.age
-
+      username: this.userName,
+      gender: this.state.gender,
+      age: this.state.age,
+      time: new Date(),
     });
-
-    /*var col = firebase.firestore().collection("profile").add({
-      // uerid:"user",
-      userID: '',
-      userName: this.userName,
-      gender: '',
-      age: '',
-      time: new Date()
-    })*/
-
-
-
   }
-
-  state = { Age: '', Country: '' }
-
-  updateUser = (Age) => {
-    this.setState({ Age: Age })
-  }
-
-  updateUserCountry = (Country) => {
-    this.setState({ Country: Country })
-  }
-
-  updateUserCity = (City) => {
-    this.setState({ City: City })
-  }
-
-
   render() {
-
     return (
       <View>
-
         <ImageBackground style={styles.imgBackground}
           resizeMode='cover'
           source={require('../../imgs/LogInBG.jpg')}>
-
+<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
           <View style={styles.container}>
             <Text style={styles.signUptxt}>
               Sign Up
@@ -163,18 +131,16 @@ class SignUp extends Component {
               <Text style={styles.signupText}>Email</Text>
               <TextInput
                 style={styles.inputs}
-                placeholder=" "
+                placeholder="Email Address"
                 autoCapitalize="none"
-                value={this.state.email}
-                onChangeText={this.onEmailChange.bind(this)}
+                onChangeText={this.onEmailChange}
               />
 
               <Text style={styles.signupText}>Username</Text>
               <TextInput
                 style={styles.inputs}
-                placeholder=" "
-                onChangeText={(text) => { this.userName = text }}
-              >
+                placeholder="Enter Pollways Username"
+                onChangeText={(text) => { this.userName = text }}>
               </TextInput>
 
               <Text style={styles.signupText}>Password</Text>
@@ -183,127 +149,83 @@ class SignUp extends Component {
                   this.inputRefs.pw = el;
                 }}
                 style={styles.inputs}
-                placeholder=" "
+                placeholder="Enter Password"
                 autoCapitalize="none"
                 secureTextEntry={true}
-                value={this.state.password}
-                onChangeText={this.onPasswordChange.bind(this)}
-              />
-
+                onChangeText={this.onPasswordChange}
+              /> 
+              
               <Text style={styles.signupText}>Age</Text>
-              <View style={styles.pickerCountry}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: 'Your Age',
-                    value: null,
-                  }}
-                  items={this.state.items}
-                  onValueChange={(value) => {
-                    this.setState({
-                      age: value,
-                    });
-                  }}
-                  onUpArrow={() => {
-                    this.inputRefs.pw.focus();
-                  }}
-                  onDownArrow={() => {
-                    this.inputRefs.picker2.togglePicker();
-                  }}
-                  style={{ ...pickerSelectStyles }}
-                  value={this.state.age}
-                  ref={(el) => {
-                    this.inputRefs.picker = el;
-                  }}
+              <View style={styles.pickerContainerOuter}>
+
+              <View style={styles.pickerContainer}>
+              <RNPickerSelect
+                    placeholder={{
+                        label: 'Age',
+                        value: null,
+                    }}
+                    items={this.state.items}
+                    onValueChange={(value) => {
+                        this.setState({
+                            age: value,
+                        });
+                    }}
+                    onUpArrow={() => {
+                        this.inputRefs.pw.focus();
+                    }}
+                    onDownArrow={() => {
+                        this.inputRefs.picker2.togglePicker();
+                    }}
+                    style={{ ...pickerSelectStyles }}
+                    value={this.state.age}
+                    ref={(el) => {
+                        this.inputRefs.picker = el;
+                    }}
                 />
-                {/* <Picker
-                  style={{ height: 35 }}
-                  selectedValue={this.state.Age}
-                  onValueChange={this.updateUser}>
+                </View>
+                </View>
 
-                  <Picker.Item label="17" value="17" />
-                  <Picker.Item label="18" value="18" />
-                  <Picker.Item label="19" value="19" />
-                  <Picker.Item label="20" value="20" />
-                  <Picker.Item label="21" value="21" />
-                  <Picker.Item label="22" value="22" />
-                  <Picker.Item label="23" value="23" />
-                  <Picker.Item label="24" value="24" />
-                  <Picker.Item label="25" value="25" />
-                  <Picker.Item label="26" value="26" />
-                  <Picker.Item label="27" value="27" />
-                  <Picker.Item label="28" value="28" />
-                  <Picker.Item label="29" value="29" />
-                  <Picker.Item label="30" value="30" />
-                  <Picker.Item label="31" value="31" />
-                </Picker> */}
-              </View>
-              <Text style={styles.signupText}>Gender</Text>
-              <View style={styles.pickerCountry}>
+                <Text style={styles.signupText}>Gender</Text>
+                <View style={styles.pickerContainerOuter}>
+                <View style={styles.pickerContainer}>
                 <RNPickerSelect
-                  placeholder={{
-                    label: 'Your Gender',
-                    value: null,
-                  }}
-                  items={this.state.items2}
-                  onValueChange={(value) => {
-                    this.setState({
-                      gender: value,
-                    });
-                  }}
-                  onUpArrow={() => {
-                    this.inputRefs.picker.togglePicker();
-                  }}
-                  onDownArrow={() => {
-                    this.inputRefs.country.focus();
-                  }}
-                  style={{ ...pickerSelectStyles }}
-                  value={this.state.gender}
-                  ref={(el) => {
-                    this.inputRefs.picker2 = el;
-                  }}
+                    placeholder={{
+                        label: 'Gender',
+                        value: null,
+                    }}
+                    items={this.state.items2}
+                    onValueChange={(value) => {
+                        this.setState({
+                          gender: value,
+                        });
+                    }}
+                    onUpArrow={() => {
+                        this.inputRefs.picker.togglePicker();
+                    }}
+                    onDownArrow={() => {
+                        this.inputRefs.country.focus();
+                    }}
+                    style={{ ...pickerSelectStyles }}
+                    value={this.state.gender}
+                    ref={(el) => {
+                        this.inputRefs.picker2 = el;
+                    }}
                 />
+                </View>
+                </View>
               </View>
-              <Text style={styles.signupText}>Country</Text>
-              <View style={styles.pickerCountry}>
-                <Picker style={{ height: 35 }} selectedValue={this.state.Country} onValueChange={this.updateUserCountry}>
-                  <Picker.Item label="Select Country" value="ageSelect" />
-                  <Picker.Item label="Canada" value="Canada" />
-                  <Picker.Item label="USA" value="USA" />
-                  <Picker.Item label="Australia" value="Australia" />
-                  <Picker.Item label="Taiwan" value="Taiwan" />
-                  <Picker.Item label="China" value="China" />
-                  <Picker.Item label="South Korea" value="South Korea" />
-                  <Picker.Item label="Vietnam" value="Vietnam" />
-                  <Picker.Item label="Mexico" value="Mexico" />
-                </Picker></View>
-
-
-              <Text style={styles.signupText}>City</Text>
-              <View style={styles.pickerTextAge}>
-                <Picker style={{ height: 35 }} selectedValue={this.state.City} onValueChange={this.updateUserCity}>
-                  <Picker.Item label="Select City" value="ageSelect" />
-                  <Picker.Item label="17" value="17" />
-                  <Picker.Item label="18" value="18" />
-                </Picker></View>
-            </View>
 
             <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
               <Text style={styles.btnText}>Start</Text>
             </TouchableOpacity>
 
           </View>
+          </KeyboardAvoidingView>
         </ImageBackground>
       </View>
     );
   }
 }
-
-// const AppStackNavigator = createStackNavigator({
-
-//   Poll: Poll
-// })
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -336,26 +258,30 @@ const styles = StyleSheet.create({
   },
   signupText: {
     paddingLeft: 5,
-    paddingTop: 0,
+    paddingTop: 2,
+    paddingBottom: 2,
     margin: 1,
   },
-  pickerTextAge: {
-    width: 150,
-    borderRadius: 10,
+  pickerContainer: {
+    width: 120,
+    height: 40,
+    borderRadius: 5,
     borderWidth: 1,
     borderColor: 'white',
     overflow: 'hidden',
     backgroundColor: 'white',
-    margin: 5,
+    marginTop: -10,
   },
-  pickerCountry: {
-    width: 150,
-    borderRadius: 10,
+  pickerContainerOuter: {
+    width: 120,
+    height: 32,
+    borderRadius: 5,
     borderWidth: 1,
     borderColor: 'white',
     overflow: 'hidden',
     backgroundColor: 'white',
-    margin: 5,
+    paddingLeft: 5,
+    marginLeft: 5,
   },
   btnText: {
     color: "#fff",
@@ -363,7 +289,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
     borderWidth: 1.5,
     borderRadius: 10,
-    width: 90,
+    width: 150,
     height: 45,
     textAlign: "center",
     backgroundColor: "transparent",

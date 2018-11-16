@@ -7,7 +7,9 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  KeyboardAvoidingView,
+  keyboardVerticalOffset,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser, loginUserSuccess } from '../../actions';
@@ -15,7 +17,7 @@ import { getFB, getApp } from "../firebase";
 import Spinner from './Spinner';
 
 const { width, height } = Dimensions.get('screen');
-
+// november 16 2018 edited from Angus
 class Login extends Component {
   static navigationOptions = {
     header: null,
@@ -52,24 +54,22 @@ class Login extends Component {
     }
   }
 
-  onEmailChange(text) {
-    // this.props.emailChanged(text);
+  onEmailChange=(text)=> {
     this.email = text
   }
 
-  onPasswordChange(text) {
-    // this.props.passwordChanged(text);
+  onPasswordChange=(text)=> {
     this.password = text
   }
 
-  onButtonPress() {
+  onButtonPress=()=> {
     this.props.loginUser({
       email: this.email,
       password: this.password
     });
   }
 
-  renderButton() {
+  renderButton=()=> {
     if (this.props.loading) {
       return <Spinner />;
     }
@@ -84,10 +84,10 @@ class Login extends Component {
   render() {
     return (
       <ImageBackground
-        style={[styles.imgBackground, styles.container]}
+        style={styles.imgBackground}
         source={require('../../imgs/LogInBG.jpg')}>
 
-
+  <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
         <View style={styles.container}>
           <Image
             resizeMode="contain"
@@ -104,7 +104,7 @@ class Login extends Component {
             placeholderTextColor="grey"
             autoCapitalize="none"
             border='1'
-            onChangeText={this.onEmailChange.bind(this)}
+            onChangeText={this.onEmailChange}
           />
 
           <TextInput
@@ -114,7 +114,7 @@ class Login extends Component {
             placeholderTextColor="grey"
             autoCapitalize="none"
             secureTextEntry={true}
-            onChangeText={this.onPasswordChange.bind(this)}
+            onChangeText={this.onPasswordChange}
           />
 
           <Text style={styles.errorTextStyle}>
@@ -129,7 +129,7 @@ class Login extends Component {
           <View style={styles.border} />
 
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ color: "rgba(255, 255, 255, 0.7)" }}>
+            <Text style={{ color: "rgba(255, 255, 255, 1)" }}>
               Don't have an account?
               </Text>
             <TouchableOpacity
@@ -144,10 +144,9 @@ class Login extends Component {
           </View>
 
         </View>
-
-
-
+</KeyboardAvoidingView>
       </ImageBackground >
+      
 
     );
   }
@@ -156,19 +155,23 @@ class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    marginTop:100,
   },
   Textcontainer: {
     alignItems: 'center',
     justifyContent: 'center',
     margin: 30,
   },
+  keyboardContainer: {
+
+  },
   imgBackground: {
     width: width,
     height: height,
   },
   logoSize: {
-    width: 100,
-    height: 100,
+    width: 160,
+    height: 160,
   },
   input: {
     width: 300,
@@ -190,7 +193,7 @@ const styles = StyleSheet.create({
     height: 45,
     textAlign: "center",
     backgroundColor: "transparent",
-    marginTop: 30,
+    marginTop: 20,
     padding: 7,
   },
   border: {

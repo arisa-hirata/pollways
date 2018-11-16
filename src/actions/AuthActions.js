@@ -27,21 +27,28 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({ email, password }) => {
+  console.log("filtererrorblah",email,password)
   return (dispatch) => {
     //loginUserSuccess(dispatch, {}); return;
     dispatch({ type: LOGIN_USER });
 
     getFB().auth().signInWithEmailAndPassword(email, password)
       .then(user => {
-
-        //get profile from firebase with doc(user.uid)
-
-        //put profile username, gender, age to reducer
-        loginUserSuccess(user)(dispatch)
+        var ref = getFB().firestore().collection("profile").doc(user.user.uid);
+        ref.get().then((snap)=>{
+          console.log("filtererrorblah",snap.data());
+          var obj = snap.data();
+          user.user.username = obj.username;
+          user.user.age = obj.age;
+          user.user.gender = obj.gender;
+          user.user.time = obj.time;
+          loginUserSuccess(user)(dispatch)
+        })
+        
       })
       .catch((error) => {
         // console.warn("loginUser failed");
-        // console.warn(error);
+        console.warn(error);
         loginUserFail(dispatch)
         // firebase.auth().createUserWithEmailAndPassword(email, password)
         //   .then(user => loginUserSuccess(dispatch, user))
@@ -67,17 +74,18 @@ export const loginUserSuccess = (user) => {
 };
 
 
-export const signUp = ({ email, password, username, gender, age }) => {
+export const signUp = ({ email, password, username, gender, age, time }) => {
+  console.log("filtererrorblah", email, password);
   return (dispatch) => {
     dispatch({ type: SIGN_UP });
 
     getFB().auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
-        console.log(user.user._user.uid);
-        getFB().firestore().collection("profile").doc(user.user._user.uid).set({
-          username: username,
+        var ref = getFB().firestore().collection("profile").doc(user.user._user.uid).set({
           gender: gender,
-          age: age
+          age: age,
+          time: time,
+          username: username
         })
         loginUserSuccess(user)(dispatch);
       })
