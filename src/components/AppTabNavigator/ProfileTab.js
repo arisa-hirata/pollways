@@ -13,7 +13,7 @@ class ProfileTab extends React.Component {
 
 
   state = {
-    userId: "Katie Munro",
+    // userId: "Katie Munro",
     //userLocation: 'Vancouver, British Columbia',
     userFriend: 164,
     totalVote: 100,
@@ -23,25 +23,21 @@ class ProfileTab extends React.Component {
   }
 
   getPlace = async (lat, long) => {
-    // Importing Our Long and Lat into Google maps
     var resp = await fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk");
-    //When the fully fetched google Api has been obtained it will be placed into a Json File
     var place = await resp.json();
     console.log(place);
-    //place then go into plus_code_then compound_Code which will show us the
     console.log(place.plus_code.compound_code);
     var city = place.plus_code.compound_code;
-    //Split will make the informations into an Array
     var cityTemp = city.split(" ");
-    //Deletes the first item from the array
     cityTemp.shift();
 
     this.setState({
       //join will add whatever you input in the join(" ")
       ShowPlace: cityTemp.join(" ")
-    })
+    });
     // console.log(cityTemp)
   }
+
 
 
 
@@ -62,15 +58,12 @@ class ProfileTab extends React.Component {
 
   render() {
 
-
+    console.log("profilestuff", this.props);
     const barWidth = Dimensions.get('screen').width - 80;
 
     return (
       <ScrollView>
         <View style={styles.container}>
-
-
-
           <View style={styles.topBar}>
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
@@ -109,15 +102,11 @@ class ProfileTab extends React.Component {
           </View>
           {/* username Input**************************************************************************************** */}
           <View style={styles.nameInput}>
-            <Text style={{ fontSize: 25 }}>{this.state.userId}</Text>
+            <Text style={{ fontSize: 25 }}>{this.props.user.user.username}</Text>
           </View>
           {/* Location Input**************************************************************************************** */}
           <View style={styles.nameInput}>
             <Text style={{ fontSize: 25 }}>{this.state.ShowPlace}</Text>
-          </View>
-          {/* location Input**************************************************************************************** */}
-          <View style={styles.locationInput}>
-            <Text style={{ fontSize: 16 }}>{this.state.ShowPlace}</Text>
           </View>
           {/* user friend number**************************************************************************************** */}
           <View style={styles.userFriend}>
@@ -357,10 +346,9 @@ const styles = StyleSheet.create({
 });
 
 
-function mapStateToProps(state) {
-  return {
-    // SaveProfile:state.Profile.SaveProfile
-    // EditProfile: state.ChangeProfile.EditProfile
-  }
-}
+const mapStateToProps = ({ auth }) => {
+
+  return { ...auth };
+};
+
 export default connect(mapStateToProps)(ProfileTab);

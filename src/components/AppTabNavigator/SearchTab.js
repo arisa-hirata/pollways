@@ -6,16 +6,7 @@ export default class SearchTab extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <ImageBackground
-          style={{
-            width: "100%",
-            height: 85,
-            position: "absolute",
-            top: 0,
-          }}
-          source={require('../../imgs/Header.png')}
-        /> */}
-        <Text>SearchTab!</Text>
+        <Text style={{fontSize: 50, color: 'white', top: -100, zIndex: 10}}>Filters</Text>
       </View>
     );
   }
