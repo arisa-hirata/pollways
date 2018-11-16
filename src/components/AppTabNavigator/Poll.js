@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, 
 import { connect } from 'react-redux';
 import { getFB } from "../firebase";
 import { ChangePollID } from '../../actions/PollActions';
-
+import { GetCity } from '../../actions/PollActions';
 
 // var user = getUser();
 var firebase = getFB();
@@ -12,6 +12,7 @@ var firebase = getFB();
 class Poll extends React.Component {
 
   cdoc = null;
+  city = null;
 
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ class Poll extends React.Component {
     this.props.navigation.addListener("willFocus", () => {
       console.log("test");
       this.getPolls();
+      this.getProfile();
     })
   }
 
@@ -30,20 +32,13 @@ class Poll extends React.Component {
 
 
   getPlace = async (lat, long) => {
-    // Importing Our Long and Lat into Google maps
+
     var resp = await fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk");
-    //When the fully fetched google Api has been obtained it will be placed into a Json File
     var place = await resp.json();
-    console.log(place);
-    //place then go into plus_code_then compound_Code which will show us the
+
     console.log(place.results[8].address_components[0].long_name);
     var city = place.results[8].address_components[0].long_name;
-    //Split will make the informations into an Array
-
-    this.setState({
-      //join will add whatever you input in the join(" ")
-      location: city
-    })
+    this.city = city;
   }
 
   componentDidMount() {
@@ -55,9 +50,7 @@ class Poll extends React.Component {
         )
       },
     );
-
   }
-
 
   // async componentDidMount() {
   //   if (App.shared.uid) {
@@ -97,6 +90,12 @@ class Poll extends React.Component {
 
   }
 
+  getProfile = async () => {
+
+    var profile = firebase.firestore().collection("profile")
+    console.log(profile);
+  }
+
   voteLeft = () => {
     // const { Lpoll } = this.state;
     // App.shared.voteLeft({
@@ -108,17 +107,16 @@ class Poll extends React.Component {
     var arr = obj.votesL || [];
 
 
-
     // console.log(this.props);
     var data = {
       user_id: this.props.user.user.uid,
-      city: this.props.city,
-      gender: "male",
-      age: "100"
+      city: this.city,
+      gender: this.props.gender,
+      age: this.props.age
 
     }
     console.log(data);
-    arr.push(this.props.user.user.uid);
+    arr.push(data);
     // console.log(obj);
     this.cdoc.ref.update({
       votesL: arr
