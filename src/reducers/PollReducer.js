@@ -3,7 +3,8 @@ const initialState = {
   fb: null,
   pollid: null,
   ltotal: '',
-  topicId: ''
+  topicId: '',
+  city: ''
 };
 
 export default function Votes(state = initialState, action) {
@@ -30,6 +31,10 @@ export default function Votes(state = initialState, action) {
 
     case "RVOTE_TOTAL":
       obj.topicId = action.topicId;
+      return obj;
+
+    case "GET_CITY":
+      obj.city = city;
       return obj;
 
 

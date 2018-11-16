@@ -29,13 +29,13 @@ class ProfileTab extends React.Component {
     var place = await resp.json();
     console.log(place);
     //place then go into plus_code_then compound_Code which will show us the
-    console.log(place.plus_code.compound_code);
+    console.log(place.results[8].address_components[0].long_name);
     var city = place.plus_code.compound_code;
     //Split will make the informations into an Array
     var cityTemp = city.split(" ");
     //Deletes the first item from the array
     cityTemp.shift();
-
+    console.log(cityTemp);
     this.setState({
       //join will add whatever you input in the join(" ")
       ShowPlace: cityTemp.join(" ")

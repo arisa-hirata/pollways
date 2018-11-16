@@ -55,3 +55,10 @@ export function RVoteTotal(topiId) {
     topicId: topicId,
   }
 }
+
+export function GetCity(city) {
+  return {
+    type: 'GET_CITY',
+    city: city
+  }
+}
