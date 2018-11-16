@@ -30,52 +30,52 @@ class SignUp extends Component {
     this.inputRefs = {};
 
     this.state = {
-        age: undefined,
-        items: [
-            {
-                label: '17',
-                value: '17',
-            },
-            {
-                label: '18',
-                value: '18',
-            },
-            {
-                label: '19',
-                value: '19',
-            },
-              {
-                label: '20',
-                value: '20',
-            },
-            {
-                label: '21',
-                value: '21',
-            },
-              {
-                label: '22',
-                value: '22',
-            },
-              {
-                label: '23',
-                value: '23',
-            },
-        ],
-        gender: undefined,
-        items2: [
-            {
-                label: 'Male',
-                value: 'Male',
-            },
-            {
-                label: 'Female',
-                value: 'Female',
-            }
-           
-        ],
-        
+      age: undefined,
+      items: [
+        {
+          label: '17',
+          value: '17',
+        },
+        {
+          label: '18',
+          value: '18',
+        },
+        {
+          label: '19',
+          value: '19',
+        },
+        {
+          label: '20',
+          value: '20',
+        },
+        {
+          label: '21',
+          value: '21',
+        },
+        {
+          label: '22',
+          value: '22',
+        },
+        {
+          label: '23',
+          value: '23',
+        },
+      ],
+      gender: undefined,
+      items2: [
+        {
+          label: 'Male',
+          value: 'Male',
+        },
+        {
+          label: 'Female',
+          value: 'Female',
+        }
+
+      ],
+
     };
-}
+  }
   static navigationOptions = {
     header: null
   }
@@ -108,17 +108,21 @@ class SignUp extends Component {
   onButtonPress() {
     this.props.signUp({
       email: this.email,
-      password: this.password
+      password: this.password,
+      username: this.username,
+      gender: this.gender,
+      age: this.age
+
     });
 
-    var col = firebase.firestore().collection("profile").add({
+    /*var col = firebase.firestore().collection("profile").add({
       // uerid:"user",
       userID: '',
       userName: this.userName,
       gender: '',
       age: '',
       time: new Date()
-    })
+    })*/
 
 
 
@@ -140,10 +144,10 @@ class SignUp extends Component {
 
 
   render() {
-    
+
     return (
       <View>
-        
+
         <ImageBackground style={styles.imgBackground}
           resizeMode='cover'
           source={require('../../imgs/LogInBG.jpg')}>
@@ -175,8 +179,8 @@ class SignUp extends Component {
 
               <Text style={styles.signupText}>Password</Text>
               <TextInput
-                  ref={(el) => {
-                    this.inputRefs.pw = el;
+                ref={(el) => {
+                  this.inputRefs.pw = el;
                 }}
                 style={styles.inputs}
                 placeholder=" "
@@ -188,28 +192,28 @@ class SignUp extends Component {
 
               <Text style={styles.signupText}>Age</Text>
               <View style={styles.pickerCountry}>
-              <RNPickerSelect
-                    placeholder={{
-                        label: 'Your Age',
-                        value: null,
-                    }}
-                    items={this.state.items}
-                    onValueChange={(value) => {
-                        this.setState({
-                            age: value,
-                        });
-                    }}
-                    onUpArrow={() => {
-                        this.inputRefs.pw.focus();
-                    }}
-                    onDownArrow={() => {
-                        this.inputRefs.picker2.togglePicker();
-                    }}
-                    style={{ ...pickerSelectStyles }}
-                    value={this.state.age}
-                    ref={(el) => {
-                        this.inputRefs.picker = el;
-                    }}
+                <RNPickerSelect
+                  placeholder={{
+                    label: 'Your Age',
+                    value: null,
+                  }}
+                  items={this.state.items}
+                  onValueChange={(value) => {
+                    this.setState({
+                      age: value,
+                    });
+                  }}
+                  onUpArrow={() => {
+                    this.inputRefs.pw.focus();
+                  }}
+                  onDownArrow={() => {
+                    this.inputRefs.picker2.togglePicker();
+                  }}
+                  style={{ ...pickerSelectStyles }}
+                  value={this.state.age}
+                  ref={(el) => {
+                    this.inputRefs.picker = el;
+                  }}
                 />
                 {/* <Picker
                   style={{ height: 35 }}
@@ -232,33 +236,33 @@ class SignUp extends Component {
                   <Picker.Item label="30" value="30" />
                   <Picker.Item label="31" value="31" />
                 </Picker> */}
-                </View>
-                <Text style={styles.signupText}>Gender</Text>
+              </View>
+              <Text style={styles.signupText}>Gender</Text>
               <View style={styles.pickerCountry}>
-              <RNPickerSelect
-                    placeholder={{
-                        label: 'Your Gender',
-                        value: null,
-                    }}
-                    items={this.state.items2}
-                    onValueChange={(value) => {
-                        this.setState({
-                            gender: value,
-                        });
-                    }}
-                    onUpArrow={() => {
-                        this.inputRefs.picker.togglePicker();
-                    }}
-                    onDownArrow={() => {
-                        this.inputRefs.country.focus();
-                    }}
-                    style={{ ...pickerSelectStyles }}
-                    value={this.state.gender}
-                    ref={(el) => {
-                        this.inputRefs.picker2 = el;
-                    }}
+                <RNPickerSelect
+                  placeholder={{
+                    label: 'Your Gender',
+                    value: null,
+                  }}
+                  items={this.state.items2}
+                  onValueChange={(value) => {
+                    this.setState({
+                      gender: value,
+                    });
+                  }}
+                  onUpArrow={() => {
+                    this.inputRefs.picker.togglePicker();
+                  }}
+                  onDownArrow={() => {
+                    this.inputRefs.country.focus();
+                  }}
+                  style={{ ...pickerSelectStyles }}
+                  value={this.state.gender}
+                  ref={(el) => {
+                    this.inputRefs.picker2 = el;
+                  }}
                 />
-                </View>
+              </View>
               <Text style={styles.signupText}>Country</Text>
               <View style={styles.pickerCountry}>
                 <Picker style={{ height: 35 }} selectedValue={this.state.Country} onValueChange={this.updateUserCountry}>
@@ -370,14 +374,14 @@ const styles = StyleSheet.create({
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
-      fontSize: 16,
-      paddingTop: 13,
-      paddingHorizontal: 10,
-      paddingBottom: 12,
-      borderRadius: 4,
-      backgroundColor: 'white',
-      color:'black'
-      
+    fontSize: 16,
+    paddingTop: 13,
+    paddingHorizontal: 10,
+    paddingBottom: 12,
+    borderRadius: 4,
+    backgroundColor: 'white',
+    color: 'black'
+
   },
 });
 const mapStateToProps = ({ auth }) => {

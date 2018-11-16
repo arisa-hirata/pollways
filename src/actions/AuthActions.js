@@ -32,7 +32,13 @@ export const loginUser = ({ email, password }) => {
     dispatch({ type: LOGIN_USER });
 
     getFB().auth().signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(user)(dispatch))
+      .then(user => {
+
+        //get profile from firebase with doc(user.uid)
+
+        //put profile username, gender, age to reducer
+        loginUserSuccess(user)(dispatch)
+      })
       .catch((error) => {
         // console.warn("loginUser failed");
         // console.warn(error);
@@ -61,18 +67,18 @@ export const loginUserSuccess = (user) => {
 };
 
 
-export const signUp = ({ email, password, username }) => {
+export const signUp = ({ email, password, username, gender, age }) => {
   return (dispatch) => {
     dispatch({ type: SIGN_UP });
 
     getFB().auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
-        var ref = getFB().firestore().collection("profile").doc(user.uid)
-        if (!ref.id) {
-          ref.set({
-            username: username
-          })
-        }
+        console.log(user.user._user.uid);
+        getFB().firestore().collection("profile").doc(user.user._user.uid).set({
+          username: username,
+          gender: gender,
+          age: age
+        })
         loginUserSuccess(user)(dispatch);
       })
       .catch(() => loginUserFail(dispatch));
