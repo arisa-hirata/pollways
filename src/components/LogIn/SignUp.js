@@ -20,11 +20,10 @@ import RNPickerSelect from 'react-native-picker-select';
 const { width, height } = Dimensions.get('screen');
 
 var firebase = getFB();
-//Hello
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    //Password
     this.inputRefs = {};
 
     this.state = {
