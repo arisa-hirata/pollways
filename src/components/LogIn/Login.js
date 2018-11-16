@@ -17,7 +17,7 @@ import { getFB, getApp } from "../firebase";
 import Spinner from './Spinner';
 
 const { width, height } = Dimensions.get('screen');
-
+// november 16 2018 edited from Angus
 class Login extends Component {
   static navigationOptions = {
     header: null,
