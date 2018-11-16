@@ -78,6 +78,13 @@ class Poll extends React.Component {
     var arr = obj.votesL || [];
 
     // console.log(this.props);
+    var data = {
+      user_id: this.props.user.user.uid,
+      city: "asda",
+      gender: "male",
+      age: "100"
+
+    }
     arr.push(this.props.user.user.uid);
     // console.log(obj);
     this.cdoc.ref.update({
@@ -216,6 +223,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title_container: {
+    justifyContent: 'center',
     alignItems: 'center',
     width: "100%",
     height: 80,

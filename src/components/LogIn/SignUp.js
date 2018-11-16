@@ -20,7 +20,7 @@ import RNPickerSelect from 'react-native-picker-select';
 const { width, height } = Dimensions.get('screen');
 
 var firebase = getFB();
-
+//Hello
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -145,8 +145,8 @@ class SignUp extends Component {
 
               <Text style={styles.signupText}>Password</Text>
               <TextInput
-                  ref={(el) => {
-                    this.inputRefs.pw = el;
+                ref={(el) => {
+                  this.inputRefs.pw = el;
                 }}
                 style={styles.inputs}
                 placeholder="Enter Password"
@@ -300,14 +300,14 @@ const styles = StyleSheet.create({
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
-      fontSize: 16,
-      paddingTop: 13,
-      paddingHorizontal: 10,
-      paddingBottom: 12,
-      borderRadius: 4,
-      backgroundColor: 'white',
-      color:'black'
-      
+    fontSize: 16,
+    paddingTop: 13,
+    paddingHorizontal: 10,
+    paddingBottom: 12,
+    borderRadius: 4,
+    backgroundColor: 'white',
+    color: 'black'
+
   },
 });
 const mapStateToProps = ({ auth }) => {
