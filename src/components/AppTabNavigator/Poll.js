@@ -12,6 +12,7 @@ var firebase = getFB();
 class Poll extends React.Component {
 
   cdoc = null;
+  city = null;
 
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ class Poll extends React.Component {
     this.props.navigation.addListener("willFocus", () => {
       console.log("test");
       this.getPolls();
+      this.getProfile();
     })
   }
 
@@ -30,17 +32,13 @@ class Poll extends React.Component {
 
 
   getPlace = async (lat, long) => {
-    // Importing Our Long and Lat into Google maps
+
     var resp = await fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk");
     var place = await resp.json();
 
     console.log(place.results[8].address_components[0].long_name);
     var city = place.results[8].address_components[0].long_name;
-    console.log(city)
-    this.setState({
-      location: this.state.city
-    })
-
+    this.city = city;
   }
 
   componentDidMount() {
@@ -52,9 +50,7 @@ class Poll extends React.Component {
         )
       },
     );
-
   }
-
 
   // async componentDidMount() {
   //   if (App.shared.uid) {
@@ -94,6 +90,12 @@ class Poll extends React.Component {
 
   }
 
+  getProfile = async () => {
+
+    var profile = firebase.firestore().collection("profile")
+    console.log(profile);
+  }
+
   voteLeft = () => {
     // const { Lpoll } = this.state;
     // App.shared.voteLeft({
@@ -104,18 +106,17 @@ class Poll extends React.Component {
     var obj = this.cdoc.data();
     var arr = obj.votesL || [];
 
-    console.log(this.props.dispatch(GetCity()));
 
     // console.log(this.props);
     var data = {
       user_id: this.props.user.user.uid,
-      city: this.props.dispatch(GetCity()),//dispatch action to change pollid
+      city: this.city,
       gender: this.props.gender,
       age: this.props.age
 
     }
     console.log(data);
-    arr.push(this.props.user.user.uid);
+    arr.push(data);
     // console.log(obj);
     this.cdoc.ref.update({
       votesL: arr
