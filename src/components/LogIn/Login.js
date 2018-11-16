@@ -54,22 +54,22 @@ class Login extends Component {
     }
   }
 
-  onEmailChange=(text)=> {
+  onEmailChange = (text) => {
     this.email = text
   }
 
-  onPasswordChange=(text)=> {
+  onPasswordChange = (text) => {
     this.password = text
   }
 
-  onButtonPress=()=> {
+  onButtonPress = () => {
     this.props.loginUser({
       email: this.email,
       password: this.password
     });
   }
 
-  renderButton=()=> {
+  renderButton = () => {
     if (this.props.loading) {
       return <Spinner />;
     }
@@ -87,66 +87,66 @@ class Login extends Component {
         style={styles.imgBackground}
         source={require('../../imgs/LogInBG.jpg')}>
 
-  <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
-        <View style={styles.container}>
-          <Image
-            resizeMode="contain"
-            style={styles.logoSize}
-            source={require('../../imgs/Logo.png')}
-          />
-        </View>
-
-        <View style={styles.Textcontainer}>
-          <TextInput
-            style={styles.input}
-            underlineColorAndroid="transparent"
-            placeholder="Username"
-            placeholderTextColor="grey"
-            autoCapitalize="none"
-            border='1'
-            onChangeText={this.onEmailChange}
-          />
-
-          <TextInput
-            style={styles.input}
-            underlineColorAndroid="transparent"
-            placeholder="Password"
-            placeholderTextColor="grey"
-            autoCapitalize="none"
-            secureTextEntry={true}
-            onChangeText={this.onPasswordChange}
-          />
-
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
-
-          <View>
-            {this.renderButton()}
+        <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
+          <View style={styles.container}>
+            <Image
+              resizeMode="contain"
+              style={styles.logoSize}
+              source={require('../../imgs/Logo.png')}
+            />
           </View>
 
+          <View style={styles.Textcontainer}>
+            <TextInput
+              style={styles.input}
+              underlineColorAndroid="transparent"
+              placeholder="Username"
+              placeholderTextColor="grey"
+              autoCapitalize="none"
+              border='1'
+              onChangeText={this.onEmailChange}
+            />
 
-          <View style={styles.border} />
+            <TextInput
+              style={styles.input}
+              underlineColorAndroid="transparent"
+              placeholder="Password"
+              placeholderTextColor="grey"
+              autoCapitalize="none"
+              secureTextEntry={true}
+              onChangeText={this.onPasswordChange}
+            />
 
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Don't have an account?
+            <Text style={styles.errorTextStyle}>
+              {this.props.error}
+            </Text>
+
+            <View>
+              {this.renderButton()}
+            </View>
+
+
+            <View style={styles.border} />
+
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: "rgba(255, 255, 255, 1)" }}>
+                Don't have an account?
               </Text>
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate('SignUp')
-              }
-              }
-              title="Sign Up"
-            >
-              <Text style={{ color: "#fff", fontWeight: "700" }}> Sign Up</Text>
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.navigate('SignUp')
+                }
+                }
+                title="Sign Up"
+              >
+                <Text style={{ color: "#fff", fontWeight: "700" }}> Sign Up</Text>
+              </TouchableOpacity>
+            </View>
 
-        </View>
-</KeyboardAvoidingView>
+          </View>
+        </KeyboardAvoidingView>
       </ImageBackground >
-      
+
 
     );
   }
@@ -155,7 +155,7 @@ class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginTop:100,
+    marginTop: 100,
   },
   Textcontainer: {
     alignItems: 'center',

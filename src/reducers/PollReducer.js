@@ -34,7 +34,7 @@ export default function Votes(state = initialState, action) {
       return obj;
 
     case "GET_CITY":
-      obj.city = city;
+      obj.city = action.city;
       return obj;
 
 
