@@ -59,7 +59,7 @@ class Insight extends React.Component {
     var perc = 0;
     var pc = null;
     if (total > 0) {
-      perc = parseInt(this.state.votesL / total * 100);
+      perc = parseInt(this.state.votesR / total * 100);
       pc = <PieChart
         style={{ position: 'absolute', top: 150 }}
         chart_wh={chart_wh}
@@ -94,7 +94,7 @@ class Insight extends React.Component {
           style={{
             fontSize: 60,
             margin: 10,
-            color: '#E68267',
+            color: '#e68266',
             position: 'absolute',
             top: 230
           }}>{perc}%</Text>

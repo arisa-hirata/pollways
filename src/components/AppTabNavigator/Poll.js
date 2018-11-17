@@ -65,7 +65,6 @@ class Poll extends React.Component {
   // }
   getPolls = async () => {
 
-
     var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(1);
 
     polls.get().then((snap) => {
@@ -106,17 +105,15 @@ class Poll extends React.Component {
     var obj = this.cdoc.data();
     var arr = obj.votesL || [];
 
-
-    // console.log(this.props);
-    var data = {
+    console.log(this.props);
+    var dataL = {
       user_id: this.props.user.user.uid,
       city: this.city,
-      gender: this.props.gender,
-      age: this.props.age
-
+      gender: this.props.user.user.gender,
+      age: this.props.user.user.age
     }
-    console.log(data);
-    arr.push(data);
+    console.log(dataL);
+    arr.push(dataL);
     // console.log(obj);
     this.cdoc.ref.update({
       votesL: arr
@@ -133,16 +130,21 @@ class Poll extends React.Component {
     var obj = this.cdoc.data();
     var arr = obj.votesR || [];
 
-    console.log(this.props.user.user.uid);
-    arr.push(this.props.user.user.uid);
+    var dataR = {
+      user_id: this.props.user.user.uid,
+      city: this.city,
+      gender: this.props.user.user.gender,
+      age: this.props.user.user.age
+    }
+    console.log(dataR);
+    arr.push(dataR);
+
     console.log(arr);
     this.cdoc.ref.update({
       votesR: arr
     })
-
     this.props.navigation.navigate('Insight')
   }
-
 
   handleVote = () => {
     // var vote = this.props.curVote;
@@ -151,16 +153,9 @@ class Poll extends React.Component {
   }
 
   render() {
-
     return (
 
-
       <ScrollView style={{ backgroundColor: "#fff" }}>
-
-        {/* <ImageBackground
-          style={{ width: "100%", height: "33%" }}
-          source={require('../../imgs/Header2.png')}
-        /> */}
 
         <View style={styles.container}>
 
@@ -341,7 +336,6 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading, user } = auth;
 
   return { ...auth };
 };
