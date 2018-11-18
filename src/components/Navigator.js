@@ -21,7 +21,7 @@ import { propTypes } from 'react-native/Libraries/Components/Button';
 const TabBarComponent = props => {
   const { navigation } = props;
   const { routes } = navigation.state;
-  const images = [require('../imgs/home.png'), require('../imgs/search.png'), require('../imgs/add.png'), require('../imgs/notifi.png'), require('../imgs/profile.png')]
+  const images = [require('../imgs/home.png'), require('../imgs/search.png'), require('../imgs/add.png'), /*require('../imgs/notifi.png'),*/require('../imgs/profile.png')]
 
   return (
     <ImageBackground {...props} style={{ width: "100%", height: 50, flexDirection: "row" }} source={require("../imgs/NavBar.png")}>
@@ -30,7 +30,7 @@ const TabBarComponent = props => {
         const scene = { route, focused };
         return (
           <TouchableOpacity {...props}
-            style={{ width: "20%", alignItems: "center", marginTop: 10 }}
+            style={{ width: "25%", alignItems: "center", marginTop: 10 }}
             key={route.key}
             onPress={() => props.onTabPress({ route })}
           >
@@ -50,7 +50,7 @@ const hometabs = createBottomTabNavigator(
     Poll: Poll,
     Filters: SearchTab,
     Create: AddPollTab,
-    NotifiTab: NotifiTab,
+    // NotifiTab: NotifiTab,
     Profile: ProfileTab,
   },
   {
@@ -78,12 +78,42 @@ export default createStackNavigator(
     SignUp: SignUp,
     // Poll: hometabs,
     Poll: {
-      screen: hometabs
+      screen: hometabs,
+      navigationOptions: {
+        headerTintColor: "#fff",
+        headerLeft: null,
+        headerTitleStyle: {
+          fontSize: 35
+        },
+        // headerRight:
+        //   <Image
+        //     source={require('../imgs/add.png')}
+        //     style={{ width: 40, height: 40, }}
+        //   />
+      }
     },
-    Insight: Insight,
+    Insight: {
+      screen: Insight,
+      navigationOptions: {
+        title: 'Insight',
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontSize: 35
+        }
+      }
+    },
     ProfileTab: ProfileTab,
     ProfileEdit: ProfileEdit,
-    Details: Details
+    Details: {
+      screen: Details,
+      navigationOptions: {
+        title: 'Insight',
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontSize: 35
+        }
+      }
+    },
   },
   {
     navigationOptions: {
@@ -91,9 +121,10 @@ export default createStackNavigator(
         <Image
           style={{ width: "100%", height: "100%" }}
           source={require("../imgs/Header.png")} />,
-
-
-
+      titleStyle: {
+        color: "#ffffff",
+      },
+      tintColor: "#ffffff"
     }
   }
 );

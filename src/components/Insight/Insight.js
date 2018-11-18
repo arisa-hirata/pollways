@@ -58,7 +58,7 @@ class Insight extends React.Component {
     if (total > 0) {
       perc = parseInt(this.state.votesR / total * 100);
       pc = <PieChart
-        style={{ position: 'absolute', top: 150 }}
+        style={{ position: 'absolute', top: 80 }}
         chart_wh={chart_wh}
         series={series}
         sliceColor={sliceColor}
@@ -70,14 +70,6 @@ class Insight extends React.Component {
 
     return (
       <View style={styles.container}>
-
-        <Text style={{
-          zIndex: 99,
-          position: "absolute",
-          top: 25,
-          fontSize: 45,
-          color: "gray"
-        }}>Insights</Text>
 
         <StatusBar
           hidden={true}
@@ -93,14 +85,15 @@ class Insight extends React.Component {
             margin: 10,
             color: '#e68266',
             position: 'absolute',
-            top: 230
+            top: 160
           }}>{perc}%</Text>
 
         <Text
           style={{
             fontSize: 30,
             margin: 10,
-            marginTop: 200,
+            position: 'absolute',
+            top: 350,
             fontWeight: "700",
             color: 'gray'
           }}>Votes: {total}</Text>
@@ -128,7 +121,8 @@ const styles = StyleSheet.create({
     width: 160,
     height: 55,
     borderRadius: 15,
-    marginTop: 45
+    position: 'absolute',
+    top: 420,
   },
   btnText: {
     color: "#fff",

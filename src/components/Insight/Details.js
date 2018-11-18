@@ -158,11 +158,11 @@ class Details extends React.Component {
 
     console.log(this.props);
     var allcities = [];
-    for (var key in this.state.rcity) {
-      var val = this.state.rcity[key];
+    for (var key in this.state.lcity) {
+      var val = this.state.lcity[key];
       console.log(key, val);
       console.log(key);
-      allcities.push(key, val);
+      console.log(allcities.push[0]);
     }
 
     return (
@@ -192,7 +192,7 @@ class Details extends React.Component {
 
 
         <Text style={styles.headertxt}>Top Locations</Text>
-        <Text style={styles.contentTxt}>Vancouver</Text>
+        <Text style={styles.contentTxt}>{}</Text>
         <Text style={styles.contentTxt}>Richmond</Text>
         <Text style={styles.contentTxt}>Burnaby</Text>
         <Text style={styles.contentTxt}>Surrey</Text>
