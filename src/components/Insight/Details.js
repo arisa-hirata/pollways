@@ -147,8 +147,18 @@ class Details extends React.Component {
         rmale: temp.rmale,
         lfemale: temp.lfemale,
         rfemale: temp.rfemale,
-        lcity: temp.lcity,
-        rcity: temp.rcity,
+        lunderTwenty: temp.lunderTwenty,
+        runderTwenty: temp.runderTwenty,
+        ltwenty: temp.ltwenty,
+        rtwenty: temp.rtwenty,
+        lthirty: temp.lthirty,
+        rthirty: temp.rthirty,
+        lforty: temp.lforty,
+        rforty: temp.rforty,
+        lfifty: temp.lfifty,
+        rfifty: temp.rfifty,
+        loverSixty: temp.loverSixty,
+        roverSixty: temp.roverSixty
       })
 
     })
@@ -162,19 +172,15 @@ class Details extends React.Component {
       var val = this.state.lcity[key];
       console.log(key, val);
       console.log(key);
-      console.log(allcities.push[0]);
+      console.log(val);
     }
+
+    allcities.push(key);
+    console.log(allcities);
+
 
     return (
       <View style={styles.container}>
-
-        {/* <Text style={{
-          zIndex: 99,
-          position: "absolute",
-          top: 25,
-          fontSize: 45,
-          color: "gray"
-        }}>Insights</Text> */}
 
         <Text style={styles.headertxt}>Voters Demographic</Text>
 

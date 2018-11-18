@@ -36,7 +36,6 @@ class Poll extends React.Component {
     var place = await resp.json();
 
     console.log(place);
-    console.warn(place.results[3].address_components[1].long_name);
     console.log(place.results[3].address_components[1].long_name);
     console.log(place.results[8].address_components[0].long_name);
     var city = place.results[8].address_components[0].long_name;
