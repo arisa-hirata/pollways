@@ -47,18 +47,11 @@ const TabBarComponent = props => {
 
 const hometabs = createBottomTabNavigator(
   {
-
     Poll: Poll,
-    // SearchTab: SearchTab,
-    SearchTab: {
-      screen: SearchTab,
-      navigationOptions: {
-        title: "Search"
-      }
-    },
-    AddPollTab: AddPollTab,
+    Filters: SearchTab,
+    Create: AddPollTab,
     NotifiTab: NotifiTab,
-    ProfileTab: ProfileTab,
+    Profile: ProfileTab,
   },
   {
     tabBarComponent: props =>
@@ -67,6 +60,17 @@ const hometabs = createBottomTabNavigator(
   }
 );
 
+hometabs.navigationOptions = ({ navigation }) => {
+  const { routeName } = navigation.state.routes[navigation.state.index];
+
+  // You can do whatever you like here to pick the title based on the route name
+  const headerTitle = routeName;
+
+  return {
+    headerTitle,
+  };
+};
+
 
 export default createStackNavigator(
   {
@@ -74,14 +78,7 @@ export default createStackNavigator(
     SignUp: SignUp,
     // Poll: hometabs,
     Poll: {
-      screen: hometabs,
-      navigationOptions: {
-        headerBackground:
-          <Image
-            style={{ width: "100%", height: "100%" }}
-            source={require("../imgs/Header2.png")} />,
-        headerLeft: null
-      }
+      screen: hometabs
     },
     Insight: Insight,
     ProfileTab: ProfileTab,
@@ -93,7 +90,7 @@ export default createStackNavigator(
       headerBackground:
         <Image
           style={{ width: "100%", height: "100%" }}
-          source={require("../imgs/Header2.png")} />,
+          source={require("../imgs/Header.png")} />,
 
 
 

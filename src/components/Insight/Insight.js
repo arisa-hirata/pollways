@@ -39,7 +39,6 @@ class Insight extends React.Component {
         votesL: data.votesL.length,
         votesR: data.votesR.length
       });
-
     })
   }
 

@@ -39,7 +39,7 @@ class Poll extends React.Component {
     console.warn(place.results[3].address_components[1].long_name);
     console.log(place.results[3].address_components[1].long_name);
     console.log(place.results[8].address_components[0].long_name);
-    var city = place.results[3].address_components[1].long_name;
+    var city = place.results[8].address_components[0].long_name;
     this.city = city;
   }
 
