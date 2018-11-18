@@ -146,21 +146,25 @@ class Details extends React.Component {
         lmale: temp.lmale,
         rmale: temp.rmale,
         lfemale: temp.lfemale,
-        rfemale: temp.rfemale
+        rfemale: temp.rfemale,
+        lcity: temp.lcity,
+        rcity: temp.rcity,
       })
 
     })
   }
 
   render() {
-    /*
-    //console.log(this.props);
+
+    console.log(this.props);
     var allcities = [];
-    for (var key in this.state.lcity) {
-      var val = this.state.lcity[key];
-      //console.log(key, val);
+    for (var key in this.state.rcity) {
+      var val = this.state.rcity[key];
+      console.log(key, val);
+      console.log(key);
+      allcities.push(key, val);
     }
-    */
+
     return (
       <View style={styles.container}>
 

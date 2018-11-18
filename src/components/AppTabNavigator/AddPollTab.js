@@ -1,13 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image } from 'react-native';
-import { getFB } from "../firebase";
 import ImagePicker from 'react-native-image-crop-picker';
+import { getFB } from "../firebase";
+import { connect } from 'react-redux';
 
 class AddPollTab extends React.Component {
 
   constructor(props) {
     super(props)
-    this.title = "";
+    this.userid = "",
+      this.username = "",
+      this.title = "";
     this.desc = '';
     this.rDesc = ""
     this.lDesc = ""
@@ -19,11 +22,12 @@ class AddPollTab extends React.Component {
     }
   }
 
+
   AddImg = async (stateName) => {
     // console.log(stateName)
     const image = await ImagePicker.openPicker({
       width: 30,
-      height: 30,
+      height: 60,
       cropping: true,
       mediaType: "photo",
       includeBase64: true
@@ -35,8 +39,10 @@ class AddPollTab extends React.Component {
   };
 
   createPoll = async () => {
+    console.log(this.props.user.user.uid);
     const response = await this.pollsRef.add({
-      // uerid:"user",
+      uerid: this.props.user.user.uid,
+      username: this.props.user.user.username,
       title: this.title,
       desc: this.desc,
       time: new Date(),
@@ -106,7 +112,6 @@ class AddPollTab extends React.Component {
         <TextInput
           style={{
             fontSize: 30,
-            marginTop: "10%"
             // marginBottom: 30
           }}
           placeholder="Type Title Here..."
@@ -166,7 +171,7 @@ class AddPollTab extends React.Component {
             source={require('../../imgs/ProfileDefault.png')}
           />
 
-          <Text style={styles.profile_name}>User Name</Text>
+          <Text style={styles.profile_name}>{this.props.user.user.username}</Text>
 
         </View>
 
@@ -204,7 +209,7 @@ const styles = StyleSheet.create({
   arg_img: {
     backgroundColor: "lightgray",
     width: 170,
-    height: "100%",
+    height: 280,
     margin: "2%",
   },
   plus: {
@@ -212,7 +217,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: 130,
+    marginTop: 100,
   },
   arg_desc: {
     backgroundColor: "#fff",
@@ -221,7 +226,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: '15%'
+    marginTop: 20
   },
   poll_desc: {
     height: 80,
@@ -263,4 +268,9 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddPollTab;
+const mapStateToProps = ({ auth }) => {
+
+  return { ...auth };
+};
+
+export default connect(mapStateToProps)(AddPollTab);

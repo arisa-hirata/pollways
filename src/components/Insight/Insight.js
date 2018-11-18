@@ -40,8 +40,6 @@ class Insight extends React.Component {
         votesR: data.votesR.length
       });
 
-
-
     })
   }
 

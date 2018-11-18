@@ -27,7 +27,6 @@ class Poll extends React.Component {
   state = {
     luser_id: [],
     ruser_id: [],
-    location: ''
   };
 
 
@@ -36,8 +35,11 @@ class Poll extends React.Component {
     var resp = await fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk");
     var place = await resp.json();
 
+    console.log(place);
+    console.warn(place.results[3].address_components[1].long_name);
+    console.log(place.results[3].address_components[1].long_name);
     console.log(place.results[8].address_components[0].long_name);
-    var city = place.results[8].address_components[0].long_name;
+    var city = place.results[3].address_components[1].long_name;
     this.city = city;
   }
 
@@ -82,6 +84,7 @@ class Poll extends React.Component {
           rdesc: obj.options.right.desc,
           rimg: obj.options.right.img,
           limg: obj.options.left.img,
+          username: obj.username
         });
       })
     })
@@ -204,7 +207,7 @@ class Poll extends React.Component {
               source={require('../../imgs/ProfileDefault.png')}
             />
 
-            <Text style={styles.profile_name}>Profile Name</Text>
+            <Text style={styles.profile_name}>{this.state.username}</Text>
 
           </View>
 
