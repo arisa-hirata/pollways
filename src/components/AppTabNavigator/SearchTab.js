@@ -26,23 +26,27 @@ class SearchTab extends React.Component {
       <ScrollView style={styles.container}>
 
         <View style={{ alignItems: 'center' }}>
-          <TextInput
-            style={{
-              height: 40,
-              width: 200,
-              borderColor: "lightgray",
-              borderWidth: 1,
-              borderRadius: 7,
-            }}
-            placeholder="Search"
-          />
-          <TouchableOpacity style={styles.btn}>
-            <Text
-              onChangeText={this.handleSearch}
-              style={styles.btnText}
 
-            >Search</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', marginTop: 50 }}>
+            <TextInput
+              style={{
+                height: 40,
+                width: 200,
+                borderColor: "lightgray",
+                borderWidth: 1,
+                borderRadius: 7,
+              }}
+              placeholder="Search"
+            />
+            <TouchableOpacity style={styles.btn}>
+              <Text
+                onChangeText={this.handleSearch}
+                style={styles.btnText}
+
+              >Search</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.border} />
         </View>
 
       </ScrollView>
@@ -59,16 +63,22 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#F9E7A2",
-    width: 160,
-    height: 55,
-    borderRadius: 15,
+    width: 80,
+    height: 40,
+    borderRadius: 7,
   },
   btnText: {
     color: "#fff",
-    fontSize: 23,
+    fontSize: 18,
     textAlign: "center",
     padding: 7,
     marginTop: 5,
+  },
+  border: {
+    borderBottomColor: '#9A9A9A',
+    borderBottomWidth: 1,
+    width: "80%",
+    margin: 20,
   }
 });
 

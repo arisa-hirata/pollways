@@ -48,7 +48,7 @@ const TabBarComponent = props => {
 const hometabs = createBottomTabNavigator(
   {
     Poll: Poll,
-    Filters: SearchTab,
+    Search: SearchTab,
     Create: AddPollTab,
     // NotifiTab: NotifiTab,
     Profile: ProfileTab,

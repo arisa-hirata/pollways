@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, 
 import { connect } from 'react-redux';
 import { getFB } from "../firebase";
 import { ChangePollID } from '../../actions/PollActions';
-import { GetCity } from '../../actions/PollActions';
+
 
 // var user = getUser();
 var firebase = getFB();

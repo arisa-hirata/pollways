@@ -20,6 +20,7 @@ target 'pollways2' do
   ]
 
   pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
   
   pod 'Firebase/Core', '~> 5.11.0'
   pod 'Firebase/Auth', '~> 5.11.0'

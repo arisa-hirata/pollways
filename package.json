@@ -7,6 +7,7 @@
     "ios": "react-native run-ios"
   },
   "dependencies": {
+    "lodash": "^4.17.11",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.4",
     "react-native-firebase": "^5.1.0",
@@ -14,6 +15,8 @@
     "react-native-picker-select": "^5.1.0",
     "react-native-pie-chart": "^1.0.13",
     "react-native-progress": "^3.5.0",
+    "react-native-svg": "^8.0.8",
+    "react-native-svg-charts": "^5.2.0",
     "react-navigation": "^2.16.0",
     "react-navigation-redux-helpers": "^2.0.6",
     "react-redux": "^5.0.7",
