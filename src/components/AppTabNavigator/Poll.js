@@ -27,6 +27,7 @@ class Poll extends React.Component {
   state = {
     luser_id: [],
     ruser_id: [],
+    //Hello
   };
 
 
