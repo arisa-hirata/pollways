@@ -102,7 +102,7 @@ class Insight extends React.Component {
           <Text
             style={styles.btnText}
             onPress={() => { this.props.navigation.navigate('Details') }}
-          >View Details</Text>
+          >View Dedails</Text>
         </TouchableOpacity>
       </View>
     );

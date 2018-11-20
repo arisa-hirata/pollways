@@ -5,37 +5,39 @@ import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, Sc
 //$ npm install react-native-progress --save
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import * as Progress from 'react-native-progress';
-
+import Geolocation from 'react-native-geolocation-service';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-crop-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
+
+const Blob = RNFetchBlob.polyfill.Blob;
+const fs = RNFetchBlob.fs;
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+window.Blob = Blob;
 
 class ProfileTab extends React.Component {
 
+  blob=null;
+
 
   state = {
-    // userId: "Katie Munro",
-    //userLocation: 'Vancouver, British Columbia',
-    userFriend: 164,
-    totalVote: 100,
-    totalWin: 60,
-    progress: 20,
     ShowPlace: "",
-    image: require('../../imgs/ProfileDefault.png'),
+    position: {},
+    error: "",
+    img: {},
+    filename: "",
   }
-
   getPlace = async (lat, long) => {
+    console.log("latlng", lat,long);
     var resp = await fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk");
     var place = await resp.json();
     console.log(place);
-
-    //place then go into plus_code_then compound_Code which will show us the
-
     console.log(place.plus_code.compound_code);
-
     var city = place.plus_code.compound_code;
     var cityTemp = city.split(" ");
     cityTemp.shift();
-    console.log(cityTemp);
+
     this.setState({
       //join will add whatever you input in the join(" ")
       ShowPlace: cityTemp.join(" ")
@@ -43,32 +45,49 @@ class ProfileTab extends React.Component {
     // console.log(cityTemp)
   }
 
-
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.getPlace(
-          position.coords.latitude,
-          position.coords.longitude
-        )
+
+    setInterval(()=>{
+      if(this.watchID){
+        return false;
+      }
+
+      this.watchID = Geolocation.getCurrentPosition((position)=> {
+        // var initialRegion = {
+        //   latitude:position.coords.latitude,
+        //   longitude:position.coords.longitude,
+        // }
+         this.getPlace(position.coords.latitude, position.coords.longitude)
       },
-    );
-  }
-  AddImg = async (Hello) => {
-    // console.log(stateName)
-    const profileImg = await ImagePicker.openPicker({
-      width: 60,
-      height: 60,
-      cropping: true,
-      mediaType: "photo",
-      includeBase64: true
-    })
-    // console.log("yeeet",this.state.image)
-    this.setState({
-      image: profileImg
-    })
-    
-  };
+      (error)=>{
+        clearInterval(this.watchID)
+        this.watchID = null;
+        console.log(error);
+        this.setState({error:error.message})},
+        {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000},
+      );
+      },1000)
+//source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}}
+
+    }
+    AddImg = async () => {
+      const image = await ImagePicker.openPicker({
+        width: 60,
+        height: 60,
+        cropping: true,
+        compressImageQuality: 0.3,
+      })
+      var imgF = await RNFetchBlob.fs.readFile(image.path, "base64");
+      var blob = await Blob.build(imgF, {type: 'image/jpg;BASE64'});
+      
+      this.blob = blob;
+
+      this.setState({
+        img: image,
+        filename:image.filename
+      });
+      console.log("whatthefucj",filename)
+    };
 
 
   render() {
@@ -109,11 +128,11 @@ class ProfileTab extends React.Component {
           <View style={styles.topProfileImg}>
             <View style={styles.ProfileImage}>
             <TouchableOpacity
-            onPress={() => this.AddImg("Hello")}
+            onPress={() => this.AddImg()}
             >
               <Image
                 style={{ width: 230, height: 230 }}
-                source={this.state.image}
+                source={(this.state.img.path) ? {uri: this.state.img.path} : require('../../imgs/ProfileDefault.png')}
                 resizeMode='contain'
               />
               </TouchableOpacity>
@@ -128,20 +147,20 @@ class ProfileTab extends React.Component {
             <Text style={{ fontSize: 25 }}>{this.state.ShowPlace}</Text>
           </View>
           {/* user friend number**************************************************************************************** */}
-          <View style={styles.userFriend}>
+          {/* <View style={styles.userFriend}>
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{this.state.userFriend}</Text>
-          </View>
+          </View> */}
 
-          <View style={styles.userFriend}>
-            <Text style={{ fontSize: 15 }}>Poll Mates</Text>
-          </View>
+          {/* <View style={styles.userFriend}>
+            <Text style={{ fontSize: 15 }}>Poll Mates Hello</Text>
+          </View> */}
 
           {/* **************************************************************************************** */}
 
-          <View style={{ width: '100%', height: '10%', backgroundColor: '#E2FFE8', justifyContent: 'center' }}>
+          {/* <View style={{ width: '100%', height: '10%', backgroundColor: '#E2FFE8', justifyContent: 'center' }}>
             <Text>Winning Bar </Text>
             <Progress.Bar progress={0.8} width={200} />
-          </View>
+          </View> */}
 
           {/* **************************************************************************************** */}
           <View style={styles.pollBar}>
@@ -194,7 +213,7 @@ class ProfileTab extends React.Component {
             </View>
           </View>
           {/* **************************************************************************************** */}
-          <View style={styles.pollBar}>
+          {/* <View style={styles.pollBar}>
             <View style={styles.pollBarItem}>
               <View style={styles.pollBarItemInner}>
                 <Text style={{}}>Group polls</Text>
@@ -213,9 +232,9 @@ class ProfileTab extends React.Component {
                 </View>
               </View>
             </View>
-          </View>
+          </View> */}
           {/* **************************************************************************************** */}
-          <View style={styles.groupPoll}>
+          {/* <View style={styles.groupPoll}>
             <View style={styles.groupPollItem}>
               <View style={styles.groupPollItemInner}>
                 <Image
@@ -242,7 +261,7 @@ class ProfileTab extends React.Component {
               <View style={styles.groupPollItemInner}>
               </View>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     );
@@ -260,6 +279,7 @@ const styles = StyleSheet.create({
     height: '5%',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    marginBottom: 20
   },
   topBarItem: {
     width: '50%',
@@ -273,6 +293,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 40
   },
   ProfileImage: {
     width: 200,
@@ -304,6 +325,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 1,
     marginBottom: 10,
+    marginTop: 30
   },
   pollBarItem: {
     width: '50%',
