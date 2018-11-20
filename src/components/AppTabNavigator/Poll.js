@@ -13,6 +13,8 @@ class Poll extends React.Component {
 
   cdoc = null;
   city = null;
+  allPolls = [];
+  curIndex = 0;
 
   constructor(props) {
     super(props);
@@ -72,26 +74,29 @@ class Poll extends React.Component {
   // }
   getPolls = async () => {
 
-    var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(1);
-
+    var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(10);
+    this.allPolls = [];
     polls.get().then((snap) => {
       snap.forEach((doc) => {
         this.cdoc = doc;
 
         //console.log(doc.data());
         var obj = doc.data();
+        obj.doc_id = doc.id;
         console.log(doc);
-        this.props.dispatch(ChangePollID(doc.id));//dispatch action to change pollid
-        this.setState({
-          title: obj.title,
-          desc: obj.desc,
-          ldesc: obj.options.left.desc,
-          rdesc: obj.options.right.desc,
-          rimg: obj.options.right.img,
-          limg: obj.options.left.img,
-          username: obj.username
-        });
+        this.allPolls.push(obj);
       })
+
+      this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
+      this.setState({
+        title: this.allPolls[this.curIndex].title,
+        desc: this.allPolls[this.curIndex].desc,
+        ldesc: this.allPolls[this.curIndex].options.left.desc,
+        rdesc: this.allPolls[this.curIndex0].options.right.desc,
+        rimg: this.allPolls[this.curIndex].options.right.img,
+        limg: this.allPolls[this.curIndex0].options.left.img,
+        username: this.allPolls[this.curIndex].username
+      });
     })
     return false;
 
@@ -112,7 +117,13 @@ class Poll extends React.Component {
     // console.log(this.cdoc);
     var obj = this.cdoc.data();
     var arr = obj.votesL || [];
-
+    var arr2 = obj.votesR || [];
+    if (this.checkVoted(arr)) {
+      return;
+    }
+    if (this.checkVoted(arr2)) {
+      return;
+    }
     console.log(this.props);
     var dataL = {
       user_id: this.props.user.user.uid,
@@ -133,7 +144,15 @@ class Poll extends React.Component {
   voteRight() {
 
     var obj = this.cdoc.data();
+
     var arr = obj.votesR || [];
+    var arr2 = obj.votesL || [];
+    if (this.checkVoted(arr)) {
+      return;
+    }
+    if (this.checkVoted(arr2)) {
+      return;
+    }
 
     var dataR = {
       user_id: this.props.user.user.uid,
@@ -149,6 +168,23 @@ class Poll extends React.Component {
       votesR: arr
     })
     this.props.navigation.navigate('Insight')
+  }
+
+  checkVoted = (arr) => {
+    var exsist = false;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].user_id === this.props.user.user.uid) {
+        exsist = true; break;
+      }
+    }
+
+    if (exsist) {
+      alert('YOU ALREADY VOTED!!!!');
+      this.props.navigation.navigate('Insight')
+      return true;
+    } else {
+      return false;
+    }
   }
 
   handleVote = () => {
@@ -217,7 +253,7 @@ class Poll extends React.Component {
             {this.state.desc}
           </Text>
 
-          <Text
+          {/* <Text
             style={{
               color: "gray",
               fontWeight: "700",
@@ -239,7 +275,7 @@ class Poll extends React.Component {
               asdfkhagdlsgblfavkgbvlbvalkjrbvlkjbvlbv
           </Text>
 
-          </View>
+          </View> */}
 
         </View>
 
