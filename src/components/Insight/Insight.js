@@ -32,8 +32,8 @@ class Insight extends React.Component {
 
       let data = doc.data();
       console.log("data", data);
-      // console.log(data.votesL);
-      // console.log(data.votesR);
+      console.log(data.votesL);
+      console.log(data.votesR);
 
       this.setState({
         votesL: data.votesL.length,
@@ -55,12 +55,34 @@ class Insight extends React.Component {
     var total = this.state.votesR + this.state.votesL
     var perc = 0;
     var pc = null;
-    if (total > 0) {
+    if (total > 1) {
       perc = parseInt(this.state.votesR / total * 100);
       pc = <PieChart
         style={{ position: 'absolute', top: 80 }}
         chart_wh={chart_wh}
         series={series}
+        sliceColor={sliceColor}
+        doughnut={true}
+        coverRadius={0.75}
+        coverFill={'#FFF'}
+      />
+    } else if (this.state.votesR == 0 && this.state.votesL > 0) {
+      perc = 0;
+      pc = <PieChart
+        style={{ position: 'absolute', top: 80 }}
+        chart_wh={chart_wh}
+        series={[0, 100]}
+        sliceColor={sliceColor}
+        doughnut={true}
+        coverRadius={0.75}
+        coverFill={'#FFF'}
+      />
+    } else {
+      perc = 100;
+      pc = <PieChart
+        style={{ position: 'absolute', top: 80 }}
+        chart_wh={chart_wh}
+        series={[100, 0]}
         sliceColor={sliceColor}
         doughnut={true}
         coverRadius={0.75}

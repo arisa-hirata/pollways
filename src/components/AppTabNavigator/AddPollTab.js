@@ -1,5 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image } from 'react-native';
+import {
+  StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image, KeyboardAvoidingView,
+  keyboardVerticalOffset, ScrollView
+} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import { getFB } from "../firebase";
 import { connect } from 'react-redux';
@@ -90,116 +93,107 @@ class AddPollTab extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {/* <ImageBackground
-          style={{
-            width: "100%",
-            height: 85,
-            position: "absolute",
-            top: 0,
-          }}
-          source={require('../../imgs/Header.png')}
-        />
-        <Text style={{
-          zIndex: 99,
-          position: "absolute",
-          top: 25,
-          fontSize: 45,
-          color: "#fff"
-        }}>Create</Text> */}
+
+      <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={100}>
+        <ScrollView style={{ backgroundColor: '#ffffff' }}>
+          <View style={styles.container}>
+
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <TextInput
+                style={{
+                  fontSize: 30,
+                  height: 80,
+                  width: "100%",
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  // marginBottom: 30
+                }}
+                placeholder="Type Title Here..."
+                onChangeText={(text) => { this.title = text }}
+              />
+            </View>
+            <View style={styles.arg_container}>
+
+              <ImageBackground
+                style={styles.arg_img}
+                source={{ uri: this.state.imgL.path }}
+              >
+                <TouchableOpacity
+                  onPress={() => this.AddImg("imgL")}
+                >
+                  <Text style={styles.plus}>+</Text>
+                </TouchableOpacity>
+                <TextInput
+                  // multiline={true}
+                  // numberOfLines={4}
+                  style={styles.arg_desc}
+                  placeholder="Give your argment..."
+                  onChangeText={(text) => { this.lDesc = text }}
+                />
 
 
-        <TextInput
-          style={{
-            fontSize: 30,
-            // marginBottom: 30
-          }}
-          placeholder="Type Title Here..."
-          onChangeText={(text) => { this.title = text }}
-        />
+              </ImageBackground>
 
-        <View style={styles.arg_container}>
+              <ImageBackground
+                style={styles.arg_img}
+                source={{ uri: this.state.imgR.path }}
+              >
 
-          <ImageBackground
-            style={styles.arg_img}
-            source={{ uri: this.state.imgL.path }}
-          >
-            <TouchableOpacity
-              onPress={() => this.AddImg("imgL")}
-            >
-              <Text style={styles.plus}>+</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.AddImg("imgR")}
+                >
+                  <Text style={styles.plus}>+</Text>
+                </TouchableOpacity>
+
+                <TextInput
+                  // multiline={true}
+                  // numberOfLines={4}
+                  style={styles.arg_desc}
+                  placeholder="Give your argment..."
+                  onChangeText={(text) => { this.rDesc = text }}
+                />
+
+
+              </ImageBackground>
+            </View>
+
+
+            <View style={styles.profile_container}>
+
+              <Image
+                style={{ width: 45, height: 45, marginLeft: 50 }}
+                source={require('../../imgs/ProfileDefault.png')}
+              />
+
+              <Text style={styles.profile_name}>{this.props.user.user.username}</Text>
+
+            </View>
+
+
             <TextInput
-              multiline={true}
-              numberOfLines={4}
-              style={styles.arg_desc}
-              placeholder="Give your argment..."
-              onChangeText={(text) => { this.lDesc = text }}
+              // multiline={true}
+              // numberOfLines={4}
+              style={styles.poll_desc}
+              placeholder="Give your poll a description..."
+              onChangeText={(text) => { this.desc = text }}
             />
 
-
-          </ImageBackground>
-
-          <ImageBackground
-            style={styles.arg_img}
-            source={{ uri: this.state.imgR.path }}
-          >
-
             <TouchableOpacity
-              onPress={() => this.AddImg("imgR")}
+              style={styles.btn}
+              onPress={this.handlePoll}
             >
-              <Text style={styles.plus}>+</Text>
+              <Text style={styles.btnText}>Launch Poll</Text>
             </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
-            <TextInput
-              multiline={true}
-              numberOfLines={4}
-              style={styles.arg_desc}
-              placeholder="Give your argment..."
-              onChangeText={(text) => { this.rDesc = text }}
-            />
-
-
-          </ImageBackground>
-        </View>
-
-
-        <View style={styles.profile_container}>
-
-          <Image
-            style={{ width: 45, height: 45, marginLeft: 50 }}
-            source={require('../../imgs/ProfileDefault.png')}
-          />
-
-          <Text style={styles.profile_name}>{this.props.user.user.username}</Text>
-
-        </View>
-
-
-        <TextInput
-          multiline={true}
-          numberOfLines={4}
-          style={styles.poll_desc}
-          placeholder="Give your poll a description..."
-          onChangeText={(text) => { this.desc = text }}
-        />
-
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={this.handlePoll}
-        >
-          <Text style={styles.btnText}>Launch Poll</Text>
-        </TouchableOpacity>
-
-      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },

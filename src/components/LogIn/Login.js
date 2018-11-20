@@ -86,7 +86,6 @@ class Login extends Component {
       <ImageBackground
         style={styles.imgBackground}
         source={require('../../imgs/LogInBG.jpg')}>
-
         <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
           <View style={styles.container}>
             <Image
@@ -95,7 +94,6 @@ class Login extends Component {
               source={require('../../imgs/Logo.png')}
             />
           </View>
-
           <View style={styles.Textcontainer}>
             <TextInput
               style={styles.input}

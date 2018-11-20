@@ -17,7 +17,7 @@ class SearchTab extends React.Component {
   }
 
   handleSearch = () => {
-
+    alert('There is no  such Polls. Please try other words');
   }
 
 
@@ -32,18 +32,17 @@ class SearchTab extends React.Component {
               style={{
                 height: 40,
                 width: 200,
-                borderColor: "lightgray",
-                borderWidth: 1,
-                borderRadius: 7,
+                borderColor: "#F9E7A2",
+                borderWidth: 3,
+                borderRadius: 10,
+                margin: 10
               }}
-              placeholder="Search"
+              placeholder="Search Polls"
             />
-            <TouchableOpacity style={styles.btn}>
-              <Text
-                onChangeText={this.handleSearch}
-                style={styles.btnText}
-
-              >Search</Text>
+            <TouchableOpacity
+              onPress={this.handleSearch}
+              style={styles.btn}>
+              <Text style={styles.btnText}>GO</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.border} />
@@ -63,16 +62,17 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#F9E7A2",
-    width: 80,
+    width: 60,
     height: 40,
-    borderRadius: 7,
+    borderRadius: 8,
+    margin: 10
   },
   btnText: {
     color: "#fff",
     fontSize: 18,
     textAlign: "center",
-    padding: 7,
-    marginTop: 5,
+    padding: 10,
+
   },
   border: {
     borderBottomColor: '#9A9A9A',

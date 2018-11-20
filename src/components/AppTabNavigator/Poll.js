@@ -42,7 +42,7 @@ class Poll extends React.Component {
     var placeArr = place.results[0].address_components.filter((obj, index) => {
       return obj.types.indexOf("locality") != -1;
     });
-    console.warn(placeArr[0].long_name);
+
     console.log(placeArr[0].long_name);
     var city = placeArr[0].long_name
     this.city = city;
@@ -131,10 +131,7 @@ class Poll extends React.Component {
   }
 
   voteRight() {
-    // const { Rpoll } = this.state;
-    // App.shared.voteRight({
-    //   Rpoll
-    // });
+
     var obj = this.cdoc.data();
     var arr = obj.votesR || [];
 
