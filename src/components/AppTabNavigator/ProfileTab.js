@@ -20,6 +20,7 @@ class ProfileTab extends React.Component {
     totalWin: 60,
     progress: 20,
     ShowPlace: "",
+    image: require('../../imgs/ProfileDefault.png'),
   }
 
   getPlace = async (lat, long) => {
@@ -52,8 +53,22 @@ class ProfileTab extends React.Component {
         )
       },
     );
-
   }
+  AddImg = async (Hello) => {
+    // console.log(stateName)
+    const profileImg = await ImagePicker.openPicker({
+      width: 60,
+      height: 60,
+      cropping: true,
+      mediaType: "photo",
+      includeBase64: true
+    })
+    // console.log("yeeet",this.state.image)
+    this.setState({
+      image: profileImg
+    })
+    
+  };
 
 
   render() {
@@ -93,11 +108,15 @@ class ProfileTab extends React.Component {
           {/* Profile Image**************************************************************************************** */}
           <View style={styles.topProfileImg}>
             <View style={styles.ProfileImage}>
+            <TouchableOpacity
+            onPress={() => this.AddImg("Hello")}
+            >
               <Image
                 style={{ width: 230, height: 230 }}
-                source={require('../../imgs/userImg.png')}
+                source={this.state.image}
                 resizeMode='contain'
               />
+              </TouchableOpacity>
             </View>
           </View>
           {/* username Input**************************************************************************************** */}
