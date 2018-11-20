@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, 
 import { connect } from 'react-redux';
 import { getFB } from "../firebase";
 import { ChangePollID } from '../../actions/PollActions';
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-container';
+
+
 
 
 // var user = getUser();
@@ -10,6 +13,8 @@ var firebase = getFB();
 
 
 class Poll extends React.Component {
+
+
 
   cdoc = null;
   city = null;
@@ -31,6 +36,13 @@ class Poll extends React.Component {
     ruser_id: [],
     //Hello
   };
+
+  handleSwipe = () => {
+    alert('swipe');
+    this.setState({
+      curIndex: Math.round(Math.random() * 2)
+    })
+  }
 
 
   getPlace = async (lat, long) => {
@@ -80,7 +92,7 @@ class Poll extends React.Component {
       snap.forEach((doc) => {
         this.cdoc = doc;
 
-        //console.log(doc.data());
+        console.log(this.cdoc);
         var obj = doc.data();
         obj.doc_id = doc.id;
         console.log(doc);
@@ -171,14 +183,14 @@ class Poll extends React.Component {
   }
 
   checkVoted = (arr) => {
-    var exsist = false;
+    var exist = false;
     for (var i = 0; i < arr.length; i++) {
       if (arr[i].user_id === this.props.user.user.uid) {
-        exsist = true; break;
+        exist = true; break;
       }
     }
 
-    if (exsist) {
+    if (exist) {
       alert('YOU ALREADY VOTED!!!!');
       this.props.navigation.navigate('Insight')
       return true;
@@ -200,60 +212,68 @@ class Poll extends React.Component {
 
         <View style={styles.container}>
 
-          <View style={styles.title_container}>
-            <Text style={styles.title}>{this.state.title}</Text>
-          </View>
 
-          <View style={styles.arg_container}>
+          <GestureRecognizer
+            onSwipe={this.handleSwipe}
+            velocityThreshold={0.3}
+            distanceThreshold={40}
+            angleThreshold={15}
+          >
 
-            <TouchableOpacity
-              style={styles.arg_btn}
-              onPress={() => this.voteLeft()}
-            >
-              <ImageBackground
-                style={styles.arg_img}
-                source={{ uri: (this.state.limg) ? this.state.limg : "" }}
+            <View style={styles.title_container}>
+              <Text style={styles.title}>{this.state.title}</Text>
+            </View>
+
+            <View style={styles.arg_container}>
+
+              <TouchableOpacity
+                style={styles.arg_btn}
+                onPress={() => this.voteLeft()}
               >
-                <View style={styles.arg_desc}>
-                  <Text style={{ color: "#fff" }}>{this.state.ldesc}</Text>
-                </View>
-              </ImageBackground>
-            </TouchableOpacity>
+                <ImageBackground
+                  style={styles.arg_img}
+                  source={{ uri: (this.state.limg) ? this.state.limg : "" }}
+                >
+                  <View style={styles.arg_desc}>
+                    <Text style={{ color: "#fff" }}>{this.state.ldesc}</Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.arg_btn}
-              // onPress={() => {
-              //   this.props.navigation.navigate('Insight')
-              // }}
-              onPress={() => this.voteRight()}
-            >
-              <ImageBackground
-                style={styles.arg_img}
-                source={{ uri: (this.state.rimg) ? this.state.rimg : "" }}
+              <TouchableOpacity
+                style={styles.arg_btn}
+                // onPress={() => {
+                //   this.props.navigation.navigate('Insight')
+                // }}
+                onPress={() => this.voteRight()}
               >
-                <View style={styles.arg_descR}>
-                  <Text style={{ color: "#fff" }}>{this.state.rdesc}</Text>
-                </View>
-              </ImageBackground>
-            </TouchableOpacity>
-          </View>
+                <ImageBackground
+                  style={styles.arg_img}
+                  source={{ uri: (this.state.rimg) ? this.state.rimg : "" }}
+                >
+                  <View style={styles.arg_descR}>
+                    <Text style={{ color: "#fff" }}>{this.state.rdesc}</Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            </View>
 
-          <View style={styles.profile_container}>
+            <View style={styles.profile_container}>
 
-            <Image
-              style={{ width: 45, height: 45, marginLeft: 50 }}
-              source={require('../../imgs/ProfileDefault.png')}
-            />
+              <Image
+                style={{ width: 45, height: 45, marginLeft: 50 }}
+                source={require('../../imgs/ProfileDefault.png')}
+              />
 
-            <Text style={styles.profile_name}>{this.state.username}</Text>
+              <Text style={styles.profile_name}>{this.state.username}</Text>
 
-          </View>
+            </View>
 
-          <Text style={styles.poll_Desc}>
-            {this.state.desc}
-          </Text>
+            <Text style={styles.poll_Desc}>
+              {this.state.desc}
+            </Text>
 
-          {/* <Text
+            {/* <Text
             style={{
               color: "gray",
               fontWeight: "700",
@@ -276,6 +296,7 @@ class Poll extends React.Component {
           </Text>
 
           </View> */}
+          </GestureRecognizer>
 
         </View>
 

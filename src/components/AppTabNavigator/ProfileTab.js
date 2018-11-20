@@ -83,8 +83,8 @@ class ProfileTab extends React.Component {
   // }
   AddImg = async () => {
     const image = await ImagePicker.openPicker({
-      width: 60,
-      height: 60,
+      width: 160,
+      height: 160,
       cropping: true,
       compressImageQuality: 0.3,
     })
@@ -142,7 +142,7 @@ class ProfileTab extends React.Component {
                 onPress={() => this.AddImg()}
               >
                 <Image
-                  style={{ width: 160, height: 160 }}
+                  style={{ width: 160, height: 160, borderRadius: 80 }}
                   source={(this.state.img.path) ? { uri: this.state.img.path } : require('../../imgs/ProfileDefault.png')}
                   resizeMode='contain'
                 />
