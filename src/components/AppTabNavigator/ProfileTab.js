@@ -28,7 +28,6 @@ class ProfileTab extends React.Component {
     console.log(place);
 
     //place then go into plus_code_then compound_Code which will show us the
-    console.log(place.results[8].address_components[0].long_name);
 
     console.log(place.plus_code.compound_code);
 
@@ -42,10 +41,6 @@ class ProfileTab extends React.Component {
     });
     // console.log(cityTemp)
   }
-
-
-
-
 
 
   componentDidMount() {
@@ -86,11 +81,11 @@ class ProfileTab extends React.Component {
 
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileEdit')}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                   <Text style={{
                     textAlign: 'right',
                     paddingRight: 25, marginTop: 20
-                  }}>Edit</Text>
+                  }}>Sign Out</Text>
                 </TouchableOpacity>
               </View>
             </View>

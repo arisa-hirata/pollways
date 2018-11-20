@@ -35,10 +35,15 @@ class Poll extends React.Component {
     var resp = await fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk");
     var place = await resp.json();
 
-    console.log(place);
-    console.log(place.results[3].address_components[1].long_name);
-    console.log(place.results[8].address_components[0].long_name);
-    var city = place.results[8].address_components[0].long_name;
+    // console.log(place);
+    // console.log(place.plus_code.compound_code[1]);
+    // console.log(place.results[8].address_components[0].long_name);
+    var placeArr = place.results[0].address_components.filter((obj, index) => {
+      return obj.types.indexOf("locality") != -1;
+    });
+    console.warn(placeArr[0].long_name);
+    console.log(placeArr[0].long_name);
+    var city = placeArr[0].long_name
     this.city = city;
   }
 

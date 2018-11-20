@@ -95,6 +95,7 @@ class Details extends React.Component {
       for (var i = 0; i < data.votesR.length; i++) {
         var obj = data.votesR[i];
         console.log(obj);
+        var city = obj.city;
         if (obj.gender == 'Male') {
           temp.rmale++;
         }
@@ -133,15 +134,15 @@ class Details extends React.Component {
           temp.rcity[city] = 1;
         }
 
-
       }
 
-      console.log(temp);
-      console.log(temp.lmale);//左のmaleの投票した数
-      console.log(temp.rmale);
-      console.log(temp.lfemale);
-      console.log(temp.rfemale);
+      // console.log(temp);
+      // console.log(temp.lmale);//左のmaleの投票した数
+      // console.log(temp.rmale);
+      // console.log(temp.lfemale);
+      // console.log(temp.rfemale);
 
+      console.log(temp);
 
       this.setState({
         lmale: temp.lmale,
@@ -168,47 +169,42 @@ class Details extends React.Component {
   render() {
 
     console.log(this.props);
-    var allcities = [];
+    var cityData = [];
+    var cityKeys = ["lcity", "rcity"];
+    var allCities = [];
+
+
     for (var key in this.state.lcity) {
       var val = this.state.lcity[key];
-      console.log(key, val);
-      console.log(key);
-      console.log(val);
-
-      const _ = require('lodash');
-      let obj = {
-        lcity: { key: val },
-        rcity: { "San Francisco": 3, "Barnaby": 10 }
+      var obj = {};
+      obj["lcity"] = val;
+      if (this.state.rcity[key]) {
+        obj["rcity"] = this.state.rcity[key]
+      } else {
+        obj["rcity"] = 0
       }
-      console.log(obj.lcity)
-      let b = _.mergeWith({ ...obj.lcity }, { ...obj.rcity }, (a, b) => ((a || 0) + (b || 0)))
-      let c = _.merge(obj.lcity, obj.rcity)
 
-      let d = _.keys(b)
+      cityData.push(obj)
 
-      for (let t of d) {
-        console.log(t + ":" + b[t] + ":" + c[t])
+      if (allCities.indexOf(key) === -1) {
+        allCities.push(key);
       }
     }
-
-    allcities.push(key);
-    console.log(allcities);
-
-    const _ = require('lodash');
-    let obj = {
-      lcity: { allcities: val },
-      rcity: { "San Francisco": 3, "Barnaby": 10 }
-    }
-    console.log(obj.lcity)
-    let b = _.mergeWith({ ...obj.lcity }, { ...obj.rcity }, (a, b) => ((a || 0) + (b || 0)))
-    let c = _.merge(obj.lcity, obj.rcity)
-
-    let d = _.keys(b)
-
-    for (let t of d) {
-      console.log(t + ":" + b[t] + ":" + c[t])
+    console.log(cityData);
+    console.log(cityKeys);
+    for (var key in this.state.rcity) {
+      var val = this.state.rcity[key];
     }
 
+    var cityText = allCities.map((obj, index) => {
+      return (
+        <Text>{obj}</Text>
+      )
+    })
+
+
+
+    console.log(cityKeys, cityData);
 
     const gender = [
       {
@@ -295,27 +291,21 @@ class Details extends React.Component {
                 />
               </View>
             </View>
-
-            {/* <View style={{ flexDirection: 'row', marginTop: -20 }}>
-
-            <StackedBarChart
-              style={styles.barchart}
-              keys={maleKey}
-              colors={colors}
-              data={male}
-              horizontal={true}
-              showGrid={false}
-              contentInset={{ bottom: 30 }}
-            />
-          </View> */}
           </View>
 
 
           <Text style={styles.headertxt}>Top Locations</Text>
-          <Text style={styles.contentTxt}>{}</Text>
-          <Text style={styles.contentTxt}>Richmond</Text>
-          <Text style={styles.contentTxt}>Burnaby</Text>
-          <Text style={styles.contentTxt}>Surrey</Text>
+
+          {cityText}
+          <StackedBarChart
+            style={styles.barchart}
+            keys={cityKeys}
+            colors={colors}
+            data={cityData}
+            horizontal={true}
+            showGrid={false}
+            contentInset={{ bottom: 30 }}
+          />
 
 
 
