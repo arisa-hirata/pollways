@@ -6,6 +6,7 @@ import {
 import ImagePicker from 'react-native-image-crop-picker';
 import { getFB } from "../firebase";
 import { connect } from 'react-redux';
+import RNFetchBlob from 'react-native-fetch-blob';
 
 class AddPollTab extends React.Component {
 
@@ -33,8 +34,13 @@ class AddPollTab extends React.Component {
       height: 60,
       cropping: true,
       mediaType: "photo",
-      includeBase64: true
+      includeBase64: true,
     })
+
+    var imgF = await RNFetchBlob.fs.readFile(image.path, "base64");
+    var blob = await Blob.build(imgF, { type: 'image/jpg;BASE64' });
+
+    this.blob = blob;
 
     this.setState({
       [stateName]: image

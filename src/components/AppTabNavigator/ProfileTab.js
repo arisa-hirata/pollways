@@ -4,11 +4,10 @@ import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, Sc
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk
 //$ npm install react-native-progress --save
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
-import * as Progress from 'react-native-progress';
-import Geolocation from 'react-native-geolocation-service';
+// import Geolocation from 'react-native-geolocation-service';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
-import RNFetchBlob from 'rn-fetch-blob';
+import RNFetchBlob from 'react-native-fetch-blob';
 
 
 const Blob = RNFetchBlob.polyfill.Blob;
@@ -18,7 +17,7 @@ window.Blob = Blob;
 
 class ProfileTab extends React.Component {
 
-  blob=null;
+  blob = null;
 
 
   state = {
@@ -29,7 +28,7 @@ class ProfileTab extends React.Component {
     filename: "",
   }
   getPlace = async (lat, long) => {
-    console.log("latlng", lat,long);
+    console.log("latlng", lat, long);
     var resp = await fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk");
     var place = await resp.json();
     console.log(place);
@@ -46,48 +45,60 @@ class ProfileTab extends React.Component {
   }
 
   componentDidMount() {
-
-    setInterval(()=>{
-      if(this.watchID){
-        return false;
-      }
-
-      this.watchID = Geolocation.getCurrentPosition((position)=> {
-        // var initialRegion = {
-        //   latitude:position.coords.latitude,
-        //   longitude:position.coords.longitude,
-        // }
-         this.getPlace(position.coords.latitude, position.coords.longitude)
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.getPlace(
+          position.coords.latitude,
+          position.coords.longitude
+        )
       },
-      (error)=>{
-        clearInterval(this.watchID)
-        this.watchID = null;
-        console.log(error);
-        this.setState({error:error.message})},
-        {enableHighAccuracy: true, timeout: 5000, maximumAge: 1000},
-      );
-      },1000)
-//source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}}
+    );
+  }
 
-    }
-    AddImg = async () => {
-      const image = await ImagePicker.openPicker({
-        width: 60,
-        height: 60,
-        cropping: true,
-        compressImageQuality: 0.3,
-      })
-      var imgF = await RNFetchBlob.fs.readFile(image.path, "base64");
-      var blob = await Blob.build(imgF, {type: 'image/jpg;BASE64'});
-      
-      this.blob = blob;
+  // componentDidMount() {
 
-      this.setState({
-        img: image,
-        filename:image.filename
-      });
-      console.log("whatthefucj",filename)
-    };
+  //   setInterval(() => {
+  //     if (this.watchID) {
+  //       return false;
+  //     }
+
+  //     this.watchID = Geolocation.getCurrentPosition((position) => {
+  //       // var initialRegion = {
+  //       //   latitude:position.coords.latitude,
+  //       //   longitude:position.coords.longitude,
+  //       // }
+  //       this.getPlace(position.coords.latitude, position.coords.longitude)
+  //     },
+  //       (error) => {
+  //         clearInterval(this.watchID)
+  //         this.watchID = null;
+  //         console.log(error);
+  //         this.setState({ error: error.message })
+  //       },
+  //       { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 },
+  //     );
+  //   }, 1000)
+  //   //source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}}
+
+  // }
+  AddImg = async () => {
+    const image = await ImagePicker.openPicker({
+      width: 60,
+      height: 60,
+      cropping: true,
+      compressImageQuality: 0.3,
+    })
+    var imgF = await RNFetchBlob.fs.readFile(image.path, "base64");
+    var blob = await Blob.build(imgF, { type: 'image/jpg;BASE64' });
+
+    this.blob = blob;
+
+    this.setState({
+      img: image,
+      filename: image.filename
+    });
+    console.log("whatthefucj", filename)
+  };
 
 
   render() {
@@ -127,14 +138,14 @@ class ProfileTab extends React.Component {
           {/* Profile Image**************************************************************************************** */}
           <View style={styles.topProfileImg}>
             <View style={styles.ProfileImage}>
-            <TouchableOpacity
-            onPress={() => this.AddImg()}
-            >
-              <Image
-                style={{ width: 230, height: 230 }}
-                source={(this.state.img.path) ? {uri: this.state.img.path} : require('../../imgs/ProfileDefault.png')}
-                resizeMode='contain'
-              />
+              <TouchableOpacity
+                onPress={() => this.AddImg()}
+              >
+                <Image
+                  style={{ width: 160, height: 160 }}
+                  source={(this.state.img.path) ? { uri: this.state.img.path } : require('../../imgs/ProfileDefault.png')}
+                  resizeMode='contain'
+                />
               </TouchableOpacity>
             </View>
           </View>

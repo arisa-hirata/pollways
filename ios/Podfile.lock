@@ -125,6 +125,8 @@ PODS:
   - QBImagePickerController (3.4.0)
   - React (0.57.4):
     - React/Core (= 0.57.4)
+  - react-native-fetch-blob (0.10.6):
+    - React/Core
   - React/Core (0.57.4):
     - yoga (= 0.57.4.React)
   - React/fishhook (0.57.4)
@@ -167,6 +169,7 @@ DEPENDENCIES:
   - Firebase/Core (~> 5.11.0)
   - Firebase/Firestore (~> 5.11.0)
   - Firebase/Storage (~> 5.11.0)
+  - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - React/Core (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
@@ -210,6 +213,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   React:
     :path: "../node_modules/react-native"
+  react-native-fetch-blob:
+    :path: "../node_modules/react-native-fetch-blob"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
   RNSVG:
@@ -240,11 +245,12 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  react-native-fetch-blob: 63394b1d7b0781547b3e4463b3195790177b1222
   RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
   RNSVG: 6252323c0312735f0af5f58b5adf2965b6a9ffbf
   RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: bbcf82df95d208865f9d10680f7e0901e0b64074
+PODFILE CHECKSUM: d905f60fc4b3134535754c1f0fd661180a254b8a
 
 COCOAPODS: 1.5.3
