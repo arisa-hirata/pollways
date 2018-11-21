@@ -38,6 +38,7 @@ class Poll extends React.Component {
   };
 
   handleSwipe = () => {
+
     alert('swipe');
     this.curIndex++;
     this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
@@ -50,6 +51,7 @@ class Poll extends React.Component {
       limg: this.allPolls[this.curIndex].options.left.img,
       username: this.allPolls[this.curIndex].username
     });
+    // console.log("Arisa", this.curIndex);
   }
 
 
@@ -64,7 +66,6 @@ class Poll extends React.Component {
       return obj.types.indexOf("locality") != -1;
     });
 
-    console.log(placeArr[0].long_name);
     var city = placeArr[0].long_name
     this.city = city;
   }
@@ -103,7 +104,7 @@ class Poll extends React.Component {
         var obj = doc.data();
         obj.doc_id = doc.id;
         obj.cdoc = doc;
-        console.log(doc);
+        console.log("Arisaaa", obj.doc_id);
         this.allPolls.push(obj);
       })
 
