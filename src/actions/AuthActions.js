@@ -27,7 +27,7 @@ export const passwordChanged = (text) => {
 };
 //Angus Update
 export const loginUser = ({ email, password }) => {
-  console.log("filtererrorblah",email,password)
+  console.log("filtererrorblah", email, password)
   return (dispatch) => {
     //loginUserSuccess(dispatch, {}); return;
     dispatch({ type: LOGIN_USER });
@@ -35,8 +35,8 @@ export const loginUser = ({ email, password }) => {
     getFB().auth().signInWithEmailAndPassword(email, password)
       .then(user => {
         var ref = getFB().firestore().collection("profile").doc(user.user.uid);
-        ref.get().then((snap)=>{
-          console.log("filtererrorblah",snap.data());
+        ref.get().then((snap) => {
+          console.log("filtererrorblah", snap.data());
           var obj = snap.data();
           user.user.username = obj.username;
           user.user.age = obj.age;
@@ -44,7 +44,7 @@ export const loginUser = ({ email, password }) => {
           user.user.time = obj.time;
           loginUserSuccess(user)(dispatch)
         })
-        
+
       })
       .catch((error) => {
         // console.warn("loginUser failed");
@@ -87,6 +87,10 @@ export const signUp = ({ email, password, username, gender, age, time }) => {
           time: time,
           username: username
         })
+        user.user.username = username;
+        user.user.age = age;
+        user.user.gender = gender;
+        user.user.time = time;
         loginUserSuccess(user)(dispatch);
       })
       .catch(() => loginUserFail(dispatch));

@@ -62,3 +62,10 @@ export function GetCity(city) {
     city: city
   }
 }
+
+export function ChangeIndex(curIndex) {
+  return {
+    type: 'CHANGE_INDEX',
+    curIndex: curIndex
+  }
+}

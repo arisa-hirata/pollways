@@ -1,12 +1,13 @@
 import React from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image, KeyboardAvoidingView,
-  keyboardVerticalOffset, ScrollView
+  keyboardVerticalOffset, ScrollView, Dimensions
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import { getFB } from "../firebase";
 import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob';
+import { ChangeIndex } from '../../actions/PollActions';
 
 class AddPollTab extends React.Component {
 
@@ -22,7 +23,8 @@ class AddPollTab extends React.Component {
     this.pollsRef = getFB().firestore().collection("polls")
     this.state = {
       imgL: {},
-      imgR: {}
+      imgR: {},
+      loading: false
     }
   }
 
@@ -33,6 +35,7 @@ class AddPollTab extends React.Component {
       width: 30,
       height: 60,
       cropping: true,
+      compressImageQuality: 0.1,
       mediaType: "photo",
       includeBase64: true,
     })
@@ -86,14 +89,24 @@ class AddPollTab extends React.Component {
         img: urlRight
       }
     });
+
+    this.props.dispatch(ChangeIndex(0));
+
   }
 
   handlePoll = async () => {
-    this.props.navigation.navigate('Poll');
+
+    this.setState({
+      loading: true
+    })
     const refId = await this.createPoll()
     const urlLeft = await this.uploadImage(refId, "L")
     const urlRight = await this.uploadImage(refId, "R")
     await this.updatePoll(refId, urlLeft, urlRight);
+    this.setState({
+      loading: false
+    })//setState back to false
+    this.props.navigation.navigate('Poll');
   }
 
 
@@ -101,20 +114,24 @@ class AddPollTab extends React.Component {
     return (
 
       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={100}>
-        <ScrollView style={{ backgroundColor: '#ffffff' }}>
-          <View style={styles.container}>
 
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        {(this.state.loading) ? <View style={{ justifyContent: "center", position: "absolute", width: Dimensions.get('window').width, height: Dimensions.get('window').height, backgroundColor: "white", left: 0, top: 0, zIndex: 99999 }}>
+          <Text>LOADING...</Text>
+        </View> : null}
+
+
+        <ScrollView style={{ backgroundColor: '#ffffff' }}>
+          <View>
+
+            <View style={styles.container}>
               <TextInput
                 style={{
                   fontSize: 30,
                   height: 80,
-                  width: "100%",
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  width: "70%"
                   // marginBottom: 30
                 }}
-                placeholder="Type Title Here..."
+                placeholder="   Type Title Here..."
                 onChangeText={(text) => { this.title = text }}
               />
             </View>
@@ -164,32 +181,34 @@ class AddPollTab extends React.Component {
             </View>
 
 
-            <View style={styles.profile_container}>
+            <View style={styles.container}>
+              <View style={styles.profile_container}>
 
-              <Image
-                style={{ width: 45, height: 45, marginLeft: 50 }}
-                source={require('../../imgs/ProfileDefault.png')}
+                <Image
+                  style={{ width: 45, height: 45, marginLeft: 50 }}
+                  source={require('../../imgs/ProfileDefault.png')}
+                />
+
+                <Text style={styles.profile_name}>{this.props.user.user.username}</Text>
+
+              </View>
+
+
+              <TextInput
+                // multiline={true}
+                // numberOfLines={4}
+                style={styles.poll_desc}
+                placeholder="Give your poll a description..."
+                onChangeText={(text) => { this.desc = text }}
               />
 
-              <Text style={styles.profile_name}>{this.props.user.user.username}</Text>
-
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={this.handlePoll}
+              >
+                <Text style={styles.btnText}>Launch Poll</Text>
+              </TouchableOpacity>
             </View>
-
-
-            <TextInput
-              // multiline={true}
-              // numberOfLines={4}
-              style={styles.poll_desc}
-              placeholder="Give your poll a description..."
-              onChangeText={(text) => { this.desc = text }}
-            />
-
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={this.handlePoll}
-            >
-              <Text style={styles.btnText}>Launch Poll</Text>
-            </TouchableOpacity>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

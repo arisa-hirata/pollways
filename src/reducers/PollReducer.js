@@ -4,7 +4,8 @@ const initialState = {
   pollid: null,
   ltotal: '',
   topicId: '',
-  city: ''
+  city: '',
+  curIndex: 0
 };
 
 export default function Votes(state = initialState, action) {
@@ -35,6 +36,10 @@ export default function Votes(state = initialState, action) {
 
     case "GET_CITY":
       obj.city = action.city;
+      return obj;
+
+    case "CHANGE_INDEX":
+      obj.curIndex = action.curIndex;
       return obj;
 
 

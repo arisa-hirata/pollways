@@ -133,7 +133,6 @@ class Details extends React.Component {
         } else {
           temp.rcity[city] = 1;
         }
-
       }
 
       // console.log(temp);
@@ -162,7 +161,6 @@ class Details extends React.Component {
         loverSixty: temp.loverSixty,
         roverSixty: temp.roverSixty
       })
-
     })
   }
 
@@ -287,42 +285,42 @@ class Details extends React.Component {
 
           <Text style={styles.headertxt}>Gender</Text>
 
-          <View style={{}}>
-
-            <View style={{ flexDirection: 'row', marginBottom: -10 }}>
-              <View>
-                <Text style={styles.contentTxt}>Female</Text>
-                <Text style={styles.contentTxt}>Male</Text>
-              </View>
-              <View>
-                <StackedBarChart
-                  style={styles.barchart}
-                  keys={genderKey}
-                  colors={colors}
-                  data={gender}
-                  horizontal={true}
-                  showGrid={false}
-                  contentInset={{ bottom: 30 }}
-                />
-              </View>
+          <View style={{ flexDirection: 'row', marginBottom: -10 }}>
+            <View>
+              <Text style={styles.contentTxt}>Female</Text>
+              <Text style={styles.contentTxt}>Male</Text>
+            </View>
+            <View>
+              <StackedBarChart
+                style={styles.barchart}
+                keys={genderKey}
+                colors={colors}
+                data={gender}
+                horizontal={true}
+                showGrid={false}
+                contentInset={{ bottom: 30 }}
+              />
             </View>
           </View>
 
 
           <Text style={styles.headertxt}>Top Locations</Text>
 
-          {cityText}
-          <StackedBarChart
-            style={styles.barchart}
-            keys={cityKeys}
-            colors={colors}
-            data={cityData}
-            horizontal={true}
-            showGrid={false}
-            contentInset={{ bottom: 30 }}
-          />
+          <View style={{ flexDirection: 'row', marginBottom: -10 }}>
+            <View>
+              <Text style={styles.contentTxt}>{cityText}</Text>
+            </View>
+            <StackedBarChart
+              style={styles.barchart}
+              keys={cityKeys}
+              colors={colors}
+              data={cityData}
+              horizontal={true}
+              showGrid={false}
+              contentInset={{ bottom: 30 }}
+            />
 
-
+          </View>
 
           <Text style={styles.headertxt}>Age Range</Text>
 

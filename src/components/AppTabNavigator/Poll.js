@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { getFB } from "../firebase";
-import { ChangePollID } from '../../actions/PollActions';
+import { ChangePollID, ChangeIndex } from '../../actions/PollActions';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-container';
 
 
@@ -39,9 +39,11 @@ class Poll extends React.Component {
 
   handleSwipe = () => {
 
-    alert('swipe');
+    alert('Next Poll');
+    this.curIndex = this.props.curIndex;
     this.curIndex++;
     this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
+    this.props.dispatch(ChangeIndex(this.curIndex));
     this.setState({
       title: this.allPolls[this.curIndex].title,
       desc: this.allPolls[this.curIndex].desc,
@@ -107,6 +109,8 @@ class Poll extends React.Component {
         console.log("Arisaaa", obj.doc_id);
         this.allPolls.push(obj);
       })
+      this.curIndex = this.props.curIndex;
+      console.log(this.curIndex);
 
       this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
       this.setState({
@@ -230,10 +234,11 @@ class Poll extends React.Component {
 
       <ScrollView style={{ backgroundColor: "#fff" }}>
 
-        <View style={styles.container}>
+        <View>
 
 
           <GestureRecognizer
+            style={styles.container}
             onSwipe={this.handleSwipe}
             velocityThreshold={0.3}
             distanceThreshold={40}
@@ -417,9 +422,9 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, vote }) => {
 
-  return { ...auth };
+  return { ...auth, ...vote };
 };
 
 export default connect(mapStateToProps)(Poll);
