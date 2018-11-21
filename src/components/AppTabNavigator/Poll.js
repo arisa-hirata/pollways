@@ -39,9 +39,17 @@ class Poll extends React.Component {
 
   handleSwipe = () => {
     alert('swipe');
+    this.curIndex++;
+    this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
     this.setState({
-      curIndex: Math.round(Math.random() * 2)
-    })
+      title: this.allPolls[this.curIndex].title,
+      desc: this.allPolls[this.curIndex].desc,
+      ldesc: this.allPolls[this.curIndex].options.left.desc,
+      rdesc: this.allPolls[this.curIndex].options.right.desc,
+      rimg: this.allPolls[this.curIndex].options.right.img,
+      limg: this.allPolls[this.curIndex].options.left.img,
+      username: this.allPolls[this.curIndex].username
+    });
   }
 
 
@@ -51,8 +59,7 @@ class Poll extends React.Component {
     var place = await resp.json();
 
     // console.log(place);
-    // console.log(place.plus_code.compound_code[1]);
-    // console.log(place.results[8].address_components[0].long_name);
+
     var placeArr = place.results[0].address_components.filter((obj, index) => {
       return obj.types.indexOf("locality") != -1;
     });
@@ -90,11 +97,12 @@ class Poll extends React.Component {
     this.allPolls = [];
     polls.get().then((snap) => {
       snap.forEach((doc) => {
-        this.cdoc = doc;
+        //this.cdoc = doc;
 
-        console.log(this.cdoc);
+        //console.log(this.cdoc);
         var obj = doc.data();
         obj.doc_id = doc.id;
+        obj.cdoc = doc;
         console.log(doc);
         this.allPolls.push(obj);
       })
@@ -104,9 +112,9 @@ class Poll extends React.Component {
         title: this.allPolls[this.curIndex].title,
         desc: this.allPolls[this.curIndex].desc,
         ldesc: this.allPolls[this.curIndex].options.left.desc,
-        rdesc: this.allPolls[this.curIndex0].options.right.desc,
+        rdesc: this.allPolls[this.curIndex].options.right.desc,
         rimg: this.allPolls[this.curIndex].options.right.img,
-        limg: this.allPolls[this.curIndex0].options.left.img,
+        limg: this.allPolls[this.curIndex].options.left.img,
         username: this.allPolls[this.curIndex].username
       });
     })
@@ -127,15 +135,15 @@ class Poll extends React.Component {
     // });
     console.log("--------------------");
     // console.log(this.cdoc);
-    var obj = this.cdoc.data();
+    var obj = this.allPolls[this.curIndex];
     var arr = obj.votesL || [];
     var arr2 = obj.votesR || [];
-    if (this.checkVoted(arr)) {
+    if (this.checkVoted(arr) !== false) {
       return;
     }
-    if (this.checkVoted(arr2)) {
-      return;
-    }
+
+    var index = this.checkVoted(arr2);
+
     console.log(this.props);
     var dataL = {
       user_id: this.props.user.user.uid,
@@ -146,8 +154,13 @@ class Poll extends React.Component {
     console.log(dataL);
     arr.push(dataL);
     // console.log(obj);
-    this.cdoc.ref.update({
-      votesL: arr
+    if (index !== false) {
+      arr2.splice(index, 1)
+    }
+
+    this.allPolls[this.curIndex].cdoc.ref.update({
+      votesL: arr,
+      votesR: arr2
     })
     //change pollid reducer
     this.props.navigation.navigate('Insight')
@@ -155,16 +168,15 @@ class Poll extends React.Component {
 
   voteRight() {
 
-    var obj = this.cdoc.data();
+    var obj = this.allPolls[this.curIndex].cdoc.data();
 
     var arr = obj.votesR || [];
     var arr2 = obj.votesL || [];
-    if (this.checkVoted(arr)) {
+    if (this.checkVoted(arr) !== false) {
       return;
     }
-    if (this.checkVoted(arr2)) {
-      return;
-    }
+
+    var index = this.checkVoted(arr2);
 
     var dataR = {
       user_id: this.props.user.user.uid,
@@ -175,25 +187,32 @@ class Poll extends React.Component {
     console.log(dataR);
     arr.push(dataR);
 
+    if (index !== false) {
+      arr2.splice(index, 1)
+    }
+
     console.log(arr);
-    this.cdoc.ref.update({
-      votesR: arr
+    this.allPolls[this.curIndex].cdoc.ref.update({
+      votesR: arr,
+      votesL: arr2
     })
     this.props.navigation.navigate('Insight')
   }
 
   checkVoted = (arr) => {
     var exist = false;
+    var index = null;
     for (var i = 0; i < arr.length; i++) {
       if (arr[i].user_id === this.props.user.user.uid) {
+        index = i;
         exist = true; break;
       }
     }
-
+    console.log(arr, exist, index);
     if (exist) {
       alert('YOU ALREADY VOTED!!!!');
       this.props.navigation.navigate('Insight')
-      return true;
+      return index;
     } else {
       return false;
     }

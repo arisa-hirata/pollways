@@ -178,6 +178,7 @@ class Details extends React.Component {
       var val = this.state.lcity[key];
       var obj = {};
       obj["lcity"] = val;
+
       if (this.state.rcity[key]) {
         obj["rcity"] = this.state.rcity[key]
       } else {
@@ -190,10 +191,24 @@ class Details extends React.Component {
         allCities.push(key);
       }
     }
+
     console.log(cityData);
     console.log(cityKeys);
     for (var key in this.state.rcity) {
-      var val = this.state.rcity[key];
+      if (allCities.indexOf(key) === -1) {
+        allCities.push(key);
+        var val = this.state.rcity[key];
+        var obj = {};
+        obj["rcity"] = val;
+        if (this.state.lcity[key]) {
+          obj["lcity"] = this.state.lcity[key]
+        } else {
+          obj["lcity"] = 0
+        }
+
+        console.log(obj);
+        cityData.push(obj)
+      }
     }
 
     var cityText = allCities.map((obj, index) => {
