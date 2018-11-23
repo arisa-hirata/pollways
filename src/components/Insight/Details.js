@@ -223,10 +223,12 @@ class Details extends React.Component {
       {
         lgender: this.state.lfemale,
         rgender: this.state.rfemale,
+
       },
       {
         lgender: this.state.lmale,
         rgender: this.state.rmale,
+
       }
     ]
     const data3 = [
@@ -264,6 +266,7 @@ class Details extends React.Component {
     ]
 
     const colors = ['#84C2BD', '#D8866D']
+    const genderColors = ['#84C2BD', '#D8866D', '#ffffff']
     const genderKey = ['lgender', 'rgender']
     const ageKey = ['lage', 'rage']
 
@@ -285,16 +288,16 @@ class Details extends React.Component {
 
           <Text style={styles.headertxt}>Gender</Text>
 
-          <View style={{ flexDirection: 'row', marginBottom: -10 }}>
-            <View>
+          <View style={{ flexDirection: 'row', marginBottom: -10, widht: 500 }}>
+            <View style={{ widht: "20%" }}>
               <Text style={styles.contentTxt}>Female</Text>
               <Text style={styles.contentTxt}>Male</Text>
             </View>
-            <View>
+            <View style={{ widht: 300 }}>
               <StackedBarChart
                 style={styles.barchart}
                 keys={genderKey}
-                colors={colors}
+                colors={genderColors}
                 data={gender}
                 horizontal={true}
                 showGrid={false}

@@ -53,7 +53,6 @@ class Poll extends React.Component {
       limg: this.allPolls[this.curIndex].options.left.img,
       username: this.allPolls[this.curIndex].username
     });
-    // console.log("Arisa", this.curIndex);
   }
 
 
@@ -96,7 +95,7 @@ class Poll extends React.Component {
   // }
   getPolls = async () => {
 
-    var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(10);
+    var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(100);
     this.allPolls = [];
     polls.get().then((snap) => {
       snap.forEach((doc) => {
@@ -106,7 +105,7 @@ class Poll extends React.Component {
         var obj = doc.data();
         obj.doc_id = doc.id;
         obj.cdoc = doc;
-        console.log("Arisaaa", obj.doc_id);
+        console.log(obj.doc_id);
         this.allPolls.push(obj);
       })
       this.curIndex = this.props.curIndex;
@@ -230,6 +229,8 @@ class Poll extends React.Component {
   }
 
   render() {
+
+    // alert("Swipe and Go to Next Poll!");
     return (
 
       <ScrollView style={{ backgroundColor: "#fff" }}>

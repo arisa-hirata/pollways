@@ -27,6 +27,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		A50DA9A423999A220057EB6B /* libPods-pollways2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBA751AEFBE75E8C9E13CAC4 /* libPods-pollways2.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		B1187A3721A61DC400C0B047 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = B1187A3621A61DC400C0B047 /* AppIcon.appiconset */; };
 		B14BFD362193B9CD000C60D2 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B14BFD082193B9C2000C60D2 /* libART.a */; };
 		B1C7EC03218FC733008E7360 /* LogInBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1C7EC01218FC733008E7360 /* LogInBG.jpg */; };
 		B1C7EC04218FC733008E7360 /* LogoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B1C7EC02218FC733008E7360 /* LogoIcon.png */; };
@@ -364,6 +365,7 @@
 		A6FF642162A54CE3BAF0942D /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		A9AC35174A684A95B8356320 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B1187A3621A61DC400C0B047 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
 		B14BFD022193B9C1000C60D2 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		B1C7EC01218FC733008E7360 /* LogInBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = LogInBG.jpg; path = ../src/imgs/LogInBG.jpg; sourceTree = "<group>"; };
 		B1C7EC02218FC733008E7360 /* LogoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoIcon.png; path = ../src/imgs/LogoIcon.png; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				B1187A3621A61DC400C0B047 /* AppIcon.appiconset */,
 				B1C7EBDB218FC6FC008E7360 /* img */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -746,7 +749,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 3KSAKVF6HQ;
+						DevelopmentTeam = ZGV8ALJSZK;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1127,6 +1130,7 @@
 				B1C7EC04218FC733008E7360 /* LogoIcon.png in Resources */,
 				81E4FFDF21998ACD00EEB4B0 /* GoogleService-Info.plist in Resources */,
 				B1C7EC03218FC733008E7360 /* LogInBG.jpg in Resources */,
+				B1187A3721A61DC400C0B047 /* AppIcon.appiconset in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1310,7 +1314,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 3KSAKVF6HQ;
+				DEVELOPMENT_TEAM = ZGV8ALJSZK;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
@@ -1323,7 +1327,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pollways;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pollways.pollways;
 				PRODUCT_NAME = pollways2;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1338,7 +1342,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3KSAKVF6HQ;
+				DEVELOPMENT_TEAM = ZGV8ALJSZK;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
@@ -1351,7 +1355,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pollways;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pollways.pollways;
 				PRODUCT_NAME = pollways2;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";

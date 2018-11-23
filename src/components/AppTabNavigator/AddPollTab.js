@@ -115,9 +115,17 @@ class AddPollTab extends React.Component {
 
       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={100}>
 
-        {(this.state.loading) ? <View style={{ justifyContent: "center", position: "absolute", width: Dimensions.get('window').width, height: Dimensions.get('window').height, backgroundColor: "white", left: 0, top: 0, zIndex: 99999 }}>
-          <Text>LOADING...</Text>
-        </View> : null}
+        {(this.state.loading) ?
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: "center",
+              position: "absolute",
+              width: Dimensions.get('window').width, height: Dimensions.get('window').height, backgroundColor: "white", left: 0, top: 0, zIndex: 99999
+            }}>
+            <Text>LOADING...</Text>
+          </View>
+          : null}
 
 
         <ScrollView style={{ backgroundColor: '#ffffff' }}>
@@ -169,6 +177,7 @@ class AddPollTab extends React.Component {
                 </TouchableOpacity>
 
                 <TextInput
+                  defaultValue=''
                   // multiline={true}
                   // numberOfLines={4}
                   style={styles.arg_desc}
@@ -195,6 +204,7 @@ class AddPollTab extends React.Component {
 
 
               <TextInput
+                defaultValue=''
                 // multiline={true}
                 // numberOfLines={4}
                 style={styles.poll_desc}

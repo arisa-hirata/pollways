@@ -55,7 +55,52 @@ class Insight extends React.Component {
     var total = this.state.votesR + this.state.votesL
     var perc = 0;
     var pc = null;
-    if (total > 1) {
+    var percNum = 0;
+
+    if (total > 1 && this.state.votesR < this.state.votesL) {
+      perc = parseInt(this.state.votesL / total * 100);
+      pc = <PieChart
+        style={{ position: 'absolute', top: 80 }}
+        chart_wh={chart_wh}
+        series={series}
+        sliceColor={sliceColor}
+        doughnut={true}
+        coverRadius={0.75}
+        coverFill={'#FFF'}
+      />
+      percNum = <Text
+        style={{
+          fontSize: 60,
+          margin: 10,
+          color: '#76BFB8',
+          position: 'absolute',
+          top: 160
+        }}
+      >{perc}%</Text>
+
+    } else if (this.state.votesR == 0 && this.state.votesL > 0) {
+      perc = 100;
+      pc = <PieChart
+        style={{ position: 'absolute', top: 80 }}
+        chart_wh={chart_wh}
+        series={[0, 100]}
+        sliceColor={sliceColor}
+        doughnut={true}
+        coverRadius={0.75}
+        coverFill={'#FFF'}
+      />
+
+      percNum = <Text
+        style={{
+          fontSize: 60,
+          margin: 10,
+          color: '#76BFB8',
+          position: 'absolute',
+          top: 160
+        }}
+      >{perc}%</Text>
+
+    } else if (total > 1 && this.state.votesR > this.state.votesL) {
       perc = parseInt(this.state.votesR / total * 100);
       pc = <PieChart
         style={{ position: 'absolute', top: 80 }}
@@ -66,17 +111,35 @@ class Insight extends React.Component {
         coverRadius={0.75}
         coverFill={'#FFF'}
       />
-    } else if (this.state.votesR == 0 && this.state.votesL > 0) {
-      perc = 0;
+      percNum = <Text
+        style={{
+          fontSize: 60,
+          margin: 10,
+          color: '#e68266',
+          position: 'absolute',
+          top: 160
+        }}
+      >{perc}%</Text>
+    } else if (total > 1 && this.state.votesR == this.state.votesL) {
+      perc = parseInt(this.state.votesR / total * 100);
       pc = <PieChart
         style={{ position: 'absolute', top: 80 }}
         chart_wh={chart_wh}
-        series={[0, 100]}
+        series={series}
         sliceColor={sliceColor}
         doughnut={true}
         coverRadius={0.75}
         coverFill={'#FFF'}
       />
+      percNum = <Text
+        style={{
+          fontSize: 60,
+          margin: 10,
+          color: '#F9E7A2',
+          position: 'absolute',
+          top: 160
+        }}
+      >{perc}%</Text>
     } else {
       perc = 100;
       pc = <PieChart
@@ -88,6 +151,15 @@ class Insight extends React.Component {
         coverRadius={0.75}
         coverFill={'#FFF'}
       />
+      percNum = <Text
+        style={{
+          fontSize: 60,
+          margin: 10,
+          color: '#e68266',
+          position: 'absolute',
+          top: 160
+        }}
+      >{perc}%</Text>
     }
 
     return (
@@ -99,16 +171,18 @@ class Insight extends React.Component {
 
         <Text style={styles.title}>{this.props.votes}</Text>
         {pc}
-
+        {percNum}
         {/* <Text>{this.props.vote.num}</Text> */}
-        <Text
+        {/* <Text
           style={{
             fontSize: 60,
             margin: 10,
             color: '#e68266',
             position: 'absolute',
             top: 160
-          }}>{perc}%</Text>
+          }}
+          style={style.Percent}
+        >{perc}%</Text> */}
 
         <Text
           style={{
@@ -152,6 +226,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 7,
     marginTop: 5,
+  },
+  Percent: {
+    color: '#e68266',
   }
 
 });

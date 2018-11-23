@@ -47,7 +47,7 @@ const TabBarComponent = props => {
 
 const hometabs = createBottomTabNavigator(
   {
-    Poll: Poll,
+    Polls: Poll,
     Search: SearchTab,
     Create: AddPollTab,
     // NotifiTab: NotifiTab,

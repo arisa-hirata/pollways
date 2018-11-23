@@ -98,6 +98,14 @@ class ProfileTab extends React.Component {
       filename: image.filename
     });
     console.log("whatthefucj", filename)
+
+    uploadImage = async (refId, direction) => {
+      if (!this.state[`img${direction}`] === {}) return undefined
+      const ref = getFB().storage().ref("images/" + refId + `_${direction}.jpg`)
+      await ref.putFile(this.state[`img${direction}`].path)
+      const url = await ref.getDownloadURL();
+      return url
+    }
   };
 
 
