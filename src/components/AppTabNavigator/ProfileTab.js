@@ -108,7 +108,6 @@ class ProfileTab extends React.Component {
     }
   };
 
-
   render() {
 
     console.log("profilestuff", this.props);
@@ -238,7 +237,6 @@ class ProfileTab extends React.Component {
                 <Text style={{}}>Group polls</Text>
               </View>
             </View>
-
             <View style={styles.pollBarItem}>
               <View style={[styles.pollBarItemInner, { alignItems: 'flex-end' }]}>
                 <View style={{ width: 20, height: 20, justifyContent: 'center', alignItems: 'center' }}>
@@ -270,12 +268,10 @@ class ProfileTab extends React.Component {
                 />
               </View>
             </View>
-
             <View style={styles.groupPollItem}>
               <View style={styles.groupPollItemInner}>
               </View>
             </View>
-
             <View style={styles.groupPollItem}>
               <View style={styles.groupPollItemInner}>
               </View>
