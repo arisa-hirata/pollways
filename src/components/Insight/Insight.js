@@ -135,7 +135,7 @@ class Insight extends React.Component {
         style={{
           fontSize: 60,
           margin: 10,
-          color: '#F9E7A2',
+          color: 'gray',
           position: 'absolute',
           top: 160
         }}
@@ -226,11 +226,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 7,
     marginTop: 5,
-  },
-  Percent: {
-    color: '#e68266',
   }
-
 });
 
 const mapStateToProps = ({ vote }) => {

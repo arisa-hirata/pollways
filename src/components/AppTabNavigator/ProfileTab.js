@@ -25,7 +25,7 @@ class ProfileTab extends React.Component {
     position: {},
     error: "",
     img: {},
-    filename: "",
+    // filename: "",
   }
   getPlace = async (lat, long) => {
     console.log("latlng", lat, long);
@@ -95,9 +95,9 @@ class ProfileTab extends React.Component {
 
     this.setState({
       img: image,
-      filename: image.filename
+      // filename: image.filename
     });
-    console.log("whatthefucj", filename)
+    // console.log("whatthefucj", filename)
 
     uploadImage = async (refId, direction) => {
       if (!this.state[`img${direction}`] === {}) return undefined

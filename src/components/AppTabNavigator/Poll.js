@@ -241,9 +241,9 @@ class Poll extends React.Component {
           <GestureRecognizer
             style={styles.container}
             onSwipe={this.handleSwipe}
-            velocityThreshold={0.3}
-            distanceThreshold={40}
-            angleThreshold={15}
+            velocityThreshold={0.5}
+            distanceThreshold={80}
+            angleThreshold={30}
           >
 
             <View style={styles.title_container}>

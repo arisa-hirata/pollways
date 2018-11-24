@@ -211,7 +211,7 @@ class Details extends React.Component {
 
     var cityText = allCities.map((obj, index) => {
       return (
-        <Text>{obj}</Text>
+        <Text>{obj}{"\n"}</Text>
       )
     })
 
@@ -275,6 +275,13 @@ class Details extends React.Component {
     const keys3 = ['left3', 'right3']
 
 
+    var FemaleTotal = this.state.lfemale + this.state.rfemale
+    var MaleTotal = this.state.lmale + this.state.rmale
+    var GenderTotal = FemaleTotal + MaleTotal
+    var FemalePerc = parseInt(FemaleTotal / GenderTotal * 100)
+    var MalePerc = parseInt(MaleTotal / GenderTotal * 100)
+
+
 
     return (
 
@@ -304,6 +311,10 @@ class Details extends React.Component {
                 contentInset={{ bottom: 30 }}
               />
             </View>
+            <View>
+              <Text style={styles.percTxt} > {FemalePerc} %</Text>
+              <Text style={styles.percTxt} > {MalePerc} %</Text>
+            </View>
           </View>
 
 
@@ -311,7 +322,7 @@ class Details extends React.Component {
 
           <View style={{ flexDirection: 'row', marginBottom: -10 }}>
             <View>
-              <Text style={styles.contentTxt}>{cityText}</Text>
+              <Text style={styles.locationTxt}>{cityText}</Text>
             </View>
             <StackedBarChart
               style={styles.barchart}
@@ -379,9 +390,22 @@ const styles = StyleSheet.create({
     color: "#9A9A9A",
     fontSize: 14,
     margin: 10,
-    marginRight: 0,
+    marginRight: -10,
+    marginLeft: 10,
     textAlign: 'left',
     width: 80
+  },
+  percTxt: {
+    color: "#9A9A9A",
+    fontSize: 12,
+    marginTop: 10,
+    marginBottom: 10
+  },
+  locationTxt: {
+    color: "#9A9A9A",
+    fontSize: 14,
+    margin: 10,
+    paddingTop: 10
   },
   age_range: {
     margin: 10,

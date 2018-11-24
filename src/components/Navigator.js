@@ -21,7 +21,7 @@ import { propTypes } from 'react-native/Libraries/Components/Button';
 const TabBarComponent = props => {
   const { navigation } = props;
   const { routes } = navigation.state;
-  const images = [require('../imgs/home.png'), require('../imgs/search.png'), require('../imgs/add.png'), /*require('../imgs/notifi.png'),*/require('../imgs/profile.png')]
+  const images = [require('../imgs/home.png'), /*require('../imgs/search.png'),*/ require('../imgs/add.png'), /*require('../imgs/notifi.png'),*/require('../imgs/profile.png')]
 
   return (
     <ImageBackground {...props} style={{ width: "100%", height: 50, flexDirection: "row" }} source={require("../imgs/NavBar.png")}>
@@ -30,7 +30,7 @@ const TabBarComponent = props => {
         const scene = { route, focused };
         return (
           <TouchableOpacity {...props}
-            style={{ width: "25%", alignItems: "center", marginTop: 10 }}
+            style={{ width: "33%", alignItems: "center", marginTop: 10 }}
             key={route.key}
             onPress={() => props.onTabPress({ route })}
           >
@@ -48,7 +48,7 @@ const TabBarComponent = props => {
 const hometabs = createBottomTabNavigator(
   {
     Polls: Poll,
-    Search: SearchTab,
+    // Search: SearchTab,
     Create: AddPollTab,
     // NotifiTab: NotifiTab,
     Profile: ProfileTab,
