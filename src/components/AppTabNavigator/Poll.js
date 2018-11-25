@@ -23,12 +23,16 @@ class Poll extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      gestureName: 'none',
+    };
     console.log(this.props);
     this.props.navigation.addListener("willFocus", () => {
       console.log("test");
       this.getPolls();
       this.getProfile();
     })
+
   }
 
   state = {
@@ -37,22 +41,49 @@ class Poll extends React.Component {
     //Hello
   };
 
-  handleSwipe = () => {
+  handleSwipeR(gestureState) {
+    alert('Right');
+  }
 
-    alert('Next Poll');
-    this.curIndex = this.props.curIndex;
-    this.curIndex++;
-    this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
-    this.props.dispatch(ChangeIndex(this.curIndex));
-    this.setState({
-      title: this.allPolls[this.curIndex].title,
-      desc: this.allPolls[this.curIndex].desc,
-      ldesc: this.allPolls[this.curIndex].options.left.desc,
-      rdesc: this.allPolls[this.curIndex].options.right.desc,
-      rimg: this.allPolls[this.curIndex].options.right.img,
-      limg: this.allPolls[this.curIndex].options.left.img,
-      username: this.allPolls[this.curIndex].username
-    });
+
+  handleSwipe(gestureName, gestureState) {
+
+
+    const { SWIPE_RIGHT } = swipeDirections;
+    this.setState({ gestureName: gestureName });
+    switch (gestureName) {
+      case SWIPE_RIGHT:
+        this.curIndex = this.props.curIndex;
+        this.curIndex++;
+        this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
+        this.props.dispatch(ChangeIndex(this.curIndex));
+        this.setState({
+          title: this.allPolls[this.curIndex].title,
+          desc: this.allPolls[this.curIndex].desc,
+          ldesc: this.allPolls[this.curIndex].options.left.desc,
+          rdesc: this.allPolls[this.curIndex].options.right.desc,
+          rimg: this.allPolls[this.curIndex].options.right.img,
+          limg: this.allPolls[this.curIndex].options.left.img,
+          username: this.allPolls[this.curIndex].username
+        });
+        break;
+    }
+
+
+    // alert('Next Poll');
+    // this.curIndex = this.props.curIndex;
+    // this.curIndex++;
+    // this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
+    // this.props.dispatch(ChangeIndex(this.curIndex));
+    // this.setState({
+    //   title: this.allPolls[this.curIndex].title,
+    //   desc: this.allPolls[this.curIndex].desc,
+    //   ldesc: this.allPolls[this.curIndex].options.left.desc,
+    //   rdesc: this.allPolls[this.curIndex].options.right.desc,
+    //   rimg: this.allPolls[this.curIndex].options.right.img,
+    //   limg: this.allPolls[this.curIndex].options.left.img,
+    //   username: this.allPolls[this.curIndex].username
+    // });
   }
 
 
@@ -240,7 +271,9 @@ class Poll extends React.Component {
 
           <GestureRecognizer
             style={styles.container}
-            onSwipe={this.handleSwipe}
+            // onSwipe={this.handleSwipe}
+            onSwipe={(direction, state) => this.handleSwipe(direction, state)}
+            onSwipeRight={(state) => this.handleSwipeR(state)}
             velocityThreshold={0.5}
             distanceThreshold={80}
             angleThreshold={30}

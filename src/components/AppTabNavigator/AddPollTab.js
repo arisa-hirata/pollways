@@ -3,6 +3,7 @@ import {
   StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image, KeyboardAvoidingView,
   keyboardVerticalOffset, ScrollView, Dimensions
 } from 'react-native';
+import Spinner from '../LogIn/Spinner';
 import ImagePicker from 'react-native-image-crop-picker';
 import { getFB } from "../firebase";
 import { connect } from 'react-redux';
@@ -123,7 +124,8 @@ class AddPollTab extends React.Component {
               position: "absolute",
               width: Dimensions.get('window').width, height: Dimensions.get('window').height, backgroundColor: "white", left: 0, top: 0, zIndex: 99999
             }}>
-            <Text>LOADING...</Text>
+            <Spinner />
+            <Text style={{ color: "gray", marginTop: "50" }}>LOADING...</Text>
           </View>
           : null}
 

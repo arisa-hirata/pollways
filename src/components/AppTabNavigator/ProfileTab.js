@@ -122,13 +122,13 @@ class ProfileTab extends React.Component {
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
                 <View style={{ paddingLeft: 25, marginTop: 20 }}>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Tutorials')}>
+                  {/* <TouchableOpacity>
                     <Image
                       style={{ width: 20, height: 20 }}
                       source={require('../../imgs/Archive.png')}
                       resizeMode="contain"
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
               </View>
             </View>
