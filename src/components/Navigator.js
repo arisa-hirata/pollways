@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation';
+import Tutorials from './LogIn/Tutorials';
 import Login from './LogIn/Login';
 import SignUp from './LogIn/SignUp';
 
@@ -74,7 +75,12 @@ hometabs.navigationOptions = ({ navigation }) => {
 
 export default createStackNavigator(
   {
-    Tutorials: Tutorials,
+    Tutorials: {
+      screen: Tutorials,
+      navigationOptions: {
+        header: null
+      }
+    },
     Login: Login,
     SignUp: SignUp,
     // Poll: hometabs,

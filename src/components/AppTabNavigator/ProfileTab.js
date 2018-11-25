@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 //AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk
 //$ npm install react-native-progress --save
@@ -110,6 +110,8 @@ class ProfileTab extends React.Component {
 
   render() {
 
+    console.log(this.props.navigation);
+
     console.log("profilestuff", this.props);
     const barWidth = Dimensions.get('screen').width - 80;
 
@@ -120,7 +122,7 @@ class ProfileTab extends React.Component {
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
                 <View style={{ paddingLeft: 25, marginTop: 20 }}>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Tutorials')}>
                     <Image
                       style={{ width: 20, height: 20 }}
                       source={require('../../imgs/Archive.png')}
