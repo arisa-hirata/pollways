@@ -46,7 +46,8 @@ class Login extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.user !== null) {
-      props.navigation.navigate('Poll');
+      console.log("derivedState")
+      props.navigation.navigate('Polls');
     }
 
     return {

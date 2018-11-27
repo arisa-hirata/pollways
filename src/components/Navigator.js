@@ -84,7 +84,7 @@ export default createStackNavigator(
     Login: Login,
     SignUp: SignUp,
     // Poll: hometabs,
-    Poll: {
+    Polls: {
       screen: hometabs,
       navigationOptions: {
         headerTintColor: "#fff",

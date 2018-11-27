@@ -111,6 +111,7 @@ class ProfileTab extends React.Component {
 
   signOutUser = async () => {
 
+
     try {
       await getFB().auth().signOut();
       this.props.navigation.navigate('Login')

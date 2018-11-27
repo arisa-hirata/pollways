@@ -28,6 +28,7 @@ class AddPollTab extends React.Component {
       imgR: {},
       loading: false
     }
+
   }
 
 
@@ -97,10 +98,9 @@ class AddPollTab extends React.Component {
   }
 
   handlePoll = async () => {
-
-    this.setState({
-      default: ''
-    })
+    //console.log(this.props);
+    //this.props.navigation.navigate('Poll');
+    //return false;
     this.setState({
       loading: true,
     })
@@ -110,19 +110,19 @@ class AddPollTab extends React.Component {
       const urlLeft = await this.uploadImage(refId, "L")
       const urlRight = await this.uploadImage(refId, "R")
       await this.updatePoll(refId, urlLeft, urlRight);
+      this.setState({
+        loading: false,
+        imgL: "",
+        imgR: "",
+        default: ""
+      })//setState back to false
+      this.props.navigation.navigate('Polls');
+
+
     } catch (error) {
       // alert(error);
       alert("Poll creation failed. Please fill in all content!")
     }
-    this.props.navigation.navigate('Poll');
-    this.setState({
-      imgL: '',
-      imgR: ''
-    })
-
-    this.setState({
-      loading: false
-    })//setState back to false
 
 
 

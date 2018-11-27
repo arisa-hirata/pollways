@@ -30,7 +30,6 @@ export const loginUser = ({ email, password }) => {
   console.log("filtererrorblah", email, password)
   return (dispatch) => {
     //loginUserSuccess(dispatch, {}); return;
-    dispatch({ type: LOGIN_USER });
 
     getFB().auth().signInWithEmailAndPassword(email, password)
       .then(user => {
@@ -43,6 +42,7 @@ export const loginUser = ({ email, password }) => {
           user.user.gender = obj.gender;
           user.user.time = obj.time;
           loginUserSuccess(user)(dispatch)
+          dispatch({ type: LOGIN_USER });
         })
 
       })
@@ -77,7 +77,6 @@ export const loginUserSuccess = (user) => {
 export const signUp = ({ email, password, username, gender, age, time }) => {
   console.log("filtererrorblah", email, password);
   return (dispatch) => {
-    dispatch({ type: SIGN_UP });
 
     getFB().auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
@@ -92,7 +91,13 @@ export const signUp = ({ email, password, username, gender, age, time }) => {
         user.user.gender = gender;
         user.user.time = time;
         loginUserSuccess(user)(dispatch);
+        //dispatch({ type: SIGN_UP });
+        alert("success");
       })
-      .catch(() => loginUserFail(dispatch));
+      .catch((error2) => {
+        // console.warn(error);
+        loginUserFail(dispatch)
+
+      });
   }
 }

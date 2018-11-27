@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, Image, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { getFB } from "../firebase";
 import { ChangePollID, ChangeIndex } from '../../actions/PollActions';
@@ -23,12 +23,9 @@ class Poll extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      gestureName: 'none',
-    };
     console.log(this.props);
     this.props.navigation.addListener("willFocus", () => {
-      console.log("test");
+      console.log("test poll");
       this.getPolls();
       this.getProfile();
     })
@@ -38,6 +35,7 @@ class Poll extends React.Component {
   state = {
     luser_id: [],
     ruser_id: [],
+    gestureName: 'none',
     //Hello
   };
 
@@ -355,7 +353,33 @@ class Poll extends React.Component {
           </Text>
 
           </View> */}
+            <View style={{ flexDirection: 'row' }}>
+              <TextInput
+                placeholder="Type Your Stance..."
+                style={{
+                  marginTop: 20,
+                  width: "70%",
+                  height: 40,
+                  borderWidth: 1,
+                  borderColor: "lightgray",
+                  borderRadius: 50,
+                  paddingLeft: 20,
+                }}
+
+              />
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  top: 30,
+                  right: 10
+                }}
+              >
+                <Text style={{ color: "#F9E7A2", fontWeight: "700" }}>Post</Text>
+              </TouchableOpacity>
+            </View>
           </GestureRecognizer>
+
+
 
         </View>
 
