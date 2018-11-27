@@ -8,6 +8,7 @@ import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, ScrollView
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
+import { getFB } from "../firebase";
 
 
 const Blob = RNFetchBlob.polyfill.Blob;
@@ -108,6 +109,18 @@ class ProfileTab extends React.Component {
     }
   };
 
+  signOutUser = async () => {
+
+    try {
+      await getFB().auth().signOut();
+      this.props.navigation.navigate('Login')
+    } catch (error) {
+      alert(error);
+
+    }
+
+  }
+
   render() {
 
     console.log(this.props.navigation);
@@ -135,7 +148,8 @@ class ProfileTab extends React.Component {
 
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                <TouchableOpacity onPress={() => this.signOutUser()}>
+                  {/* this.props.navigation.navigate('Login')}> */}
                   <Text style={{
                     textAlign: 'right',
                     paddingRight: 25, marginTop: 20
