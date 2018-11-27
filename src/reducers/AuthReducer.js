@@ -31,8 +31,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case LOGIN_USER:
       return {
-        ...state,
         loading: true,
+        ...state,
+
         error: ''
       };
 

@@ -29,7 +29,12 @@ class Poll extends React.Component {
       this.getPolls();
       this.getProfile();
     })
-
+    this.commentRef = getFB().firestore().collection("comment")
+    this.message = "";
+    this.pollid = "";
+    this.userid = "";
+    this.userimg = "";
+    this.username = "";
   }
 
   state = {
@@ -157,7 +162,7 @@ class Poll extends React.Component {
 
   getProfile = async () => {
 
-    var profile = firebase.firestore().collection("profile")
+    var profile = firebase.firestore().collection("profile").where("uerid", "==", this.props.user.user.uid);
     console.log(profile);
   }
 
@@ -257,12 +262,28 @@ class Poll extends React.Component {
     // this.props.dispatch(addVote(vote))
   }
 
+  handleComment = () => {
+    getFB().firestore().collection("comment").add({
+      // uerid: "this.props.user.user.uid",
+      // username: "this.props.user.user.username",
+      // userimg: "photo",
+      message: this.message,
+      // pollid = "this.props.pollid",
+      time: new Date(),
+    })
+
+    this.setState({
+      message: this.message
+    })
+
+  }
+
   render() {
 
     // alert("Swipe and Go to Next Poll!");
     return (
 
-      <ScrollView style={{ backgroundColor: "#fff" }}>
+      <ScrollView style={{ backgroundColor: "#fff" }} >
 
         <View>
 
@@ -330,30 +351,34 @@ class Poll extends React.Component {
               {this.state.desc}
             </Text>
 
-            {/* <Text
-            style={{
-              color: "gray",
-              fontWeight: "700",
-              fontSize: 17,
-              marginBottom: -10,
-              marginTop: 10
-            }}>
-            Live Debates
+            <Text
+              style={{
+                color: "gray",
+                fontWeight: "700",
+                fontSize: 17,
+                marginBottom: -10,
+                marginTop: 10
+              }}>
+              Live Debates
           </Text>
 
-          <View style={styles.comment_container}>
+            <View style={styles.comment_container}>
 
 
-            <Image
-              style={{ width: 20, height: 20, marginLeft: 20, marginTop: 20, marginRight: 10 }}
-              source={require('../../imgs/ProfileDefault.png')}
-            />
-            <Text style={styles.poll_Desc}>
-              asdfkhagdlsgblfavkgbvlbvalkjrbvlkjbvlbv
-          </Text>
+              <Image
+                style={{ width: 20, height: 20, marginLeft: 20, marginTop: 20, marginRight: 10 }}
+                source={require('../../imgs/ProfileDefault.png')}
+              />
+              <Text style={styles.poll_Desc}>
+                {this.state.message}
+              </Text>
 
-          </View> */}
+            </View>
             <View style={{ flexDirection: 'row' }}>
+              <Image
+                style={{ width: 30, height: 30, marginLeft: 20, marginTop: 25, marginRight: 10 }}
+                source={require('../../imgs/ProfileDefault.png')}
+              />
               <TextInput
                 placeholder="Type Your Stance..."
                 style={{
@@ -364,8 +389,9 @@ class Poll extends React.Component {
                   borderColor: "lightgray",
                   borderRadius: 50,
                   paddingLeft: 20,
+                  paddingRight: 40,
                 }}
-
+                onChangeText={(text) => { this.message = text }}
               />
               <TouchableOpacity
                 style={{
@@ -373,6 +399,7 @@ class Poll extends React.Component {
                   top: 30,
                   right: 10
                 }}
+                onPress={this.handleComment}
               >
                 <Text style={{ color: "#F9E7A2", fontWeight: "700" }}>Post</Text>
               </TouchableOpacity>
@@ -383,7 +410,7 @@ class Poll extends React.Component {
 
         </View>
 
-      </ScrollView>
+      </ScrollView >
     );
   }
 }
