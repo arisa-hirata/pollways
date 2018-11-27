@@ -14,6 +14,7 @@ class AddPollTab extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = { default: '' };
     this.userid = "",
       this.username = "",
       this.title = "";
@@ -98,20 +99,35 @@ class AddPollTab extends React.Component {
   handlePoll = async () => {
 
     this.setState({
-      loading: true
+      default: ''
     })
+    this.setState({
+      loading: true,
+    })
+
     try {
       const refId = await this.createPoll()
       const urlLeft = await this.uploadImage(refId, "L")
       const urlRight = await this.uploadImage(refId, "R")
       await this.updatePoll(refId, urlLeft, urlRight);
     } catch (error) {
-      alert(error);
+      // alert(error);
+      alert("Poll creation failed. Please fill in all content!")
     }
+    this.props.navigation.navigate('Poll');
+    this.setState({
+      imgL: '',
+      imgR: ''
+    })
+
     this.setState({
       loading: false
     })//setState back to false
-    this.props.navigation.navigate('Poll');
+
+
+
+
+
   }
 
 
@@ -147,6 +163,7 @@ class AddPollTab extends React.Component {
                 }}
                 placeholder="   Type Title Here..."
                 onChangeText={(text) => { this.title = text }}
+                value={this.state.default}
               />
             </View>
             <View style={styles.arg_container}>
@@ -162,10 +179,11 @@ class AddPollTab extends React.Component {
                 </TouchableOpacity>
                 <TextInput
                   multiline={true}
-                  numberOfLines={4}
+                  numberOfLines={1}
                   style={styles.arg_desc}
                   placeholder="Give your argment..."
                   onChangeText={(text) => { this.lDesc = text }}
+                  value={this.state.default}
                 />
 
 
@@ -185,10 +203,11 @@ class AddPollTab extends React.Component {
                 <TextInput
                   defaultValue=''
                   multiline={true}
-                  numberOfLines={4}
+                  numberOfLines={1}
                   style={styles.arg_desc}
                   placeholder="Give your argment..."
                   onChangeText={(text) => { this.rDesc = text }}
+                  value={this.state.default}
                 />
 
 
@@ -212,10 +231,11 @@ class AddPollTab extends React.Component {
               <TextInput
                 defaultValue=''
                 multiline={true}
-                numberOfLines={4}
+                numberOfLines={1}
                 style={styles.poll_desc}
                 placeholder="Give your poll a description..."
                 onChangeText={(text) => { this.desc = text }}
+                value={this.state.default}
               />
 
               <TouchableOpacity
