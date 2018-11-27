@@ -100,10 +100,14 @@ class AddPollTab extends React.Component {
     this.setState({
       loading: true
     })
-    const refId = await this.createPoll()
-    const urlLeft = await this.uploadImage(refId, "L")
-    const urlRight = await this.uploadImage(refId, "R")
-    await this.updatePoll(refId, urlLeft, urlRight);
+    try {
+      const refId = await this.createPoll()
+      const urlLeft = await this.uploadImage(refId, "L")
+      const urlRight = await this.uploadImage(refId, "R")
+      await this.updatePoll(refId, urlLeft, urlRight);
+    } catch (error) {
+      alert(error);
+    }
     this.setState({
       loading: false
     })//setState back to false
@@ -125,7 +129,7 @@ class AddPollTab extends React.Component {
               width: Dimensions.get('window').width, height: Dimensions.get('window').height, backgroundColor: "white", left: 0, top: 0, zIndex: 99999
             }}>
             <Spinner />
-            <Text style={{ color: "gray", marginTop: "50" }}>LOADING...</Text>
+            <Text style={{ color: "gray", marginTop: 50 }}>LOADING...</Text>
           </View>
           : null}
 
@@ -157,8 +161,8 @@ class AddPollTab extends React.Component {
                   <Text style={styles.plus}>+</Text>
                 </TouchableOpacity>
                 <TextInput
-                  // multiline={true}
-                  // numberOfLines={4}
+                  multiline={true}
+                  numberOfLines={4}
                   style={styles.arg_desc}
                   placeholder="Give your argment..."
                   onChangeText={(text) => { this.lDesc = text }}
@@ -180,8 +184,8 @@ class AddPollTab extends React.Component {
 
                 <TextInput
                   defaultValue=''
-                  // multiline={true}
-                  // numberOfLines={4}
+                  multiline={true}
+                  numberOfLines={4}
                   style={styles.arg_desc}
                   placeholder="Give your argment..."
                   onChangeText={(text) => { this.rDesc = text }}
@@ -207,8 +211,8 @@ class AddPollTab extends React.Component {
 
               <TextInput
                 defaultValue=''
-                // multiline={true}
-                // numberOfLines={4}
+                multiline={true}
+                numberOfLines={4}
                 style={styles.poll_desc}
                 placeholder="Give your poll a description..."
                 onChangeText={(text) => { this.desc = text }}
