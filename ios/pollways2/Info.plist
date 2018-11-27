@@ -38,7 +38,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>get users location for polls</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Access to photo libraly</string>
 	<key>UILaunchStoryboardName</key>

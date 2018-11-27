@@ -192,7 +192,8 @@ class ProfileTab extends React.Component {
 
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                <TouchableOpacity onPress={() => this.signOutUser()}>
+                  {/* this.props.navigation.navigate('Login')}> */}
                   <Text style={{
                     textAlign: 'right',
                     paddingRight: 25, marginTop: 20
