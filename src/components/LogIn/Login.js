@@ -46,7 +46,7 @@ class Login extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.user !== null) {
-      console.log("derivedState")
+      // console.log("derivedState")
       props.navigation.navigate('Polls');
     }
 
@@ -64,6 +64,7 @@ class Login extends Component {
   }
 
   onButtonPress = () => {
+    // console.log(this.props.loading);
     this.props.loginUser({
       email: this.email,
       password: this.password

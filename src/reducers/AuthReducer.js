@@ -33,7 +33,6 @@ export default (state = INITIAL_STATE, action) => {
       return {
         loading: true,
         ...state,
-
         error: ''
       };
 

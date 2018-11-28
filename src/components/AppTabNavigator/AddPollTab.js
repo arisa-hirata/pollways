@@ -14,7 +14,7 @@ class AddPollTab extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { default: '' };
+    // this.state = { default: '' };
     this.userid = "",
       this.username = "",
       this.title = "";
@@ -29,6 +29,13 @@ class AddPollTab extends React.Component {
       loading: false
     }
 
+  }
+
+  state = {
+    title: "",
+    lDesc: "",
+    rDesc: "",
+    desc: ""
   }
 
 
@@ -114,7 +121,10 @@ class AddPollTab extends React.Component {
         loading: false,
         imgL: "",
         imgR: "",
-        default: ""
+        title: "",
+        lDesc: "",
+        rDesc: "",
+        desc: ""
       })//setState back to false
       this.props.navigation.navigate('Polls');
 
@@ -162,8 +172,13 @@ class AddPollTab extends React.Component {
                   // marginBottom: 30
                 }}
                 placeholder="   Type Title Here..."
-                onChangeText={(text) => { this.title = text }}
-                value={this.state.default}
+                onChangeText={(text) => {
+                  this.title = text;
+                  this.setState({
+                    title: text
+                  })
+                }}
+                value={this.state.title}
               />
             </View>
             <View style={styles.arg_container}>
@@ -182,8 +197,13 @@ class AddPollTab extends React.Component {
                   numberOfLines={1}
                   style={styles.arg_desc}
                   placeholder="Give your argment..."
-                  onChangeText={(text) => { this.lDesc = text }}
-                  value={this.state.default}
+                  onChangeText={(text) => {
+                    this.lDesc = text;
+                    this.setState({
+                      lDesc: text
+                    })
+                  }}
+                  value={this.state.lDesc}
                 />
 
 
@@ -206,8 +226,13 @@ class AddPollTab extends React.Component {
                   numberOfLines={1}
                   style={styles.arg_desc}
                   placeholder="Give your argment..."
-                  onChangeText={(text) => { this.rDesc = text }}
-                  value={this.state.default}
+                  onChangeText={(text) => {
+                    this.rDesc = text;
+                    this.setState({
+                      rDesc: text
+                    })
+                  }}
+                  value={this.state.rDesc}
                 />
 
 
@@ -234,8 +259,13 @@ class AddPollTab extends React.Component {
                 numberOfLines={1}
                 style={styles.poll_desc}
                 placeholder="Give your poll a description..."
-                onChangeText={(text) => { this.desc = text }}
-                value={this.state.default}
+                onChangeText={(text) => {
+                  this.desc = text;
+                  this.setState({
+                    desc: text
+                  })
+                }}
+                value={this.state.desc}
               />
 
               <TouchableOpacity
