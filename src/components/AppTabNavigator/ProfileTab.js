@@ -133,6 +133,19 @@ class ProfileTab extends React.Component {
       username: this.allPolls[this.curIndex].username
     });
   }
+  signOutUser = async () => {
+
+
+    try {
+      await getFB().auth().signOut();
+      this.props.navigation.navigate('Login')
+    } catch (error) {
+      alert(error);
+
+    }
+
+  }
+
   render() {
 
     var pollImages = this.state.polls.map((obj,index)=>{
@@ -356,6 +369,7 @@ const styles = StyleSheet.create({
   containerboxPoll: {
     flex: 1,
     width:"100%",
+    backgroundColor: "blue",
     flexDirection:"row",
     alignItems: "flex-start",
     flexWrap: "wrap",
