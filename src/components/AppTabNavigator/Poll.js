@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, Image, TextInput } from 'react-native';
+import {
+  StyleSheet, Text, View, ScrollView, TouchableOpacity, ImageBackground, Image, TextInput, KeyboardAvoidingView, keyboardVerticalOffset,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { getFB } from "../firebase";
 import { ChangePollID, ChangeIndex } from '../../actions/PollActions';
@@ -20,6 +22,8 @@ class Poll extends React.Component {
   city = null;
   allPolls = [];
   curIndex = 0;
+  allComments = [];
+
 
   constructor(props) {
     super(props);
@@ -29,13 +33,20 @@ class Poll extends React.Component {
       this.getPolls();
       this.getProfile();
     })
-
+    this.commentRef = getFB().firestore().collection("comment")
+    this.message = "";
+    this.pollid = "";
+    this.userid = "";
+    this.userimg = "";
+    this.curUsername = "";
   }
 
   state = {
     luser_id: [],
     ruser_id: [],
     gestureName: 'none',
+    allComments: [],
+    message: ""
     //Hello
   };
 
@@ -64,6 +75,8 @@ class Poll extends React.Component {
           limg: this.allPolls[this.curIndex].options.left.img,
           username: this.allPolls[this.curIndex].username
         });
+
+        this.getComments();
         break;
     }
 
@@ -150,6 +163,8 @@ class Poll extends React.Component {
         limg: this.allPolls[this.curIndex].options.left.img,
         username: this.allPolls[this.curIndex].username
       });
+
+      this.getComments();
     })
     return false;
 
@@ -157,8 +172,8 @@ class Poll extends React.Component {
 
   getProfile = async () => {
 
-    var profile = firebase.firestore().collection("profile")
-    console.log(profile);
+    var pollid = firebase.firestore().collection("profile").where("pollid", "==", this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id)));
+    console.log(pollid);
   }
 
   voteLeft = () => {
@@ -257,133 +272,208 @@ class Poll extends React.Component {
     // this.props.dispatch(addVote(vote))
   }
 
+  handleComment = async () => {
+    console.log(this.props.user.user._user.uid);
+    await getFB().firestore().collection("comment").add({
+      pollid: this.allPolls[this.curIndex].doc_id,
+      userid: this.props.user.user._user.uid,
+      curUsername: this.props.user.user.username,
+      userimg: "",
+      message: this.message,
+      time: new Date(),
+    })
+    this.setState({
+      message: ""
+    })
+    this.getComments();
+  }
+
+  getComments = async () => {
+    this.allComments = [];
+    var now = new Date();
+    var snaps = await getFB().firestore().collection("comment").where("pollid", "==", this.allPolls[this.curIndex].doc_id).get();
+    snaps.forEach((doc) => {
+      console.log(doc.data());
+      this.allComments.push(doc.data());
+    })
+
+    //sort by time
+    this.allComments.sort(this.customSort)
+    this.setState({
+      allComments: this.allComments
+    })
+
+  }
+
+  customSort(a, b) {
+    if (a.time > b.time) {
+      return 1
+    }
+    if (a.time < b.time) {
+      return -1
+    }
+    return 0;
+  }
+
   render() {
 
-    // alert("Swipe and Go to Next Poll!");
+    // for(var i = 0; i < allComments.length; i++ ){
+
+    // }
+
+    //var allComments = [];
+    var comments = this.state.allComments.map((obj, index) => {
+      return (
+
+        // <Image
+        //   style={{ width: 20, height: 20, marginLeft: 20, marginTop: 20, marginRight: 10 }}
+        //   source={require('../../imgs/ProfileDefault.png')}
+        // />
+        <Text style={styles.poll_Desc}>
+
+          {obj.userimg}
+          <Text style={{ fontWeight: "700" }}>{obj.curUsername}  </Text>
+          <Text>{obj.message}</Text>
+        </Text>
+
+      )
+    })
+
     return (
 
-      <ScrollView style={{ backgroundColor: "#fff" }}>
+      <ScrollView style={{ backgroundColor: "#fff" }} >
 
         <View>
+          <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={100}>
 
 
-          <GestureRecognizer
-            style={styles.container}
-            // onSwipe={this.handleSwipe}
-            onSwipe={(direction, state) => this.handleSwipe(direction, state)}
-            onSwipeRight={(state) => this.handleSwipeR(state)}
-            velocityThreshold={0.5}
-            distanceThreshold={80}
-            angleThreshold={30}
-          >
+            <GestureRecognizer
+              style={styles.container}
+              // onSwipe={this.handleSwipe}
+              onSwipe={(direction, state) => this.handleSwipe(direction, state)}
+              onSwipeRight={(state) => this.handleSwipeR(state)}
+              velocityThreshold={0.5}
+              distanceThreshold={80}
+              angleThreshold={30}
+            >
 
-            <View style={styles.title_container}>
-              <Text style={styles.title}>{this.state.title}</Text>
-            </View>
+              <View style={styles.title_container}>
+                <Text style={styles.title}>{this.state.title}</Text>
+              </View>
 
-            <View style={styles.arg_container}>
+              <View style={styles.arg_container}>
 
-              <TouchableOpacity
-                style={styles.arg_btn}
-                onPress={() => this.voteLeft()}
-              >
-                <ImageBackground
-                  style={styles.arg_img}
-                  source={{ uri: (this.state.limg) ? this.state.limg : "" }}
+                <TouchableOpacity
+                  style={styles.arg_btn}
+                  onPress={() => this.voteLeft()}
                 >
-                  <View style={styles.arg_desc}>
-                    <Text style={{ color: "#fff" }}>{this.state.ldesc}</Text>
-                  </View>
-                </ImageBackground>
-              </TouchableOpacity>
+                  <ImageBackground
+                    style={styles.arg_img}
+                    source={{ uri: (this.state.limg) ? this.state.limg : "" }}
+                  >
+                    <View style={styles.arg_desc}>
+                      <Text style={{ color: "#fff" }}>{this.state.ldesc}</Text>
+                    </View>
+                  </ImageBackground>
+                </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.arg_btn}
-                // onPress={() => {
-                //   this.props.navigation.navigate('Insight')
-                // }}
-                onPress={() => this.voteRight()}
-              >
-                <ImageBackground
-                  style={styles.arg_img}
-                  source={{ uri: (this.state.rimg) ? this.state.rimg : "" }}
+                <TouchableOpacity
+                  style={styles.arg_btn}
+                  // onPress={() => {
+                  //   this.props.navigation.navigate('Insight')
+                  // }}
+                  onPress={() => this.voteRight()}
                 >
-                  <View style={styles.arg_descR}>
-                    <Text style={{ color: "#fff" }}>{this.state.rdesc}</Text>
-                  </View>
-                </ImageBackground>
-              </TouchableOpacity>
-            </View>
+                  <ImageBackground
+                    style={styles.arg_img}
+                    source={{ uri: (this.state.rimg) ? this.state.rimg : "" }}
+                  >
+                    <View style={styles.arg_descR}>
+                      <Text style={{ color: "#fff" }}>{this.state.rdesc}</Text>
+                    </View>
+                  </ImageBackground>
+                </TouchableOpacity>
+              </View>
 
-            <View style={styles.profile_container}>
+              <View style={styles.profile_container}>
 
-              <Image
-                style={{ width: 45, height: 45, marginLeft: 50 }}
-                source={require('../../imgs/ProfileDefault.png')}
-              />
+                <Image
+                  style={{ width: 45, height: 45, marginLeft: 50 }}
+                  source={require('../../imgs/ProfileDefault.png')}
+                />
 
-              <Text style={styles.profile_name}>{this.state.username}</Text>
+                <Text style={styles.profile_name}>{this.state.username}</Text>
 
-            </View>
+              </View>
 
-            <Text style={styles.poll_Desc}>
-              {this.state.desc}
-            </Text>
+              <Text style={styles.poll_Desc}>
+                {this.state.desc}
+              </Text>
 
-            {/* <Text
-            style={{
-              color: "gray",
-              fontWeight: "700",
-              fontSize: 17,
-              marginBottom: -10,
-              marginTop: 10
-            }}>
-            Live Debates
+              <Text
+                style={{
+                  color: "gray",
+                  fontWeight: "700",
+                  fontSize: 17,
+                  marginBottom: -10,
+                  marginTop: 10
+                }}>
+                Live Debates
           </Text>
 
-          <View style={styles.comment_container}>
+              <View style={styles.comment_container}>
+
+                {comments}
+                {/* {this.state.curUsername}{this.state.message} */}
+
+              </View>
+              <View style={{ flexDirection: 'row', marginBottom: '5%' }}>
+                <Image
+                  style={{ width: 30, height: 30, marginLeft: 20, marginTop: 25, marginRight: 10 }}
+                  source={require('../../imgs/ProfileDefault.png')}
+                />
 
 
-            <Image
-              style={{ width: 20, height: 20, marginLeft: 20, marginTop: 20, marginRight: 10 }}
-              source={require('../../imgs/ProfileDefault.png')}
-            />
-            <Text style={styles.poll_Desc}>
-              asdfkhagdlsgblfavkgbvlbvalkjrbvlkjbvlbv
-          </Text>
-
-          </View> */}
-            <View style={{ flexDirection: 'row' }}>
-              <TextInput
-                placeholder="Type Your Stance..."
-                style={{
-                  marginTop: 20,
-                  width: "70%",
-                  height: 40,
-                  borderWidth: 1,
-                  borderColor: "lightgray",
-                  borderRadius: 50,
-                  paddingLeft: 20,
-                }}
-
-              />
-              <TouchableOpacity
-                style={{
-                  position: 'absolute',
-                  top: 30,
-                  right: 10
-                }}
-              >
-                <Text style={{ color: "#F9E7A2", fontWeight: "700" }}>Post</Text>
-              </TouchableOpacity>
-            </View>
-          </GestureRecognizer>
+                <TextInput
+                  placeholder="Type Your Stance..."
+                  style={{
+                    marginTop: 20,
+                    width: "70%",
+                    height: 40,
+                    borderWidth: 1,
+                    borderColor: "lightgray",
+                    borderRadius: 50,
+                    paddingLeft: 20,
+                    paddingRight: 40,
+                  }}
+                  onChangeText={(text) => {
+                    this.message = text;
+                    this.setState({
+                      message: text
+                    })
+                  }}
+                  value={this.state.message}
+                />
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    top: 30,
+                    right: 10
+                  }}
+                  onPress={this.handleComment}
+                >
+                  <Text style={{ color: "#F9E7A2", fontWeight: "700" }}>Post</Text>
+                </TouchableOpacity>
 
 
+              </View>
+            </GestureRecognizer>
+
+          </KeyboardAvoidingView>
 
         </View>
 
-      </ScrollView>
+      </ScrollView >
     );
   }
 }
@@ -472,7 +562,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   comment_container: {
-    flexDirection: "row",
+    flexDirection: "column",
     width: "80%",
   }
 

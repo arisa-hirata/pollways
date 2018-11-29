@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, Sc
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk
 //$ npm install react-native-progress --save
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
-import Geolocation from 'react-native-geolocation-service';
+// import Geolocation from 'react-native-geolocation-service';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
@@ -45,35 +45,21 @@ class ProfileTab extends React.Component {
       //join will add whatever you input in the join(" ")
       ShowPlace: cityTemp.join(" ")
     });
-    console.log("HelloB", cityTemp)
+    // console.log(cityTemp)
   }
-// ComponentDiDmount will automatically run 
+
   componentDidMount() {
     this.getPolls()
-    setInterval(() => {
-      if (this.watchID) {
-        return false;
-      }
-
-      this.watchID = Geolocation.getCurrentPosition((position) => {
-        // var initialRegion = {
-        //   latitude:position.coords.latitude,
-        //   longitude:position.coords.longitude,
-        // }
-        this.getPlace(position.coords.latitude, position.coords.longitude)
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.getPlace(
+          position.coords.latitude,
+          position.coords.longitude
+        )
       },
-        (error) => {
-          clearInterval(this.watchID)
-          this.watchID = null;
-          console.log(error);
-          this.setState({ error: error.message })
-        },
-        { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 },
-      );
-    }, 1000)
-    //source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}}
-
+    );
   }
+
   AddImg = async () => {
     const image = await ImagePicker.openPicker({
       width: 160,
@@ -102,23 +88,23 @@ class ProfileTab extends React.Component {
   };
 
   getPolls = async () => {
-  // Show only for the user 
-  console.log("HelloAA", this.props.user.user.uid);
-    var polls =  await firebase.firestore().collection("polls").where("uerid", "==", this.props.user.user.uid);
+    // Show only for the user
+    console.log("HelloAA", this.props.user.user.uid);
+    var polls = await firebase.firestore().collection("polls").where("uerid", "==", this.props.user.user.uid);
     console.log("HelloAA", polls)
     var allPolls = [];
     console.log("HelloAA", "SnapBefore")
-   var snap = await polls.get();
-   console.log("HelloAA",snap);
-      snap.forEach((doc) => {
-        console.log("HelloAA", doc.data());
-        var obj = doc.data();
-        obj.pollid = doc.id
-        allPolls.push(obj);
-      })
-      this.setState({
-        polls: allPolls
-      })
+    var snap = await polls.get();
+    console.log("HelloAA", snap);
+    snap.forEach((doc) => {
+      console.log("HelloAA", doc.data());
+      var obj = doc.data();
+      obj.pollid = doc.id
+      allPolls.push(obj);
+    })
+    this.setState({
+      polls: allPolls
+    })
 
   }
 
@@ -133,49 +119,52 @@ class ProfileTab extends React.Component {
       username: this.allPolls[this.curIndex].username
     });
   }
+
+
   signOutUser = async () => {
-
-
     try {
       await getFB().auth().signOut();
       this.props.navigation.navigate('Login')
     } catch (error) {
       alert(error);
-
     }
-
   }
+
 
   render() {
 
-    var pollImages = this.state.polls.map((obj,index)=>{
+    var pollImages = this.state.polls.map((obj, index) => {
       return (
         <TouchableOpacity>
-        <View style={styles.boxContainer}>
+          <View style={styles.boxContainer}>
             <View style={styles.titleContainer}>
               <Text style={styles.textContainer}>{obj.title}</Text>
             </View>
             <ImageBackground
               source={require('../../imgs/1x/Asset14.png')}
               style={[styles.imgouterContainer, {}]}
-              >
-              <View style={[styles.imgContainer, {borderBottomLeftRadius:10,
-              borderTopLeftRadius:10}]}>
-              <Image
-              style={{width: 440, height: 440, resizeMode:"contain", }}
-              source={{uri: obj.options.right.img }}>
-              </Image>
+            >
+              <View style={[styles.imgContainer, {
+                borderBottomLeftRadius: 10,
+                borderTopLeftRadius: 10
+              }]}>
+                <Image
+                  style={{ width: 440, height: 440, resizeMode: "contain", }}
+                  source={{ uri: obj.options.right.img }}>
+                </Image>
               </View>
-  
-              <View style={[styles.imgContainer, {borderBottomRightRadius:10,
-              borderTopRightRadius:10},]}>
-              <Image
-              style={{width: 440, height: 440, resizeMode:"contain", }}
-              source={{uri: obj.options.left.img }}>
-              </Image>
+
+              <View style={[styles.imgContainer, {
+                borderBottomRightRadius: 10,
+                borderTopRightRadius: 10
+              },]}>
+                <Image
+                  style={{ width: 440, height: 440, resizeMode: "contain", }}
+                  source={{ uri: obj.options.left.img }}>
+                </Image>
               </View>
-              </ImageBackground>
-        </View>
+            </ImageBackground>
+          </View>
         </TouchableOpacity>
       )
     })
@@ -260,11 +249,11 @@ class ProfileTab extends React.Component {
           </View>
           {/* **************************************************************************************** */}
           <View style={styles.containerboxPoll}>
-              {pollImages}
+            {pollImages}
           </View>
-       
+
         </View>
-        </ScrollView>
+      </ScrollView>
     );
   }
 }
@@ -342,7 +331,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   titleContainer: {
-    backgroundColor:"#F1E29E",
+    backgroundColor: "#F1E29E",
     alignItems: "center",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -368,12 +357,12 @@ const styles = StyleSheet.create({
   },
   containerboxPoll: {
     flex: 1,
-    width:"100%",
-    backgroundColor: "blue",
-    flexDirection:"row",
+    width: "100%",
+    height: "100%",
+    flexDirection: "row",
     alignItems: "flex-start",
     flexWrap: "wrap",
-    paddingLeft:10
+    paddingLeft: 10
 
   }
 });
