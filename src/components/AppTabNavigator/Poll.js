@@ -31,7 +31,6 @@ class Poll extends React.Component {
     this.props.navigation.addListener("willFocus", () => {
       console.log("test poll");
       this.getPolls();
-      this.getProfile();
     })
     this.commentRef = getFB().firestore().collection("comment")
     this.message = "";
@@ -46,7 +45,8 @@ class Poll extends React.Component {
     ruser_id: [],
     gestureName: 'none',
     allComments: [],
-    message: ""
+    message: "",
+    more: false
     //Hello
   };
 
@@ -79,22 +79,6 @@ class Poll extends React.Component {
         this.getComments();
         break;
     }
-
-
-    // alert('Next Poll');
-    // this.curIndex = this.props.curIndex;
-    // this.curIndex++;
-    // this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
-    // this.props.dispatch(ChangeIndex(this.curIndex));
-    // this.setState({
-    //   title: this.allPolls[this.curIndex].title,
-    //   desc: this.allPolls[this.curIndex].desc,
-    //   ldesc: this.allPolls[this.curIndex].options.left.desc,
-    //   rdesc: this.allPolls[this.curIndex].options.right.desc,
-    //   rimg: this.allPolls[this.curIndex].options.right.img,
-    //   limg: this.allPolls[this.curIndex].options.left.img,
-    //   username: this.allPolls[this.curIndex].username
-    // });
   }
 
 
@@ -124,17 +108,6 @@ class Poll extends React.Component {
     );
   }
 
-  // async componentDidMount() {
-  //   if (App.shared.uid) {
-  //     const res = await App.shared.getPolls();
-  //   } else {
-  //     firebase.auth().onAuthStateChanged(async polls => {
-  //       if (polls) {
-  //         const res = await App.shared.getPolls();
-  //       }
-  //     });
-  //   }
-  // }
   getPolls = async () => {
 
     var polls = firebase.firestore().collection("polls").orderBy("time", "desc").limit(100);
@@ -170,17 +143,8 @@ class Poll extends React.Component {
 
   }
 
-  getProfile = async () => {
-
-    var pollid = firebase.firestore().collection("profile").where("pollid", "==", this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id)));
-    console.log(pollid);
-  }
-
   voteLeft = () => {
-    // const { Lpoll } = this.state;
-    // App.shared.voteLeft({
-    //   Lpoll
-    // });
+
     console.log("--------------------");
     // console.log(this.cdoc);
     var obj = this.allPolls[this.curIndex];
@@ -217,7 +181,6 @@ class Poll extends React.Component {
   voteRight() {
 
     var obj = this.allPolls[this.curIndex].cdoc.data();
-
     var arr = obj.votesR || [];
     var arr2 = obj.votesL || [];
     if (this.checkVoted(arr) !== false) {
@@ -315,29 +278,113 @@ class Poll extends React.Component {
     return 0;
   }
 
+  handleMore = () => {
+    this.setState({
+      more: !this.state.more
+    })
+  }
+
   render() {
 
-    // for(var i = 0; i < allComments.length; i++ ){
-
-    // }
-
-    //var allComments = [];
     var comments = this.state.allComments.map((obj, index) => {
       return (
 
-        // <Image
-        //   style={{ width: 20, height: 20, marginLeft: 20, marginTop: 20, marginRight: 10 }}
-        //   source={require('../../imgs/ProfileDefault.png')}
-        // />
-        <Text style={styles.poll_Desc}>
+        <View style={{ flexDirection: 'row', marginTop: 20 }}>
+          <Image
+            style={{ width: 20, height: 20 }}
+            source={require('../../imgs/ProfileDefault.png')}
+          // source={{ uri: (this.state.limg) ? this.state.limg : "" }}
+          />
 
-          {obj.userimg}
-          <Text style={{ fontWeight: "700" }}>{obj.curUsername}  </Text>
+          {/* {obj.userimg} */}
+          <Text style={{ fontWeight: "700", marginLeft: 5 }}>{obj.curUsername}  </Text>
           <Text>{obj.message}</Text>
-        </Text>
+        </View>
 
       )
     })
+
+    var more = (
+      <TouchableOpacity
+        style={{ marginLeft: "-55%" }}
+        onPress={this.handleMore}>
+        <Text style={{ color: "lightgray", alignItems: 'flex-start', fontSize: 16, marginTop: 10 }}>more...</Text>
+      </TouchableOpacity>
+    )
+
+    if (this.state.more) {
+      more = (
+        <View style={{ width: "80%", marginBottom: 30 }}>
+
+          <View style={{
+            borderBottomColor: 'lightgray',
+            borderBottomWidth: 1.5,
+            width: "100%",
+            marginTop: 20
+          }} />
+
+          <Text
+            style={{
+              color: "gray",
+              fontWeight: "600",
+              fontSize: 17,
+              marginBottom: -10,
+              marginTop: 20,
+              marginLeft: "10%"
+            }}>
+            Live Debates
+              </Text>
+          <View style={styles.comment_container}>
+
+            {comments}
+            {/* {this.state.curUsername}{this.state.message} */}
+
+          </View>
+          <View style={{ flexDirection: 'row', marginBottom: '5%' }}>
+
+            <Image
+              style={{ width: 30, height: 30, marginTop: 25, marginRight: 10 }}
+              source={require('../../imgs/ProfileDefault.png')}
+            />
+
+            <TextInput
+              placeholder="Type Your Stance..."
+              style={{
+                marginTop: 20,
+                width: "85%",
+                height: 40,
+                borderWidth: 1,
+                borderColor: "lightgray",
+                borderRadius: 50,
+                paddingLeft: 20,
+                paddingRight: 50,
+              }}
+              onChangeText={(text) => {
+                this.message = text;
+                this.setState({
+                  message: text
+                })
+              }}
+              value={this.state.message}
+            />
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                top: 30,
+                right: 10,
+                width: 50,
+                height: 50
+
+              }}
+              onPress={this.handleComment}
+            >
+              <Text style={{ color: "#F9E7A2", fontWeight: "700", fontSize: 17 }}>Post</Text>
+            </TouchableOpacity>
+
+          </View>
+        </View>
+      )
+    }
 
     return (
 
@@ -410,63 +457,11 @@ class Poll extends React.Component {
                 {this.state.desc}
               </Text>
 
-              <Text
-                style={{
-                  color: "gray",
-                  fontWeight: "700",
-                  fontSize: 17,
-                  marginBottom: -10,
-                  marginTop: 10
-                }}>
-                Live Debates
-          </Text>
 
-              <View style={styles.comment_container}>
+              {more}
 
-                {comments}
-                {/* {this.state.curUsername}{this.state.message} */}
+              <View style={{ marginBottom: "10%" }}></View>
 
-              </View>
-              <View style={{ flexDirection: 'row', marginBottom: '5%' }}>
-                <Image
-                  style={{ width: 30, height: 30, marginLeft: 20, marginTop: 25, marginRight: 10 }}
-                  source={require('../../imgs/ProfileDefault.png')}
-                />
-
-
-                <TextInput
-                  placeholder="Type Your Stance..."
-                  style={{
-                    marginTop: 20,
-                    width: "70%",
-                    height: 40,
-                    borderWidth: 1,
-                    borderColor: "lightgray",
-                    borderRadius: 50,
-                    paddingLeft: 20,
-                    paddingRight: 40,
-                  }}
-                  onChangeText={(text) => {
-                    this.message = text;
-                    this.setState({
-                      message: text
-                    })
-                  }}
-                  value={this.state.message}
-                />
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 30,
-                    right: 10
-                  }}
-                  onPress={this.handleComment}
-                >
-                  <Text style={{ color: "#F9E7A2", fontWeight: "700" }}>Post</Text>
-                </TouchableOpacity>
-
-
-              </View>
             </GestureRecognizer>
 
           </KeyboardAvoidingView>
@@ -563,7 +558,8 @@ const styles = StyleSheet.create({
   },
   comment_container: {
     flexDirection: "column",
-    width: "80%",
+    width: "75%",
+    marginTop: "5%"
   }
 
 
