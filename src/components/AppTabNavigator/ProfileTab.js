@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, Dimensions, Button, TouchableOpacity, Sc
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyDOzIQCN_wh25kKX-FywqgFcrTay_O2ohk
 //$ npm install react-native-progress --save
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
-// import Geolocation from 'react-native-geolocation-service';
+import Geolocation from 'react-native-geolocation-service';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
@@ -28,8 +28,8 @@ class ProfileTab extends React.Component {
     position: {},
     error: "",
     img: {},
-    filename: "",
-    polls: []
+    polls: [],
+
   }
   getPlace = async (lat, long) => {
     console.log("latlng", lat, long);
@@ -45,67 +45,91 @@ class ProfileTab extends React.Component {
       //join will add whatever you input in the join(" ")
       ShowPlace: cityTemp.join(" ")
     });
-    // console.log(cityTemp)
+    console.log("HelloB", cityTemp)
   }
 
+// ComponentDiDmount will automatically run 
   componentDidMount() {
+    //getting polls from firebase
     this.getPolls()
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.getPlace(
-          position.coords.latitude,
-          position.coords.longitude
-        )
-      },
-    );
-  }
+    setInterval(() => {
+      if (this.watchID) {
+        return false;
+      }
 
+      this.watchID = Geolocation.getCurrentPosition((position) => {
+        this.getPlace(position.coords.latitude, position.coords.longitude)
+      },
+        (error) => {
+          clearInterval(this.watchID)
+          this.watchID = null;
+          console.log(error);
+          this.setState({ error: error.message })
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 },
+      );
+    }, 1000)
+
+  }
   AddImg = async () => {
+    console.log("HelloCC", "AfterImageCropper");
     const image = await ImagePicker.openPicker({
-      width: 160,
-      height: 160,
+      width: 30,
+      height: 30,
       cropping: true,
-      compressImageQuality: 0.3,
+      compressImageQuality: 1,
+      media: "photo",
+      includeBase64: true,
     })
+    console.log("HelloCC", image);
     var imgF = await RNFetchBlob.fs.readFile(image.path, "base64");
     var blob = await Blob.build(imgF, { type: 'image/jpg;BASE64' });
 
     this.blob = blob;
-
+    console.log("HelloCCC", this.blob)
     this.setState({
       img: image,
     });
-    console.log("whatthefucj", filename)
+    // console.log("whatthefucj", filename)
 
     const ref = getFB().storage().ref("profileImg/" + this.props.user.user.uid + `_.jpg`)
+    console.log("HelloCCC", ref)
+    //What happens from this point on
     await ref.putFile(image.path)
     const url = await ref.getDownloadURL();
-
+    console.log("HelloCCC", url);
+    //this becomes a link now
+    //https://firebasestorage.googleapis.com/v0/b/pollways-85c25.appspot.com/o/profileImg%2FsI10abTJwZY0QMpiZOW1Lqw9Kxl2_.jpg?alt=media&token=3a1f88c2-19ad-47eb-b1e4-7ec7e568995d
+    //this is now in the firebase storage
+    //change state??? from 
     var ref2 = await getFB().firestore().collection("profile").doc(this.props.user.user.uid).update({
+      // this will create a pimg section on the 
       pImg: url
+      
     })
-
+    
   };
+
+
 // Cant I just use this sort of functions and call out my image from Storage and change the state of the Image?????????
   getPolls = async () => {
-    // Show only for the user
-    console.log("HelloAA", this.props.user.user.uid);
-    var polls = await firebase.firestore().collection("polls").where("uerid", "==", this.props.user.user.uid);
-    console.log("HelloAA", polls)
+  // Show only for the user 
+  console.log("HelloAA", this.props.user.user.uid);
+    var polls =  await firebase.firestore().collection("polls").where("uerid", "==", this.props.user.user.uid);
+    console.log("HelloBB", polls)
     var allPolls = [];
     console.log("HelloAA", "SnapBefore")
-    var snap = await polls.get();
-    console.log("HelloAA", snap);
-    snap.forEach((doc) => {
-      console.log("HelloAA", doc.data());
-      var obj = doc.data();
-      obj.pollid = doc.id
-      allPolls.push(obj);
-    })
-    this.setState({
-      polls: allPolls
-    })
-
+   var snap = await polls.get();
+   console.log("HelloAA",snap);
+      snap.forEach((doc) => {
+        console.log("HelloAA", doc.data());
+        var obj = doc.data();
+        obj.pollid = doc.id
+        allPolls.push(obj);
+      })
+      this.setState({
+        polls: allPolls
+      })
   }
 
   seePoll = () => {
@@ -120,16 +144,18 @@ class ProfileTab extends React.Component {
     });
   }
 
+
+
 //change poll to this ID
 //then Navigate to that Poll ID
 //obj grabs all the polls
 //dispatch goes to actions which will change the ID to whatever you have clicked on
-handleInsights = (obj) =>{
-  //changing the poll ID in the reducer 
-  this.props.dispatch(ChangePollID(obj.pollid));//dispatch action to change pollid
-  this.props.navigation.navigate('Insight')
-  console.log("Hello11", obj.pollid);
-}
+  handleInsights = (obj) =>{
+    //changing the poll ID in the reducer 
+    this.props.dispatch(ChangePollID(obj.pollid));//dispatch action to change pollid
+    this.props.navigation.navigate('Insight')
+    console.log("Hello11", obj.pollid);
+  }
 
 
   signOutUser = async () => {
@@ -142,46 +168,45 @@ handleInsights = (obj) =>{
   }
 
 
-  render() {
 
-    var pollImages = this.state.polls.map((obj, index) => {
+
+
+  render() {
+    console.log("HelloCCC", this.props)
+    var pollImages = this.state.polls.map((obj,index)=>{
       return (
-        <TouchableOpacity>
-          <View style={styles.boxContainer}>
+        <TouchableOpacity
+        onPress={this.handleInsights.bind(this, obj)}>
+        <View style={styles.boxContainer}>
             <View style={styles.titleContainer}>
               <Text style={styles.textContainer}>{obj.title}</Text>
             </View>
             <ImageBackground
               source={require('../../imgs/1x/Asset14.png')}
               style={[styles.imgouterContainer, {}]}
-            >
-              <View style={[styles.imgContainer, {
-                borderBottomLeftRadius: 10,
-                borderTopLeftRadius: 10
-              }]}>
-                <Image
-                  style={{ width: 440, height: 440, resizeMode: "contain", }}
-                  source={{ uri: obj.options.right.img }}>
-                </Image>
+              >
+              <View style={[styles.imgContainer, {borderBottomLeftRadius:10,
+              borderTopLeftRadius:10}]}>
+              <Image
+              style={{width: 440, height: 440, resizeMode:"contain", }}
+              source={{uri: obj.options.right.img }}>
+              </Image>
               </View>
-
-              <View style={[styles.imgContainer, {
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 10
-              },]}>
-                <Image
-                  style={{ width: 440, height: 440, resizeMode: "contain", }}
-                  source={{ uri: obj.options.left.img }}>
-                </Image>
+  
+              <View style={[styles.imgContainer, {borderBottomRightRadius:10,
+              borderTopRightRadius:10},]}>
+              <Image
+              style={{width: 440, height: 440, resizeMode:"contain", }}
+              source={{uri: obj.options.left.img }}>
+              </Image>
               </View>
-            </ImageBackground>
-          </View>
+              </ImageBackground>
+        </View>
         </TouchableOpacity>
       )
     })
 
     console.log(this.props.navigation);
-
     console.log("profilestuff", this.props);
     const barWidth = Dimensions.get('screen').width - 80;
 
@@ -205,8 +230,7 @@ handleInsights = (obj) =>{
 
             <View style={styles.topBarItem}>
               <View style={styles.topBarItemInner}>
-                <TouchableOpacity onPress={() => this.signOutUser()}>
-                  {/* this.props.navigation.navigate('Login')}> */}
+              <TouchableOpacity onPress={() => this.signOutUser()}>
                   <Text style={{
                     textAlign: 'right',
                     paddingRight: 25, marginTop: 20
@@ -215,19 +239,20 @@ handleInsights = (obj) =>{
               </View>
             </View>
           </View>
-          {/* Profile Image*************************************************************************************** */}
+          {/* Profile Image**************************************************************************************** */}
           {/* If user P image exists ? then use Uri to move the link OTHERWISE use default LINE 224 */}
           {/* this.props.user.user.pImg is coming from the Reducer you created in AuthActions */}
           <View style={styles.topProfileImg}>
             <View style={styles.ProfileImage}>
               <TouchableOpacity
-                onPress={() => this.AddImg()}
+                onPress={this.AddImg}
               >
                 <Image
                   style={{ width: 160, height: 160, borderRadius: 80 }}
                   source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
                   resizeMode='contain'
                 />
+                
               </TouchableOpacity>
             </View>
           </View>
@@ -262,11 +287,11 @@ handleInsights = (obj) =>{
           </View>
           {/* **************************************************************************************** */}
           <View style={styles.containerboxPoll}>
-            {pollImages}
+              {pollImages}
           </View>
-
+       
         </View>
-      </ScrollView>
+        </ScrollView>
     );
   }
 }
@@ -279,10 +304,10 @@ const styles = StyleSheet.create({
   },
   // ARCHIVE AND EDIT SECTION********************************************************************
   topBar: {
-    height: '5%',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 20
+    marginBottom: 5,
+    width:"100%"
   },
   topBarItem: {
     width: '50%',
@@ -292,11 +317,10 @@ const styles = StyleSheet.create({
   },
   // ********************************************************************
   topProfileImg: {
-    height: '25%',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 40
+
   },
   ProfileImage: {
     width: 200,
@@ -344,7 +368,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   titleContainer: {
-    backgroundColor: "#F1E29E",
+    backgroundColor:"#F1E29E",
     alignItems: "center",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -370,12 +394,11 @@ const styles = StyleSheet.create({
   },
   containerboxPoll: {
     flex: 1,
-    width: "100%",
-    height: "100%",
-    flexDirection: "row",
+    width:"100%",
+    flexDirection:"row",
     alignItems: "flex-start",
     flexWrap: "wrap",
-    paddingLeft: 10
+    paddingLeft:10,
 
   }
 });
