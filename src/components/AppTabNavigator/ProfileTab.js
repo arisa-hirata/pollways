@@ -74,7 +74,6 @@ class ProfileTab extends React.Component {
 
     this.setState({
       img: image,
-      // filename: image.filename
     });
     console.log("whatthefucj", filename)
 
@@ -120,6 +119,17 @@ class ProfileTab extends React.Component {
       username: this.allPolls[this.curIndex].username
     });
   }
+
+//change poll to this ID
+//then Navigate to that Poll ID
+//obj grabs all the polls
+//dispatch goes to actions which will change the ID to whatever you have clicked on
+handleInsights = (obj) =>{
+  //changing the poll ID in the reducer 
+  this.props.dispatch(ChangePollID(obj.pollid));//dispatch action to change pollid
+  this.props.navigation.navigate('Insight')
+  console.log("Hello11", obj.pollid);
+}
 
 
   signOutUser = async () => {
