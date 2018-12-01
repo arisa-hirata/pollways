@@ -12,8 +12,6 @@ import {
   SIGN_UP
 } from './types';
 
-
-
 export const emailChanged = (text) => {
   return {
     type: EMAIL_CHANGED,
@@ -31,7 +29,8 @@ export const passwordChanged = (text) => {
 export const loginUser = ({ email, password }) => {
   console.log("filtererrorblah", email, password)
   return (dispatch) => {
-    // loginUserSuccess(dispatch, {}); return;
+    //loginUserSuccess(dispatch, {}); return;
+    dispatch({ type: LOGIN_USER });
 
     getFB().auth().signInWithEmailAndPassword(email, password)
       .then(user => {
@@ -43,12 +42,11 @@ export const loginUser = ({ email, password }) => {
           user.user.age = obj.age;
           user.user.gender = obj.gender;
           user.user.time = obj.time;
-          //After Logging in
+          //After logging in
           user.user.pImg = obj.pImg;
-          // dispatch({ type: LOGIN_USER });
+          console.log("HelloCCC", user.user.pImg);
           loginUserSuccess(user)(dispatch)
         })
-
       })
       .catch((error) => {
         // console.warn("loginUser failed");
@@ -81,26 +79,22 @@ export const loginUserSuccess = (user) => {
 export const signUp = ({ email, password, username, gender, age, time }) => {
   console.log("filtererrorblah", email, password);
   return (dispatch) => {
+    dispatch({ type: SIGN_UP });
 
     getFB().auth().createUserWithEmailAndPassword(email, password)
-
       .then(user => {
         var ref = getFB().firestore().collection("profile").doc(user.user._user.uid).set({
           gender: gender,
           age: age,
           time: time,
-          username: username
+          username: username,
         })
         user.user.username = username;
         user.user.age = age;
         user.user.gender = gender;
         user.user.time = time;
         loginUserSuccess(user)(dispatch);
-        dispatch({ type: SIGN_UP });
       })
-      .catch(() => {
-        console.warn(error);
-        loginUserFail(dispatch)
-      });
+      .catch(() => loginUserFail(dispatch));
   }
 }
