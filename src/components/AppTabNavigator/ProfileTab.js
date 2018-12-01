@@ -78,15 +78,16 @@ class ProfileTab extends React.Component {
     });
     console.log("whatthefucj", filename)
 
-    uploadImage = async (refId, direction) => {
-      if (!this.state[`img${direction}`] === {}) return undefined
-      const ref = getFB().storage().ref("images/" + refId + `_${direction}.jpg`)
-      await ref.putFile(this.state[`img${direction}`].path)
-      const url = await ref.getDownloadURL();
-      return url
-    }
-  };
+    const ref = getFB().storage().ref("profileImg/" + this.props.user.user.uid + `_.jpg`)
+    await ref.putFile(image.path)
+    const url = await ref.getDownloadURL();
 
+    var ref2 = await getFB().firestore().collection("profile").doc(this.props.user.user.uid).update({
+      pImg: url
+    })
+
+  };
+// Cant I just use this sort of functions and call out my image from Storage and change the state of the Image?????????
   getPolls = async () => {
     // Show only for the user
     console.log("HelloAA", this.props.user.user.uid);
@@ -204,7 +205,9 @@ class ProfileTab extends React.Component {
               </View>
             </View>
           </View>
-          {/* Profile Image**************************************************************************************** */}
+          {/* Profile Image*************************************************************************************** */}
+          {/* If user P image exists ? then use Uri to move the link OTHERWISE use default LINE 224 */}
+          {/* this.props.user.user.pImg is coming from the Reducer you created in AuthActions */}
           <View style={styles.topProfileImg}>
             <View style={styles.ProfileImage}>
               <TouchableOpacity
@@ -212,7 +215,7 @@ class ProfileTab extends React.Component {
               >
                 <Image
                   style={{ width: 160, height: 160, borderRadius: 80 }}
-                  source={(this.state.img.path) ? { uri: this.state.img.path } : require('../../imgs/ProfileDefault.png')}
+                  source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
                   resizeMode='contain'
                 />
               </TouchableOpacity>

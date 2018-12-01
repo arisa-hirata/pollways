@@ -43,7 +43,9 @@ export const loginUser = ({ email, password }) => {
           user.user.age = obj.age;
           user.user.gender = obj.gender;
           user.user.time = obj.time;
-          dispatch({ type: LOGIN_USER });
+          //After Logging in
+          user.user.pImg = obj.pImg;
+          // dispatch({ type: LOGIN_USER });
           loginUserSuccess(user)(dispatch)
         })
 
