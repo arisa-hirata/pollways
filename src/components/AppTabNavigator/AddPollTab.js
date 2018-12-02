@@ -133,11 +133,6 @@ class AddPollTab extends React.Component {
       // alert(error);
       alert("Poll creation failed. Please fill in all content!")
     }
-
-
-
-
-
   }
 
 

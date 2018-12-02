@@ -236,12 +236,12 @@ class Poll extends React.Component {
   }
 
   handleComment = async () => {
-    console.log(this.props.user.user._user.uid);
+    console.log(this.props.user.user.pImg);
     await getFB().firestore().collection("comment").add({
       pollid: this.allPolls[this.curIndex].doc_id,
       userid: this.props.user.user._user.uid,
       curUsername: this.props.user.user.username,
-      userimg: "",
+      userimg: this.props.user.user.pImg,
       message: this.message,
       time: new Date(),
     })
@@ -291,14 +291,17 @@ class Poll extends React.Component {
 
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <Image
-            style={{ width: 20, height: 20 }}
-            source={require('../../imgs/ProfileDefault.png')}
+            style={{ width: 20, height: 20, borderRadius: 10 }}
+            source={(obj.userimg) ? { uri: obj.userimg } : require('../../imgs/ProfileDefault.png')}
+            resizeMode='contain'
           // source={{ uri: (this.state.limg) ? this.state.limg : "" }}
           />
 
           {/* {obj.userimg} */}
-          <Text style={{ fontWeight: "700", marginLeft: 5 }}>{obj.curUsername}  </Text>
-          <Text>{obj.message}</Text>
+          <Text style={{ marginLeft: 5 }}>
+            <Text style={{ fontWeight: "700" }}>{obj.curUsername}  </Text>
+            {obj.message}</Text>
+
         </View>
 
       )
@@ -306,15 +309,15 @@ class Poll extends React.Component {
 
     var more = (
       <TouchableOpacity
-        style={{ marginLeft: "-55%" }}
+        style={{ marginLeft: "-40%" }}
         onPress={this.handleMore}>
-        <Text style={{ color: "lightgray", alignItems: 'flex-start', fontSize: 16, marginTop: 10 }}>more...</Text>
+        <Text style={{ color: "#adadad", alignItems: 'flex-start', fontSize: 16, marginTop: 10 }}>See all comments...</Text>
       </TouchableOpacity>
     )
 
     if (this.state.more) {
       more = (
-        <View style={{ width: "80%", marginBottom: 30 }}>
+        <View style={{ width: "80%", marginBottom: 1000 }}>
 
           <View style={{
             borderBottomColor: 'lightgray',
@@ -340,11 +343,11 @@ class Poll extends React.Component {
             {/* {this.state.curUsername}{this.state.message} */}
 
           </View>
-          <View style={{ flexDirection: 'row', marginBottom: '5%' }}>
+          <View style={{ flexDirection: 'row', marginBottom: '10%' }}>
 
             <Image
-              style={{ width: 30, height: 30, marginTop: 25, marginRight: 10 }}
-              source={require('../../imgs/ProfileDefault.png')}
+              style={{ width: 30, height: 30, marginTop: 25, marginRight: 10, borderRadius: 15 }}
+              source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
             />
 
             <TextInput
@@ -374,7 +377,6 @@ class Poll extends React.Component {
                 right: 10,
                 width: 50,
                 height: 50
-
               }}
               onPress={this.handleComment}
             >
@@ -445,8 +447,8 @@ class Poll extends React.Component {
               <View style={styles.profile_container}>
 
                 <Image
-                  style={{ width: 45, height: 45, marginLeft: 50 }}
-                  source={require('../../imgs/ProfileDefault.png')}
+                  style={{ width: 45, height: 45, marginLeft: 50, borderRadius: 23 }}
+                  source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
                 />
 
                 <Text style={styles.profile_name}>{this.state.username}</Text>
@@ -558,7 +560,7 @@ const styles = StyleSheet.create({
   },
   comment_container: {
     flexDirection: "column",
-    width: "75%",
+    width: "90%",
     marginTop: "5%"
   }
 

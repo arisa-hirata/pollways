@@ -14,7 +14,6 @@ import ProfileTab from './AppTabNavigator/ProfileTab';
 
 import Insight from './Insight/Insight';
 import Details from './Insight/Details';
-import ProfileEdit from '../components/AppTabNavigator/ProfileEdit';
 
 import { propTypes } from 'react-native/Libraries/Components/Button';
 // import Icon from 'react-native-vector-icons/Iconicons';
@@ -110,7 +109,6 @@ export default createStackNavigator(
       }
     },
     ProfileTab: ProfileTab,
-    ProfileEdit: ProfileEdit,
     Details: {
       screen: Details,
       navigationOptions: {
