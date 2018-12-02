@@ -162,7 +162,7 @@ class AddPollTab extends React.Component {
               <TextInput
                 style={{
                   fontSize: 30,
-                  height: 80,
+                  height: 60,
                   width: "70%"
                   // marginBottom: 30
                 }}
@@ -239,8 +239,8 @@ class AddPollTab extends React.Component {
               <View style={styles.profile_container}>
 
                 <Image
-                  style={{ width: 45, height: 45, marginLeft: 50 }}
-                  source={require('../../imgs/ProfileDefault.png')}
+                  style={{ width: 45, height: 45, marginLeft: 50, borderRadius: 22 }}
+                  source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
                 />
 
                 <Text style={styles.profile_name}>{this.props.user.user.username}</Text>
@@ -306,7 +306,8 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: 20
+    marginTop: 20,
+    padding: 5
   },
   poll_desc: {
     height: 80,
@@ -314,13 +315,15 @@ const styles = StyleSheet.create({
     borderColor: "lightgray",
     borderWidth: 1,
     borderRadius: 7,
-    marginBottom: 10
+    marginBottom: 10,
+    padding: 5
   },
   btn: {
     backgroundColor: "#F9E7A2",
     width: 130,
     height: 40,
     borderRadius: 8,
+    marginBottom: "5%"
   },
   btnText: {
     color: "#fff",
@@ -332,7 +335,7 @@ const styles = StyleSheet.create({
   profile_container: {
     flexDirection: "row",
     width: "100%",
-    marginTop: "5%",
+    marginTop: "3%",
   },
   profile_img: {
     height: "10%",
@@ -343,6 +346,7 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     marginLeft: 10,
+    fontWeight: "700"
   },
 
 });
