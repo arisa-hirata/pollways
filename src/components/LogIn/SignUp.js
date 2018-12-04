@@ -96,6 +96,11 @@ class SignUp extends Component {
     this.password = text
   }
   // **********************************************************************************
+  // This.props.SignUp is
+  // There is 2 things going on here. why do we need onEmailChange Text when we
+  // Why cant username and email and password be the same?
+  // Why does email and pass get their own function?
+  // would it be better if we just used the username function
   onButtonPress = () => {
     this.props.signUp({
       email: this.email,
@@ -112,12 +117,6 @@ class SignUp extends Component {
     } else {
       alert("Sign Up Failed. Please try again.")
     }
-
-
-    // }
-
-
-
   }
   render() {
     return (

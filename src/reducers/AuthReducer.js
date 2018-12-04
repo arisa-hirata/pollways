@@ -55,6 +55,8 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case SIGN_UP:
+    //ok I dont know what ...State means but I am guessing
+    //INITIAL_STATE is where the emails i Inputted are being set to. 
       return {
         ...state,
         ...INITIAL_STATE,
