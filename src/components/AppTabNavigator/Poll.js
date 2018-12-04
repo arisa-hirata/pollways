@@ -50,7 +50,7 @@ class Poll extends React.Component {
     //Hello
   };
 
-  handleSwipeR(gestureState) {
+  handleSwipeL(gestureState) {
     alert('Right');
   }
 
@@ -58,10 +58,10 @@ class Poll extends React.Component {
   handleSwipe(gestureName, gestureState) {
 
 
-    const { SWIPE_RIGHT } = swipeDirections;
+    const { SWIPE_LEFT } = swipeDirections;
     this.setState({ gestureName: gestureName });
     switch (gestureName) {
-      case SWIPE_RIGHT:
+      case SWIPE_LEFT:
         this.curIndex = this.props.curIndex;
         this.curIndex++;
         this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
@@ -402,7 +402,7 @@ class Poll extends React.Component {
               style={styles.container}
               // onSwipe={this.handleSwipe}
               onSwipe={(direction, state) => this.handleSwipe(direction, state)}
-              onSwipeRight={(state) => this.handleSwipeR(state)}
+              onSwipeLeft={(state) => this.handleSwipeL(state)}
               velocityThreshold={0.5}
               distanceThreshold={80}
               angleThreshold={30}

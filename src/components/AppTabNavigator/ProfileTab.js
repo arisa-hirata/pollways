@@ -265,7 +265,7 @@ class ProfileTab extends React.Component {
             <View style={styles.pollBarItem}>
               <View style={[styles.pollBarItemInner, { alignItems: 'flex-end' }]}>
                 <View style={{ width: 20, height: 20, justifyContent: 'center', alignItems: 'center' }}>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Create')}>
                     <Image
                       style={{ width: 10, height: 10 }}
                       source={require('../../imgs/add1.png')}
