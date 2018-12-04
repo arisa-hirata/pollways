@@ -32,21 +32,21 @@ class Tutorials extends Component {
           <View style={styles.slide1}>
             <ImageBackground
               style={{ width: width, height: height }}
-              source={require('../../imgs/1x/Tut1.jpg')}
+              source={require('../../imgs/1x/1x/Tut1.jpg')}
             />
           </View>
 
           <View style={styles.slide2}>
             <ImageBackground
               style={{ width: width, height: height }}
-              source={require('../../imgs/1x/Tut2.jpg')}
+              source={require('../../imgs/1x/1x/Tut2.jpg')}
             />
           </View>
 
           <View style={styles.slide3}>
             <ImageBackground
               style={{ resizeMode: 'stretch', width: width, height: height }}
-              source={require('../../imgs/1x/Tut3.jpg')}
+              source={require('../../imgs/1x/1x/Tut3.jpg')}
             />
           </View>
 
@@ -54,7 +54,7 @@ class Tutorials extends Component {
             <TouchableOpacity onPress={() => { this.props.navigation.navigate('Login') }}>
               <ImageBackground
                 style={{ width: width, height: height }}
-                source={require('../../imgs/1x/Tut4.jpg')}
+                source={require('../../imgs/1x/1x/Tut4.jpg')}
               >
                 <Image
                   style={styles.buttonImage}
