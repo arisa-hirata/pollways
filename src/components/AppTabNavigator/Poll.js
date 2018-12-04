@@ -73,7 +73,8 @@ class Poll extends React.Component {
           rdesc: this.allPolls[this.curIndex].options.right.desc,
           rimg: this.allPolls[this.curIndex].options.right.img,
           limg: this.allPolls[this.curIndex].options.left.img,
-          username: this.allPolls[this.curIndex].username
+          username: this.allPolls[this.curIndex].username,
+          userImg: this.allPolls[this.curIndex].userImg,
         });
 
         this.getComments();
@@ -134,7 +135,8 @@ class Poll extends React.Component {
         rdesc: this.allPolls[this.curIndex].options.right.desc,
         rimg: this.allPolls[this.curIndex].options.right.img,
         limg: this.allPolls[this.curIndex].options.left.img,
-        username: this.allPolls[this.curIndex].username
+        username: this.allPolls[this.curIndex].username,
+        userImg: this.allPolls[this.curIndex].userImg,
       });
 
       this.getComments();
@@ -448,7 +450,7 @@ class Poll extends React.Component {
 
                 <Image
                   style={{ width: 45, height: 45, marginLeft: 50, borderRadius: 23 }}
-                  source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
+                  source={(this.state.userImg) ? { uri: this.state.userImg } : require('../../imgs/ProfileDefault.png')}
                 />
 
                 <Text style={styles.profile_name}>{this.state.username}</Text>

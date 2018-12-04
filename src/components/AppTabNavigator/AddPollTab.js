@@ -17,6 +17,7 @@ class AddPollTab extends React.Component {
     // this.state = { default: '' };
     this.userid = "",
       this.username = "",
+      this.userImg = "",
       this.title = "";
     this.desc = '';
     this.rDesc = ""
@@ -65,6 +66,7 @@ class AddPollTab extends React.Component {
     const response = await this.pollsRef.add({
       uerid: this.props.user.user.uid,
       username: this.props.user.user.username,
+      userImg: this.props.user.user.pImg,
       title: this.title,
       desc: this.desc,
       time: new Date(),
@@ -124,7 +126,7 @@ class AddPollTab extends React.Component {
         title: "",
         lDesc: "",
         rDesc: "",
-        desc: ""
+        desc: "",
       })//setState back to false
       this.props.navigation.navigate('Polls');
 
