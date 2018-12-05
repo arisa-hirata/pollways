@@ -84,7 +84,7 @@ export const loginUserSuccess = (user) => {
 export const signUp = ({ email, password, username, gender, age, time }) => {
   console.log("filtererrorblah", email, password);
   return (dispatch) => {
-    dispatch({ type: SIGN_UP });
+
 
     getFB().auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
@@ -99,6 +99,7 @@ export const signUp = ({ email, password, username, gender, age, time }) => {
         user.user.gender = gender;
         user.user.time = time;
         loginUserSuccess(user)(dispatch);
+        dispatch({ type: SIGN_UP });
       })
       .catch(() => loginUserFail(dispatch));
   }

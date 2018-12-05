@@ -102,7 +102,7 @@ export default createStackNavigator(
     Insight: {
       screen: Insight,
       navigationOptions: {
-        title: 'Insight',
+        title: 'Insights',
         headerTintColor: "#fff",
         headerTitleStyle: {
           fontSize: 35
@@ -114,7 +114,7 @@ export default createStackNavigator(
     Details: {
       screen: Details,
       navigationOptions: {
-        title: 'Insight',
+        title: 'Insights',
         headerTintColor: "#fff",
         headerTitleStyle: {
           fontSize: 35

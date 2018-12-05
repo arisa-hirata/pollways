@@ -37,6 +37,7 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case LOGIN_USER_SUCCESS:
+      console.log(LOGIN_USER_SUCCESS);
       // console.warn(action)
       console.log("HelloBBBB",action.payload);
       // console.log("Hello22", user);
@@ -46,6 +47,7 @@ export default (state = INITIAL_STATE, action) => {
         ...INITIAL_STATE,
         user: action.payload,
         loading: false
+
       };
 
     case LOGIN_USER_FAIL:
