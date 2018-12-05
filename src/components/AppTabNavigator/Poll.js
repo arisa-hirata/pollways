@@ -50,7 +50,7 @@ class Poll extends React.Component {
     //Hello
   };
 
-  handleSwipeL(gestureState) {
+  handleSwipeR(gestureState) {
     alert('Right');
   }
 
@@ -58,10 +58,10 @@ class Poll extends React.Component {
   handleSwipe(gestureName, gestureState) {
 
 
-    const { SWIPE_LEFT } = swipeDirections;
+    const { SWIPE_RIGHT } = swipeDirections;
     this.setState({ gestureName: gestureName });
     switch (gestureName) {
-      case SWIPE_LEFT:
+      case SWIPE_RIGHT:
         this.curIndex = this.props.curIndex;
         this.curIndex++;
         this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
@@ -73,8 +73,7 @@ class Poll extends React.Component {
           rdesc: this.allPolls[this.curIndex].options.right.desc,
           rimg: this.allPolls[this.curIndex].options.right.img,
           limg: this.allPolls[this.curIndex].options.left.img,
-          username: this.allPolls[this.curIndex].username,
-          userImg: this.allPolls[this.curIndex].userImg,
+          username: this.allPolls[this.curIndex].username
         });
 
         this.getComments();
@@ -135,8 +134,7 @@ class Poll extends React.Component {
         rdesc: this.allPolls[this.curIndex].options.right.desc,
         rimg: this.allPolls[this.curIndex].options.right.img,
         limg: this.allPolls[this.curIndex].options.left.img,
-        username: this.allPolls[this.curIndex].username,
-        userImg: this.allPolls[this.curIndex].userImg,
+        username: this.allPolls[this.curIndex].username
       });
 
       this.getComments();
@@ -402,7 +400,7 @@ class Poll extends React.Component {
               style={styles.container}
               // onSwipe={this.handleSwipe}
               onSwipe={(direction, state) => this.handleSwipe(direction, state)}
-              onSwipeLeft={(state) => this.handleSwipeL(state)}
+              onSwipeRight={(state) => this.handleSwipeR(state)}
               velocityThreshold={0.5}
               distanceThreshold={80}
               angleThreshold={30}
@@ -450,7 +448,7 @@ class Poll extends React.Component {
 
                 <Image
                   style={{ width: 45, height: 45, marginLeft: 50, borderRadius: 23 }}
-                  source={(this.state.userImg) ? { uri: this.state.userImg } : require('../../imgs/ProfileDefault.png')}
+                  source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
                 />
 
                 <Text style={styles.profile_name}>{this.state.username}</Text>

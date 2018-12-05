@@ -46,8 +46,7 @@ class Login extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.user !== null) {
-      // console.log("derivedState")
-      props.navigation.navigate('Polls');
+      props.navigation.navigate('Poll');
     }
 
     return {
@@ -64,7 +63,6 @@ class Login extends Component {
   }
 
   onButtonPress = () => {
-    // console.log(this.props.loading);
     this.props.loginUser({
       email: this.email,
       password: this.password
@@ -101,7 +99,7 @@ class Login extends Component {
             <TextInput
               style={styles.input}
               underlineColorAndroid="transparent"
-              placeholder="Username"
+              placeholder="Email"
               placeholderTextColor="grey"
               autoCapitalize="none"
               border='1'
