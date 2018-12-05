@@ -11,7 +11,7 @@ import {
   LOGIN_USER,
   SIGN_UP
 } from './types';
-//Payload 
+//Payload
 export const emailChanged = (text) => {
   return {
     type: EMAIL_CHANGED,
@@ -30,7 +30,7 @@ export const loginUser = ({ email, password }) => {
   console.log("filtererrorblah", email, password)
   return (dispatch) => {
     //loginUserSuccess(dispatch, {}); return;
-
+    dispatch({ type: LOGIN_USER });
     getFB().auth().signInWithEmailAndPassword(email, password)
       .then(user => {
         var ref = getFB().firestore().collection("profile").doc(user.user.uid);
@@ -46,7 +46,7 @@ export const loginUser = ({ email, password }) => {
           console.log("HelloCCC", user.user.pImg);
 
           loginUserSuccess(user)(dispatch)
-          dispatch({ type: LOGIN_USER });
+
         })
       })
       .catch((error) => {

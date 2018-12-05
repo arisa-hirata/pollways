@@ -40,9 +40,10 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER_SUCCESS:
       console.log(LOGIN_USER_SUCCESS);
       // console.warn(action)
-      console.log("HelloBBBB",action.payload);
+      console.log("HelloBBBB", action.payload);
+
       // console.log("Hello22", user);
-      // action.payload = Object.assign({}, action.payload);
+      action.payload = Object.assign({}, action.payload);
       return {
         ...state,
         ...INITIAL_STATE,
@@ -60,8 +61,8 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case SIGN_UP:
-    //ok I dont know what ...State means but I am guessing
-    //INITIAL_STATE is where the emails i Inputted in Signup are being set to
+      //ok I dont know what ...State means but I am guessing
+      //INITIAL_STATE is where the emails i Inputted in Signup are being set to
       return {
         ...state,
         ...INITIAL_STATE,

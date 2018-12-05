@@ -12,6 +12,7 @@
     "react-native": "0.57.4",
     "react-native-fetch-blob": "^0.10.8",
     "react-native-firebase": "^5.1.0",
+    "react-native-geolocation-service": "^2.0.0",
     "react-native-image-crop-picker": "^0.21.3",
     "react-native-picker-select": "^5.1.0",
     "react-native-pie-chart": "^1.0.13",

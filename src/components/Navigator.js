@@ -75,12 +75,12 @@ hometabs.navigationOptions = ({ navigation }) => {
 
 export default createStackNavigator(
   {
-    // Tutorials: {
-    //   screen: Tutorials,
-    //   navigationOptions: {
-    //     header: null
-    //   }
-    // },
+    Tutorials: {
+      screen: Tutorials,
+      navigationOptions: {
+        header: null
+      }
+    },
     Login: Login,
     SignUp: SignUp,
     // Poll: hometabs,

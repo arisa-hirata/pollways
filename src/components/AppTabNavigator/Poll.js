@@ -50,7 +50,7 @@ class Poll extends React.Component {
     //Hello
   };
 
-  handleSwipeR(gestureState) {
+  handleSwipeL(gestureState) {
     alert('Right');
   }
 
@@ -58,10 +58,10 @@ class Poll extends React.Component {
   handleSwipe(gestureName, gestureState) {
 
 
-    const { SWIPE_RIGHT } = swipeDirections;
+    const { SWIPE_LEFT } = swipeDirections;
     this.setState({ gestureName: gestureName });
     switch (gestureName) {
-      case SWIPE_RIGHT:
+      case SWIPE_LEFT:
         this.curIndex = this.props.curIndex;
         this.curIndex++;
         this.props.dispatch(ChangePollID(this.allPolls[this.curIndex].doc_id));//dispatch action to change pollid
@@ -73,10 +73,11 @@ class Poll extends React.Component {
           rdesc: this.allPolls[this.curIndex].options.right.desc,
           rimg: this.allPolls[this.curIndex].options.right.img,
           limg: this.allPolls[this.curIndex].options.left.img,
-          username: this.allPolls[this.curIndex].username
+          username: this.allPolls[this.curIndex].username,
+          userImg: this.allPolls[this.curIndex].userImg,
         });
 
-        this.getComments();
+        //this.getComments();
         break;
     }
   }
@@ -134,10 +135,32 @@ class Poll extends React.Component {
         rdesc: this.allPolls[this.curIndex].options.right.desc,
         rimg: this.allPolls[this.curIndex].options.right.img,
         limg: this.allPolls[this.curIndex].options.left.img,
-        username: this.allPolls[this.curIndex].username
+        username: this.allPolls[this.curIndex].username,
+        userImg: this.allPolls[this.curIndex].userImg,
       });
 
-      this.getComments();
+      //this.getComments();
+      getFB().firestore().collection("comment").where("pollid", "==", this.allPolls[this.curIndex].doc_id).onSnapshot({
+        // Listen for document metadata changes
+        includeMetadataChanges: true
+      }, (snaps) => {
+        // ...
+        //console.log(snaps);
+        /*this.allComments.push(doc.data());
+        this.setState({
+          allComments: this.allComments
+        })*/
+        snaps.docChanges.forEach((change) => {
+          if (change.type === "added") {
+            this.allComments.push(change.doc.data());
+            this.allComments.sort(this.customSort);
+            this.setState({
+              allComments: this.allComments
+            })
+          }
+        });
+
+      });
     })
     return false;
 
@@ -248,11 +271,12 @@ class Poll extends React.Component {
     this.setState({
       message: ""
     })
-    this.getComments();
+    //this.getComments();
   }
 
   getComments = async () => {
     this.allComments = [];
+    //var userids = [];
     var now = new Date();
     var snaps = await getFB().firestore().collection("comment").where("pollid", "==", this.allPolls[this.curIndex].doc_id).get();
     snaps.forEach((doc) => {
@@ -400,7 +424,7 @@ class Poll extends React.Component {
               style={styles.container}
               // onSwipe={this.handleSwipe}
               onSwipe={(direction, state) => this.handleSwipe(direction, state)}
-              onSwipeRight={(state) => this.handleSwipeR(state)}
+              onSwipeLeft={(state) => this.handleSwipeL(state)}
               velocityThreshold={0.5}
               distanceThreshold={80}
               angleThreshold={30}
@@ -448,7 +472,7 @@ class Poll extends React.Component {
 
                 <Image
                   style={{ width: 45, height: 45, marginLeft: 50, borderRadius: 23 }}
-                  source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
+                  source={(this.state.userImg) ? { uri: this.state.userImg } : require('../../imgs/ProfileDefault.png')}
                 />
 
                 <Text style={styles.profile_name}>{this.state.username}</Text>
