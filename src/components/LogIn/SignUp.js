@@ -225,7 +225,7 @@ class SignUp extends Component {
               </TouchableOpacity>
 
               <Text>
-                {this.props.error}
+                {/* {this.props.error} */}
               </Text>
 
             </View>

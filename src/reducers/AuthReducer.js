@@ -37,6 +37,7 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case LOGIN_USER_SUCCESS:
+      console.log(LOGIN_USER_SUCCESS);
       // console.warn(action)
       // console.warn(action.payload)
       return {
@@ -44,6 +45,7 @@ export default (state = INITIAL_STATE, action) => {
         ...INITIAL_STATE,
         user: action.payload,
         loading: false
+
       };
 
     case LOGIN_USER_FAIL:
@@ -55,8 +57,8 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case SIGN_UP:
-    //ok I dont know what ...State means but I am guessing
-    //INITIAL_STATE is where the emails i Inputted are being set to. 
+      //ok I dont know what ...State means but I am guessing
+      //INITIAL_STATE is where the emails i Inputted are being set to.
       return {
         ...state,
         ...INITIAL_STATE,

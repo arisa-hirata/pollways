@@ -10,6 +10,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { getFB } from "../firebase";
 import { ChangePollID, ChangeIndex } from '../../actions/PollActions';
+import { loginUserSuccess } from "../../actions/AuthActions";
 
 var firebase = getFB();
 
@@ -93,6 +94,10 @@ class ProfileTab extends React.Component {
     //https://firebasestorage.googleapis.com/v0/b/pollways-85c25.appspot.com/o/profileImg%2FsI10abTJwZY0QMpiZOW1Lqw9Kxl2_.jpg?alt=media&token=3a1f88c2-19ad-47eb-b1e4-7ec7e568995d
     //this is now in the firebase storage
     //change state??? from
+
+    var user = this.props.user;
+    user.user.pImg = url;
+    this.props.dispatch(loginUserSuccess(user));
     var ref2 = await getFB().firestore().collection("profile").doc(this.props.user.user.uid).update({
       // this will create a pimg section on the
       pImg: url
