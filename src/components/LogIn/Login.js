@@ -84,6 +84,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log(this.props.loading);
     return (
       <ImageBackground
         style={styles.imgBackground}

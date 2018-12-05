@@ -45,6 +45,7 @@ export const loginUser = ({ email, password }) => {
           //After logging in
           user.user.pImg = obj.pImg;
           console.log("HelloCCC", user.user.pImg);
+
           loginUserSuccess(user)(dispatch)
         })
       })
