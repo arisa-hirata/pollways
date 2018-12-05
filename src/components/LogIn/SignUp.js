@@ -26,58 +26,56 @@ class SignUp extends Component {
     super(props);
     this.inputRefs = {};
 
-
     this.state = {
-      age: "",
-      items: [
-        {
-          label: 'Under 20',
-          value: 'Under 20',
-        },
-        {
-          label: '20s',
-          value: '20s',
-        },
-        {
-          label: '30s',
-          value: '30s',
-        },
-        {
-          label: '40s',
-          value: '40s',
-        },
-        {
-          label: '50s',
-          value: '50s',
-        },
-        {
-          label: 'Over 60s',
-          value: 'Over 60s',
-        },
-      ],
+        age: "",
+        items: [
+            {
+                label: 'Under 20',
+                value: 'Under 20',
+            },
+            {
+                label: '20s',
+                value: '20s',
+            },
+            {
+                label: '30s',
+                value: '30s',
+            },
+              {
+                label: '40s',
+                value: '40s',
+            },
+            {
+                label: '50s',
+                value: '50s',
+            },
+              {
+                label: 'Over 60s',
+                value: 'Over 60s',
+            },
+        ],
 
-
-      gender: "",
-      items2: [
-        {
-          label: 'Male',
-          value: 'Male',
-        },
-        {
-          label: 'Female',
-          value: 'Female',
-        }
-
-      ],
-
+        
+        gender: "",
+        items2: [
+            {
+                label: 'Male',
+                value: 'Male',
+            },
+            {
+                label: 'Female',
+                value: 'Female',
+            }
+           
+        ],
+        
     };
-  }
+}
 
-  // users must fill in or it will return error ************************************
+// users must fill in or it will return error ************************************
   static navigationOptions = {
     header: null
   }
-
 
   state = { loggedIn: null };
   email = ""
@@ -86,22 +84,31 @@ class SignUp extends Component {
   gender = '';
   age = '';
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.user !== null) {
+      props.navigation.navigate('Poll');
+    }
 
-  // **********************************************************************************
-  onEmailChange = (text) => {
+    return {
+      ...state
+    }
+  }
+// **********************************************************************************
+  onEmailChange=(text)=> {
     this.email = text
   }
-  // **********************************************************************************
-  onPasswordChange = (text) => {
+// **********************************************************************************
+  onPasswordChange=(text)=>{
     this.password = text
   }
-  // **********************************************************************************
-  // This.props.SignUp is
+// **********************************************************************************
   // There is 2 things going on here. why do we need onEmailChange Text when we
   // Why cant username and email and password be the same?
   // Why does email and pass get their own function?
   // would it be better if we just used the username function
-  onButtonPress = () => {
+  // imported signup from authActions. LINE17
+  //GO TO ACTIONS
+  onButtonPress=()=>{
     this.props.signUp({
       email: this.email,
       password: this.password,
@@ -124,111 +131,107 @@ class SignUp extends Component {
         <ImageBackground style={styles.imgBackground}
           resizeMode='cover'
           source={require('../../imgs/LogInBG.jpg')}>
-          <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-            <View style={styles.container}>
-              <Text style={styles.signUptxt}>
-                Sign Up
+<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+          <View style={styles.container}>
+            <Text style={styles.signUptxt}>
+              Sign Up
           </Text>
 
-              <View style={styles.border} />
+            <View style={styles.border} />
 
-              <View>
-                <Text style={styles.signupText}>Email</Text>
-                <TextInput
-                  style={styles.inputs}
-                  placeholder="Email Address"
-                  autoCapitalize="none"
-                  onChangeText={this.onEmailChange}
-                />
+            <View>
+              <Text style={styles.signupText}>Email</Text>
+              <TextInput
+                style={styles.inputs}
+                placeholder="Email Address"
+                autoCapitalize="none"
+                onChangeText={this.onEmailChange}
+              />
 
-                <Text style={styles.signupText}>Username</Text>
-                <TextInput
-                  style={styles.inputs}
-                  placeholder="Enter Pollways Username"
-                  onChangeText={(text) => { this.userName = text }}>
-                </TextInput>
+              <Text style={styles.signupText}>Username</Text>
+              <TextInput
+                style={styles.inputs}
+                placeholder="Enter Pollways Username"
+                onChangeText={(text) => { this.userName = text }}>
+              </TextInput>
 
-                <Text style={styles.signupText}>Password</Text>
-                <TextInput
-                  ref={(el) => {
-                    this.inputRefs.pw = el;
-                  }}
-                  style={styles.inputs}
-                  placeholder="Enter Password"
-                  autoCapitalize="none"
-                  secureTextEntry={true}
-                  onChangeText={this.onPasswordChange}
-                />
+              <Text style={styles.signupText}>Password</Text>
+              <TextInput
+                ref={(el) => {
+                  this.inputRefs.pw = el;
+                }}
+                style={styles.inputs}
+                placeholder="Enter Password"
+                autoCapitalize="none"
+                secureTextEntry={true}
+                onChangeText={this.onPasswordChange}
+              /> 
+              
+              <Text style={styles.signupText}>Age</Text>
+              <View style={styles.pickerContainerOuter}>
 
-                <Text style={styles.signupText}>Age</Text>
-                <View style={styles.pickerContainerOuter}>
-
-                  <View style={styles.pickerContainer}>
-                    <RNPickerSelect
-                      placeholder={{
+              <View style={styles.pickerContainer}>
+              <RNPickerSelect
+                    placeholder={{
                         label: 'Age',
                         value: null,
-                      }}
-                      items={this.state.items}
-                      onValueChange={(value) => {
+                    }}
+                    items={this.state.items}
+                    onValueChange={(value) => {
                         this.setState({
-                          age: value,
+                            age: value,
                         });
-                      }}
-                      onUpArrow={() => {
+                    }}
+                    onUpArrow={() => {
                         this.inputRefs.pw.focus();
-                      }}
-                      onDownArrow={() => {
+                    }}
+                    onDownArrow={() => {
                         this.inputRefs.picker2.togglePicker();
-                      }}
-                      style={{ ...pickerSelectStyles }}
-                      value={this.state.age}
-                      ref={(el) => {
+                    }}
+                    style={{ ...pickerSelectStyles }}
+                    value={this.state.age}
+                    ref={(el) => {
                         this.inputRefs.picker = el;
-                      }}
-                    />
-                  </View>
+                    }}
+                />
+                </View>
                 </View>
 
                 <Text style={styles.signupText}>Gender</Text>
                 <View style={styles.pickerContainerOuter}>
-                  <View style={styles.pickerContainer}>
-                    <RNPickerSelect
-                      placeholder={{
+                <View style={styles.pickerContainer}>
+                <RNPickerSelect
+                    placeholder={{
                         label: 'Gender',
                         value: null,
-                      }}
-                      items={this.state.items2}
-                      onValueChange={(value) => {
+                    }}
+                    items={this.state.items2}
+                    onValueChange={(value) => {
                         this.setState({
                           gender: value,
                         });
-                      }}
-                      onUpArrow={() => {
+                    }}
+                    onUpArrow={() => {
                         this.inputRefs.picker.togglePicker();
-                      }}
-                      onDownArrow={() => {
+                    }}
+                    onDownArrow={() => {
                         this.inputRefs.country.focus();
-                      }}
-                      style={{ ...pickerSelectStyles }}
-                      value={this.state.gender}
-                      ref={(el) => {
+                    }}
+                    style={{ ...pickerSelectStyles }}
+                    value={this.state.gender}
+                    ref={(el) => {
                         this.inputRefs.picker2 = el;
-                      }}
-                    />
-                  </View>
+                    }}
+                />
+                </View>
                 </View>
               </View>
 
-              <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
-                <Text style={styles.btnText}>Start</Text>
-              </TouchableOpacity>
+            <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
+              <Text style={styles.btnText}>Start</Text>
+            </TouchableOpacity>
 
-              <Text>
-                {this.props.error}
-              </Text>
-
-            </View>
+          </View>
           </KeyboardAvoidingView>
         </ImageBackground>
       </View>

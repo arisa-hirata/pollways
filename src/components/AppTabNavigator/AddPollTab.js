@@ -3,7 +3,6 @@ import {
   StyleSheet, Text, View, TouchableOpacity, TextInput, ImageBackground, Image, KeyboardAvoidingView,
   keyboardVerticalOffset, ScrollView, Dimensions
 } from 'react-native';
-import Spinner from '../LogIn/Spinner';
 import ImagePicker from 'react-native-image-crop-picker';
 import { getFB } from "../firebase";
 import { connect } from 'react-redux';
@@ -14,11 +13,9 @@ class AddPollTab extends React.Component {
 
   constructor(props) {
     super(props)
-    // this.state = { default: '' };
     this.userid = "",
-      this.username = "",
-      this.userImg = "",
-      this.title = "";
+    this.username = "",
+    this.title = "";
     this.desc = '';
     this.rDesc = ""
     this.lDesc = ""
@@ -29,14 +26,6 @@ class AddPollTab extends React.Component {
       imgR: {},
       loading: false
     }
-
-  }
-
-  state = {
-    title: "",
-    lDesc: "",
-    rDesc: "",
-    desc: ""
   }
 
 
@@ -66,7 +55,6 @@ class AddPollTab extends React.Component {
     const response = await this.pollsRef.add({
       uerid: this.props.user.user.uid,
       username: this.props.user.user.username,
-      userImg: this.props.user.user.pImg,
       title: this.title,
       desc: this.desc,
       time: new Date(),
@@ -107,34 +95,18 @@ class AddPollTab extends React.Component {
   }
 
   handlePoll = async () => {
-    //console.log(this.props);
-    //this.props.navigation.navigate('Poll');
-    //return false;
+
     this.setState({
-      loading: true,
+      loading: true
     })
-
-    try {
-      const refId = await this.createPoll()
-      const urlLeft = await this.uploadImage(refId, "L")
-      const urlRight = await this.uploadImage(refId, "R")
-      await this.updatePoll(refId, urlLeft, urlRight);
-      this.setState({
-        loading: false,
-        imgL: "",
-        imgR: "",
-        title: "",
-        lDesc: "",
-        rDesc: "",
-        desc: "",
-      })//setState back to false
-      this.props.navigation.navigate('Polls');
-
-
-    } catch (error) {
-      // alert(error);
-      alert("Poll creation failed. Please fill in all content!")
-    }
+    const refId = await this.createPoll()
+    const urlLeft = await this.uploadImage(refId, "L")
+    const urlRight = await this.uploadImage(refId, "R")
+    await this.updatePoll(refId, urlLeft, urlRight);
+    this.setState({
+      loading: false
+    })//setState back to false
+    this.props.navigation.navigate('Poll');
   }
 
 
@@ -151,8 +123,7 @@ class AddPollTab extends React.Component {
               position: "absolute",
               width: Dimensions.get('window').width, height: Dimensions.get('window').height, backgroundColor: "white", left: 0, top: 0, zIndex: 99999
             }}>
-            <Spinner />
-            <Text style={{ color: "gray", marginTop: 50 }}>LOADING...</Text>
+            <Text>LOADING...</Text>
           </View>
           : null}
 
@@ -164,18 +135,12 @@ class AddPollTab extends React.Component {
               <TextInput
                 style={{
                   fontSize: 30,
-                  height: 60,
+                  height: 80,
                   width: "70%"
                   // marginBottom: 30
                 }}
                 placeholder="   Type Title Here..."
-                onChangeText={(text) => {
-                  this.title = text;
-                  this.setState({
-                    title: text
-                  })
-                }}
-                value={this.state.title}
+                onChangeText={(text) => { this.title = text }}
               />
             </View>
             <View style={styles.arg_container}>
@@ -190,17 +155,11 @@ class AddPollTab extends React.Component {
                   <Text style={styles.plus}>+</Text>
                 </TouchableOpacity>
                 <TextInput
-                  multiline={true}
-                  numberOfLines={1}
+                  // multiline={true}
+                  // numberOfLines={4}
                   style={styles.arg_desc}
                   placeholder="Give your argment..."
-                  onChangeText={(text) => {
-                    this.lDesc = text;
-                    this.setState({
-                      lDesc: text
-                    })
-                  }}
-                  value={this.state.lDesc}
+                  onChangeText={(text) => { this.lDesc = text }}
                 />
 
 
@@ -219,17 +178,11 @@ class AddPollTab extends React.Component {
 
                 <TextInput
                   defaultValue=''
-                  multiline={true}
-                  numberOfLines={1}
+                  // multiline={true}
+                  // numberOfLines={4}
                   style={styles.arg_desc}
                   placeholder="Give your argment..."
-                  onChangeText={(text) => {
-                    this.rDesc = text;
-                    this.setState({
-                      rDesc: text
-                    })
-                  }}
-                  value={this.state.rDesc}
+                  onChangeText={(text) => { this.rDesc = text }}
                 />
 
 
@@ -241,8 +194,8 @@ class AddPollTab extends React.Component {
               <View style={styles.profile_container}>
 
                 <Image
-                  style={{ width: 45, height: 45, marginLeft: 50, borderRadius: 22 }}
-                  source={(this.props.user.user.pImg) ? { uri: this.props.user.user.pImg } : require('../../imgs/ProfileDefault.png')}
+                  style={{ width: 45, height: 45, marginLeft: 50 }}
+                  source={require('../../imgs/ProfileDefault.png')}
                 />
 
                 <Text style={styles.profile_name}>{this.props.user.user.username}</Text>
@@ -252,17 +205,11 @@ class AddPollTab extends React.Component {
 
               <TextInput
                 defaultValue=''
-                multiline={true}
-                numberOfLines={1}
+                // multiline={true}
+                // numberOfLines={4}
                 style={styles.poll_desc}
                 placeholder="Give your poll a description..."
-                onChangeText={(text) => {
-                  this.desc = text;
-                  this.setState({
-                    desc: text
-                  })
-                }}
-                value={this.state.desc}
+                onChangeText={(text) => { this.desc = text }}
               />
 
               <TouchableOpacity
@@ -308,8 +255,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: 20,
-    padding: 5
+    marginTop: 20
   },
   poll_desc: {
     height: 80,
@@ -317,15 +263,13 @@ const styles = StyleSheet.create({
     borderColor: "lightgray",
     borderWidth: 1,
     borderRadius: 7,
-    marginBottom: 10,
-    padding: 5
+    marginBottom: 10
   },
   btn: {
     backgroundColor: "#F9E7A2",
     width: 130,
     height: 40,
     borderRadius: 8,
-    marginBottom: "5%"
   },
   btnText: {
     color: "#fff",
@@ -337,7 +281,7 @@ const styles = StyleSheet.create({
   profile_container: {
     flexDirection: "row",
     width: "100%",
-    marginTop: "3%",
+    marginTop: "5%",
   },
   profile_img: {
     height: "10%",
@@ -348,7 +292,6 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     marginLeft: 10,
-    fontWeight: "700"
   },
 
 });

@@ -11,7 +11,7 @@ import {
   LOGIN_USER,
   SIGN_UP
 } from './types';
-
+//Payload 
 export const emailChanged = (text) => {
   return {
     type: EMAIL_CHANGED,
@@ -30,7 +30,6 @@ export const loginUser = ({ email, password }) => {
   console.log("filtererrorblah", email, password)
   return (dispatch) => {
     //loginUserSuccess(dispatch, {}); return;
-    dispatch({ type: LOGIN_USER });
 
     getFB().auth().signInWithEmailAndPassword(email, password)
       .then(user => {
@@ -46,6 +45,7 @@ export const loginUser = ({ email, password }) => {
           user.user.pImg = obj.pImg;
           console.log("HelloCCC", user.user.pImg);
           loginUserSuccess(user)(dispatch)
+          dispatch({ type: LOGIN_USER });
         })
       })
       .catch((error) => {
@@ -67,6 +67,7 @@ const loginUserFail = (dispatch) => {
 export const loginUserSuccess = (user) => {
   // console.warn("success")
   // console.warn(user)
+  console.log("HelloBBB", user);
   return (dispatch) => {
     dispatch({
       type: LOGIN_USER_SUCCESS,
@@ -75,7 +76,11 @@ export const loginUserSuccess = (user) => {
   }
 };
 
-
+//has to be in order like the one in SignUp.js
+//Return(dispatch)??????
+//takes what you have inputted in the sign up page and takes it here
+//dispatches it to SIGN_UP in the reducers
+// go to reducers
 export const signUp = ({ email, password, username, gender, age, time }) => {
   console.log("filtererrorblah", email, password);
   return (dispatch) => {
