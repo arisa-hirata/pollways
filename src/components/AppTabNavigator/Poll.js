@@ -23,6 +23,7 @@ class Poll extends React.Component {
   allPolls = [];
   curIndex = 0;
   allComments = [];
+  listen = null;
 
 
   constructor(props) {
@@ -30,6 +31,10 @@ class Poll extends React.Component {
     console.log(this.props);
     this.props.navigation.addListener("willFocus", () => {
       console.log("test poll");
+      this.allComments = [];
+      this.setState({
+        comments: this.allComments
+      });
       this.getPolls();
     })
     this.commentRef = getFB().firestore().collection("comment")
@@ -77,7 +82,7 @@ class Poll extends React.Component {
           userImg: this.allPolls[this.curIndex].userImg,
         });
 
-        //this.getComments();
+        this.getComments();
         break;
     }
   }
@@ -140,7 +145,10 @@ class Poll extends React.Component {
       });
 
       //this.getComments();
-      getFB().firestore().collection("comment").where("pollid", "==", this.allPolls[this.curIndex].doc_id).onSnapshot({
+      if (this.listen) {
+        this.listen();
+      }
+      this.listen = getFB().firestore().collection("comment").where("pollid", "==", this.allPolls[this.curIndex].doc_id).onSnapshot({
         // Listen for document metadata changes
         includeMetadataChanges: true
       }, (snaps) => {

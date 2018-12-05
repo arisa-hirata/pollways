@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
   },
   // ********************************************************************
   boxContainer: {
-    width: 120,
+    width: 110,
     height: 160,
     margin: 5,
     marginBottom: 50,
