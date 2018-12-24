@@ -9,7 +9,8 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
-  SIGN_UP
+  SIGN_UP,
+  SIGN_UP_FAIL
 } from './types';
 //Payload
 export const emailChanged = (text) => {
@@ -64,10 +65,12 @@ const loginUserFail = (dispatch) => {
   dispatch({ type: LOGIN_USER_FAIL });
 };
 
+const signUpFail = (dispatch) => {
+  dispatch({ type: SIGN_UP_FAIL });
+}
+
 
 export const loginUserSuccess = (user) => {
-  // console.warn("success")
-  // console.warn(user)
   console.log("HelloBBB", user);
   return (dispatch) => {
     dispatch({
@@ -77,16 +80,11 @@ export const loginUserSuccess = (user) => {
   }
 };
 
-//has to be in order like the one in SignUp.js
-//Return(dispatch)??????
-//takes what you have inputted in the sign up page and takes it here
-//dispatches it to SIGN_UP in the reducers
-// go to reducers
+
 export const signUp = ({ email, password, username, gender, age, time }) => {
   console.log("filtererrorblah", email, password);
   return (dispatch) => {
-
-
+    dispatch({ type: LOGIN_USER });
     getFB().auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
         var ref = getFB().firestore().collection("profile").doc(user.user._user.uid).set({
@@ -100,8 +98,9 @@ export const signUp = ({ email, password, username, gender, age, time }) => {
         user.user.gender = gender;
         user.user.time = time;
         loginUserSuccess(user)(dispatch);
-        dispatch({ type: SIGN_UP });
+        // dispatch({ type: SIGN_UP });
       })
-      .catch(() => loginUserFail(dispatch));
+      .catch(() => signUpFail(dispatch));
+
   }
 }

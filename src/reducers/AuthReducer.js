@@ -4,7 +4,8 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
-  SIGN_UP
+  SIGN_UP,
+  SIGN_UP_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -57,6 +58,13 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         error: 'Can not find your account. Please check your email and password.',
         password: '',
+        loading: false
+      };
+
+    case SIGN_UP_FAIL:
+      return {
+        ...state,
+        error: alert("Sign UP Failed. Please try again."),
         loading: false
       };
 
