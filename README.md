@@ -5,8 +5,8 @@ With a team of four, my role in Pollways was a Lead Developer. As a lead develop
 
 
 # How to Play Pollways?
-(Check Tutorial on Youtube!)
-https://youtu.be/LGRQ7QdUl4E
+
+![tutorial_video_1 (1)](https://user-images.githubusercontent.com/32582917/60463358-a4c7c780-9c00-11e9-872a-21fcf7c5055c.gif)
 
 # Challenges
 This project was the biggest and the most challenging project in my BCIT days. All of the technologies, such as ReactNative, Redux, and firebase were completely new for me. And as a lead developer, I needed to direct other teammates, as well as struggle with the new technology. Basically, my efforts and skills were equivalent to the app quality, which means I took on great responsibility alone. I was under so much pressure every day, and I became discouraged many times. However, I have never stopped working hard, and I have been keeping my best, until the last moment.
